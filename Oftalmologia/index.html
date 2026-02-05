@@ -1,143 +1,924 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Oportunidades de Financiamiento CORFO 2026</title>
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
-<style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f3f4f6;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
-        }
-        .slide-container {
-            width: 1280px;
-            height: 720px;
-            position: relative;
-            overflow: hidden;
-            background-color: white;
-            display: flex;
-        }
-        .bg-chile-blue {
-            background-color: #003366; /* Institutional Deep Blue */
-        }
-        .text-chile-blue {
-            color: #003366;
-        }
-        .bg-chile-red {
-            background-color: #DA291C; /* Institutional Red */
-        }
-        .text-chile-red {
-            color: #DA291C;
-        }
-        .diagonal-shape {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 55%;
-            height: 100%;
-            background: #003366;
-            clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
-            z-index: 10;
-        }
-        .accent-bar {
-            position: absolute;
-            top: 0;
-            right: 54%; /* Just left of the blue shape */
-            width: 20px;
-            height: 100%;
-            background: #DA291C;
-            transform: skewX(-11deg); /* Matching the polygon angle roughly if needed, or straight */
-            z-index: 5;
-            display: none; /* Simplified to just clean lines */
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oportunidades de Financiamiento CORFO 2026</title>
+
+  <!-- Tailwind (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --chile-blue: #003366;
+      --chile-red: #DA291C;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #f3f4f6;
+    }
+    h1,h2,h3,h4,h5,h6 { font-family: 'Montserrat', sans-serif; }
+
+    /* “Slide” wrapper: keeps 16:9 feel but responsive */
+    .slide-frame {
+      width: min(1280px, 100%);
+      /* Un poquito más alto para que no se corte contenido (ej: cofinanciamiento) */
+      aspect-ratio: 16 / 10;
+      min-height: 760px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      box-shadow: 0 14px 30px rgba(0,0,0,.08);
+    }
+
+    /* Optional presentation feel */
+    .snap-y {
+      scroll-snap-type: y mandatory;
+    }
+    .snap-start {
+      scroll-snap-align: start;
+    }
+
+    /* Custom list bullets (FontAwesome check) */
+    .custom-list li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .custom-list li::before {
+      content: "\f00c";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      top: 0.2rem;
+      color: var(--chile-red);
+      font-size: 0.9rem;
+    }
+
+    .bg-chile-blue { background-color: var(--chile-blue); }
+    .text-chile-blue { color: var(--chile-blue); }
+    .bg-chile-red { background-color: var(--chile-red); }
+    .text-chile-red { color: var(--chile-red); }
+    .border-chile-red { border-color: var(--chile-red); }
+
+    /* Nav active state */
+    .nav-link[aria-current="true"] {
+      background: rgba(255,255,255,.12);
+      border-color: rgba(255,255,255,.35);
+    }
+
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .animate-ping { animation: none !important; }
+    }
+  </style>
 </head>
+
 <body>
-<div class="slide-container">
-<!-- Background Image Area (Right Side) -->
-<div class="absolute inset-0 z-0">
-<div class="absolute right-0 top-0 w-3/5 h-full overflow-hidden">
-<img alt="Medical Technology Ophthalmology" class="object-cover w-full h-full opacity-90" src="https://page.gensparksite.com/slides_images/b93bd7a2bae74ff7bae9b8833ac2f0b2.webp"/>
-<div class="absolute inset-0 bg-blue-900 bg-opacity-40 mix-blend-multiply"></div>
-</div>
-</div>
-<!-- Design Element: Geometric Split -->
-<div class="absolute top-0 left-0 w-1/2 h-full bg-white z-10" style="clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);"></div>
-<div class="absolute top-0 left-[48%] w-24 h-full bg-red-600 z-0 opacity-90" style="clip-path: polygon(20% 0, 100% 0, 80% 100%, 0% 100%);"></div>
-<!-- Main Content Wrapper -->
-<div class="relative z-20 w-full h-full flex p-16">
-<!-- Left Column: Title & Text -->
-<div class="w-1/2 flex flex-col justify-center pr-8">
-<!-- Institutional Header -->
-<div class="flex items-center space-x-3 mb-6">
-<div class="w-12 h-1 bg-red-600 rounded-full"></div>
-<p class="text-sm font-bold tracking-widest text-gray-500 uppercase">Propuesta de Asesoría</p>
-</div>
-<h1 class="text-5xl font-extrabold text-chile-blue leading-tight mb-2">
-                    Oportunidades de <br/>
-<span class="text-blue-500">Financiamiento</span>
+  <!-- Top nav -->
+  <header class="sticky top-0 z-50 bg-chile-blue text-white shadow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="h-14 flex items-center justify-between gap-4">
+        <a href="#portada" class="flex items-center gap-3 font-extrabold tracking-wide">
+          <span class="h-8 w-8 rounded bg-white text-chile-blue flex items-center justify-center text-xs font-black">C</span>
+          <span class="hidden sm:inline">CORFO 2026</span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-2 text-xs">
+          <a class="nav-link px-3 py-2 rounded-lg border border-transparent hover:border-white/30 hover:bg-white/10" href="#portada">Portada</a>
+          <a class="nav-link px-3 py-2 rounded-lg border border-transparent hover:border-white/30 hover:bg-white/10" href="#crea-valida">Crea y Valida</a>
+          <a class="nav-link px-3 py-2 rounded-lg border border-transparent hover:border-white/30 hover:bg-white/10" href="#zim">ZIM</a>
+          <a class="nav-link px-3 py-2 rounded-lg border border-transparent hover:border-white/30 hover:bg-white/10" href="#semilla">Semilla Expande</a>
+          <a class="nav-link px-3 py-2 rounded-lg border border-transparent hover:border-white/30 hover:bg-white/10" href="#capital-humano">Capital Humano</a>
+          <a class="nav-link px-3 py-2 rounded-lg border border-transparent hover:border-white/30 hover:bg-white/10" href="#prospeccion">Prospección</a>
+          <a class="nav-link px-3 py-2 rounded-lg border border-transparent hover:border-white/30 hover:bg-white/10" href="#startup-chile">Start-Up Chile</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <button id="toggleSnap" class="px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10 text-xs">
+            <i class="fas fa-clapperboard mr-2"></i>Modo presentación
+          </button>
+
+          <!-- Mobile menu -->
+          <button id="openMenu" class="md:hidden px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10" aria-label="Abrir menú">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile dropdown -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-white/10 bg-chile-blue">
+      <div class="max-w-7xl mx-auto px-4 py-3 grid grid-cols-2 gap-2 text-xs">
+        <a class="nav-link px-3 py-2 rounded-lg border border-white/10 hover:bg-white/10" href="#portada">Portada</a>
+        <a class="nav-link px-3 py-2 rounded-lg border border-white/10 hover:bg-white/10" href="#crea-valida">Crea y Valida</a>
+        <a class="nav-link px-3 py-2 rounded-lg border border-white/10 hover:bg-white/10" href="#zim">ZIM</a>
+        <a class="nav-link px-3 py-2 rounded-lg border border-white/10 hover:bg-white/10" href="#semilla">Semilla Expande</a>
+        <a class="nav-link px-3 py-2 rounded-lg border border-white/10 hover:bg-white/10" href="#capital-humano">Capital Humano</a>
+        <a class="nav-link px-3 py-2 rounded-lg border border-white/10 hover:bg-white/10" href="#prospeccion">Prospección</a>
+        <a class="nav-link px-3 py-2 rounded-lg border border-white/10 hover:bg-white/10" href="#startup-chile">Start-Up Chile</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page wrapper (snap can be toggled here) -->
+  <main id="page" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+    <!-- Slide 1: Portada -->
+    <section id="portada" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Oportunidades de Financiamiento CORFO 2026</h2>
+        <div class="text-xs text-gray-500">Sección 1 / 7</div>
+      </div>
+
+      <div class="slide-frame">
+        <!-- Background Image Area (Right Side) -->
+        <div class="absolute inset-0 z-0">
+          <div class="absolute right-0 top-0 w-3/5 h-full overflow-hidden">
+            <img alt="Medical Technology Ophthalmology" class="object-cover w-full h-full opacity-90" src="https://page.gensparksite.com/slides_images/b93bd7a2bae74ff7bae9b8833ac2f0b2.webp" />
+            <div class="absolute inset-0 bg-blue-900 bg-opacity-40 mix-blend-multiply"></div>
+          </div>
+        </div>
+
+        <!-- Design Element: Geometric Split -->
+        <div class="absolute top-0 left-0 w-1/2 h-full bg-white z-10" style="clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);"></div>
+        <div class="absolute top-0 left-[48%] w-24 h-full bg-red-600 z-0 opacity-90" style="clip-path: polygon(20% 0, 100% 0, 80% 100%, 0% 100%);"></div>
+
+        <!-- Main Content Wrapper -->
+        <div class="relative z-20 w-full h-full flex p-6 sm:p-10 lg:p-16">
+          <!-- Left Column -->
+          <div class="w-1/2 flex flex-col justify-center pr-4 sm:pr-8">
+            <div class="flex items-center space-x-3 mb-6">
+              <div class="w-12 h-1 bg-red-600 rounded-full"></div>
+              <p class="text-sm font-bold tracking-widest text-gray-500 uppercase">Propuesta de Asesoría</p>
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-chile-blue leading-tight mb-2">
+              Oportunidades de <br />
+              <span class="text-blue-500">Financiamiento</span>
+            </h1>
+
+            <div class="flex items-center mb-8">
+              <div class="bg-gray-100 px-4 py-2 rounded text-xl sm:text-2xl font-bold text-gray-700">CORFO 2026</div>
+            </div>
+
+            <div class="border-l-4 border-red-600 pl-6 mb-10">
+              <p class="text-sm font-semibold text-gray-400 uppercase mb-1">Proyecto Objetivo</p>
+              <h2 class="text-xl sm:text-2xl font-bold text-gray-800">Tecnología Médica en Oftalmología</h2>
+            </div>
+
+            <div class="space-y-4 sm:space-y-5">
+              <p class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2">Plataforma Integrada:</p>
+
+              <div class="flex items-center p-3 bg-white border border-gray-100 rounded-lg shadow-sm">
+                <div class="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-full text-blue-600 mr-4 flex-shrink-0">
+                  <i class="fas fa-brain"></i>
+                </div>
+                <p class="text-gray-700 font-medium text-sm">IA para análisis de imágenes médicas oftalmológicas</p>
+              </div>
+
+              <div class="flex items-center p-3 bg-white border border-gray-100 rounded-lg shadow-sm">
+                <div class="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-full text-blue-600 mr-4 flex-shrink-0">
+                  <i class="fas fa-truck-medical"></i>
+                </div>
+                <p class="text-gray-700 font-medium text-sm">Consultorio móvil para zonas de alta densidad</p>
+              </div>
+
+              <div class="flex items-center p-3 bg-white border border-gray-100 rounded-lg shadow-sm">
+                <div class="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-full text-blue-600 mr-4 flex-shrink-0">
+                  <i class="fas fa-user-doctor"></i>
+                </div>
+                <p class="text-gray-700 font-medium text-sm">Telemedicina y triage remoto con respaldo imagenológico</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column overlay card -->
+          <div class="w-1/2 flex flex-col justify-end items-end pb-6 sm:pb-8">
+            <div class="bg-blue-900 bg-opacity-90 p-5 sm:p-6 rounded-l-xl text-white max-w-sm backdrop-filter backdrop-blur-sm border-r-4 border-red-500">
+              <h3 class="font-bold text-base sm:text-lg mb-2"><i class="fas fa-chart-line mr-2"></i>Objetivo de la Asesoría</h3>
+              <p class="text-sm text-blue-100 leading-relaxed">
+                Maximizar la probabilidad de adjudicación mediante la selección estratégica de instrumentos CORFO y la estructuración técnica del proyecto.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-full h-3 bg-gradient-to-r from-blue-900 via-blue-700 to-red-600"></div>
+      </div>
+    </section>
+
+    <!-- Slide 2: Crea y Valida (I+D+i) -->
+    <section id="crea-valida" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Crea y Valida (I+D+i)</h2>
+        <div class="text-xs text-gray-500">Sección 2 / 7</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6"><span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Innovación y Desarrollo</span></div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Crea y Valida <br /><span class="text-blue-500">(I+D+i)</span>
+            </h1>
+
+            <div class="bg-gray-50 border-l-4 border-blue-900 p-5 sm:p-6 mb-8 rounded-r-lg">
+              <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Objetivo del Programa</h3>
+              <p class="text-gray-800 font-medium leading-relaxed">Desarrollo y validación de productos, procesos o servicios innovadores con base en I+D.</p>
+            </div>
+
+            <div class="mt-auto space-y-4">
+              <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center relative overflow-hidden">
+                <div class="absolute left-0 top-0 h-full w-2 bg-green-500"></div>
+                <div class="mr-4 text-green-600 text-3xl"><i class="fas fa-sack-dollar"></i></div>
+                <div>
+                  <p class="text-xs font-bold text-gray-400 uppercase">Monto Máximo</p>
+                  <p class="text-xl sm:text-2xl font-bold text-gray-800">$180.000.000 <span class="text-sm font-normal text-gray-500">(Individual)</span></p>
+                  <p class="text-base sm:text-lg font-bold text-gray-600">$220.000.000 <span class="text-sm font-normal text-gray-500">(Colaborativo)</span></p>
+                </div>
+              </div>
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center relative overflow-hidden">
+                <div class="absolute left-0 top-0 h-full w-2 bg-blue-500"></div>
+                <div class="mr-4 text-blue-600 text-3xl"><i class="fas fa-hand-holding-dollar"></i></div>
+                <div>
+                  <p class="text-xs font-bold text-gray-400 uppercase">Cofinanciamiento</p>
+                  <p class="text-xl sm:text-2xl font-bold text-gray-800">Hasta 80%</p>
+                  <p class="text-xs text-gray-500">Para micro y pequeñas empresas</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              <div class="bg-blue-50 rounded-xl p-5 sm:p-6 relative">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-bullseye text-6xl text-chile-blue"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-chile-blue mb-4 flex items-center"><i class="fas fa-star mr-2 text-chile-red"></i> Expectativas</h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base">
+                  <li><p>Prototipo funcional validado técnica y comercialmente.</p></li>
+                  <li><p>Fortalecimiento de capacidades de innovación internas.</p></li>
+                </ul>
+              </div>
+
+              <div class="bg-gray-50 border border-gray-100 rounded-xl p-5 sm:p-6 relative">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-clipboard-check text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-list-check mr-2 text-chile-red"></i> Requisitos Clave</h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base">
+                  <li><p>Empresa con al menos 24 meses de antigüedad.</p></li>
+                  <li><p>Ventas demostrables en los últimos 24 meses.</p></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mt-6 bg-white border border-gray-200 rounded-xl p-5 flex items-center justify-between shadow-sm">
+              <div>
+                <h4 class="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wide mb-1">Estado Convocatoria</h4>
+                <div class="flex items-center text-blue-800 font-bold text-sm sm:text-lg">
+                  <span class="relative flex h-3 w-3 mr-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                  </span>
+                  Apertura estimada: Primer Semestre 2026
+                </div>
+              </div>
+              <div class="bg-gray-100 p-3 rounded-lg text-center min-w-[120px]">
+                <p class="text-xs text-gray-500 font-semibold uppercase">Prioridad</p>
+                <p class="text-lg sm:text-xl font-bold text-chile-red">Alta</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 2</div>
+        </div>
+      </div>
+
+      <div class="mt-4 flex items-center justify-between">
+        <a href="#portada" class="inline-flex items-center text-sm font-semibold text-chile-blue hover:underline"><i class="fas fa-arrow-up mr-2"></i>Anterior</a>
+        <a href="#zim" class="inline-flex items-center text-sm font-semibold text-chile-blue hover:underline">Siguiente <i class="fas fa-arrow-down ml-2"></i></a>
+      </div>
+    </section>
+
+    <!-- Slide 3: ZIM -->
+    <section id="zim" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Crea y Valida ZIM (Chile–Alemania)</h2>
+        <div class="text-xs text-gray-500">Sección 3 / 7</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6"><span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Colaboración Internacional</span></div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Crea y Valida ZIM<br />
+              <span class="text-blue-500 text-xl sm:text-2xl lg:text-3xl">(Chile–Alemania)</span>
+            </h1>
+
+            <div class="bg-gray-50 border-l-4 border-blue-900 p-5 sm:p-6 mb-8 rounded-r-lg">
+              <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Objetivo del Programa</h3>
+              <p class="text-gray-800 font-medium leading-relaxed">Proyectos conjuntos con empresas o centros de I+D en Alemania (programa ZIM) para el desarrollo de nuevos productos.</p>
+            </div>
+
+            <div class="mt-auto space-y-4">
+              <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center relative overflow-hidden">
+                <div class="absolute left-0 top-0 h-full w-2 bg-green-500"></div>
+                <div class="mr-4 text-green-600 text-3xl"><i class="fas fa-sack-dollar"></i></div>
+                <div>
+                  <p class="text-xs font-bold text-gray-400 uppercase">Monto Máximo</p>
+                  <p class="text-xl sm:text-2xl font-bold text-gray-800">$220.000.000</p>
+                  <p class="text-xs text-gray-500">Subsidio no reembolsable</p>
+                </div>
+              </div>
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center relative overflow-hidden">
+                <div class="absolute left-0 top-0 h-full w-2 bg-blue-500"></div>
+                <div class="mr-4 text-blue-600 text-3xl"><i class="fas fa-hand-holding-dollar"></i></div>
+                <div>
+                  <p class="text-xs font-bold text-gray-400 uppercase">Cofinanciamiento</p>
+                  <p class="text-xl sm:text-2xl font-bold text-gray-800">Hasta 80%</p>
+                  <p class="text-xs text-gray-500">Dependiendo del tamaño de empresa</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              <div class="bg-blue-50 rounded-xl p-5 sm:p-6 relative">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-globe-europe text-6xl text-chile-blue"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-chile-blue mb-4 flex items-center"><i class="fas fa-star mr-2 text-chile-red"></i> Expectativas</h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base">
+                  <li><p>Transferencia o desarrollo tecnológico colaborativo internacional.</p></li>
+                  <li><p>Potenciación de capacidades locales con vinculación extranjera.</p></li>
+                </ul>
+              </div>
+
+              <div class="bg-gray-50 border border-gray-100 rounded-xl p-5 sm:p-6 relative">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-handshake text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-list-check mr-2 text-chile-red"></i> Requisitos Clave</h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base">
+                  <li><p>Vínculo formal con contraparte alemana (Empresa/Centro I+D).</p></li>
+                  <li><p>Empresa con trayectoria demostrable en I+D o innovación.</p></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mt-6 bg-white border border-gray-200 rounded-xl p-5 flex items-center justify-between shadow-sm">
+              <div>
+                <h4 class="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wide mb-1">Estado Convocatoria</h4>
+                <div class="flex items-center text-green-700 font-bold text-sm sm:text-lg">
+                  <span class="relative flex h-3 w-3 mr-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                  </span>
+                  Abierta hasta: 31 Marzo 2026
+                </div>
+              </div>
+              <div class="bg-green-50 p-3 rounded-lg text-center min-w-[120px]">
+                <p class="text-xs text-gray-500 font-semibold uppercase">Acción</p>
+                <p class="text-lg sm:text-xl font-bold text-green-600">Postular</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 3</div>
+        </div>
+      </div>
+
+      <div class="mt-4 flex items-center justify-between">
+        <a href="#crea-valida" class="inline-flex items-center text-sm font-semibold text-chile-blue hover:underline"><i class="fas fa-arrow-up mr-2"></i>Anterior</a>
+        <a href="#semilla" class="inline-flex items-center text-sm font-semibold text-chile-blue hover:underline">Siguiente <i class="fas fa-arrow-down ml-2"></i></a>
+      </div>
+    </section>
+
+    <!-- Slide 4: Semilla Expande -->
+    <section id="semilla" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Semilla Expande 2026</h2>
+        <div class="text-xs text-gray-500">Sección 4 / 7</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6"><span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Escalamiento Comercial</span></div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Semilla Expande <br /><span class="text-blue-500">2026</span>
+            </h1>
+
+            <div class="bg-gray-50 border-l-4 border-blue-900 p-5 sm:p-6 mb-8 rounded-r-lg">
+              <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Objetivo del Programa</h3>
+              <p class="text-gray-800 font-medium leading-relaxed">Escalar emprendimientos dinámicos con primeras ventas comprobadas para potenciar su crecimiento.</p>
+            </div>
+
+            <div class="mt-auto space-y-4">
+              <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center relative overflow-hidden">
+                <div class="absolute left-0 top-0 h-full w-2 bg-green-500"></div>
+                <div class="mr-4 text-green-600 text-3xl"><i class="fas fa-sack-dollar"></i></div>
+                <div>
+                  <p class="text-xs font-bold text-gray-400 uppercase">Monto Máximo</p>
+                  <p class="text-xl sm:text-2xl font-bold text-gray-800">$45.000.000 <span class="text-sm font-normal text-gray-500">(Total)</span></p>
+                  <p class="text-base sm:text-lg font-bold text-gray-600">$25M + $20M <span class="text-sm font-normal text-gray-500">(Etapas)</span></p>
+                </div>
+              </div>
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center relative overflow-hidden">
+                <div class="absolute left-0 top-0 h-full w-2 bg-blue-500"></div>
+                <div class="mr-4 text-blue-600 text-3xl"><i class="fas fa-hand-holding-dollar"></i></div>
+                <div>
+                  <p class="text-xs font-bold text-gray-400 uppercase">Cofinanciamiento</p>
+                  <p class="text-xl sm:text-2xl font-bold text-gray-800">75%</p>
+                  <p class="text-xs text-gray-500">Aporte subsidio CORFO</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              <div class="bg-blue-50 rounded-xl p-5 sm:p-6 relative">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-chart-line text-6xl text-chile-blue"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-chile-blue mb-4 flex items-center"><i class="fas fa-star mr-2 text-chile-red"></i> Expectativas</h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base">
+                  <li><p>Crecimiento comercial sostenido de las ventas.</p></li>
+                  <li><p>Implementación de piloto o expansión a nuevos mercados.</p></li>
+                </ul>
+              </div>
+
+              <div class="bg-gray-50 border border-gray-100 rounded-xl p-5 sm:p-6 relative">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-clipboard-list text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-list-check mr-2 text-chile-red"></i> Requisitos Clave</h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base">
+                  <li><p>Más de 24 meses desde el inicio de actividades.</p></li>
+                  <li><p>Ventas entre $100.000 y $80.000.000 en los últimos 12 meses.</p></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mt-6 bg-white border border-green-200 rounded-xl p-5 flex items-center justify-between shadow-sm ring-1 ring-green-100">
+              <div>
+                <h4 class="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wide mb-1">Estado Convocatoria</h4>
+                <div class="flex items-center text-green-700 font-bold text-sm sm:text-lg">
+                  <span class="relative flex h-3 w-3 mr-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                  </span>
+                  Abierta. Cierra 24 febrero 2026
+                </div>
+              </div>
+              <div class="bg-red-50 p-3 rounded-lg text-center min-w-[120px] border border-red-100">
+                <p class="text-xs text-red-500 font-semibold uppercase">Urgencia</p>
+                <p class="text-lg sm:text-xl font-bold text-chile-red">Inmediata</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 4</div>
+        </div>
+      </div>
+
+      <div class="mt-4 flex items-center justify-between">
+        <a href="#zim" class="inline-flex items-center text-sm font-semibold text-chile-blue hover:underline"><i class="fas fa-arrow-up mr-2"></i>Anterior</a>
+        <a href="#capital-humano" class="inline-flex items-center text-sm font-semibold text-chile-blue hover:underline">Siguiente <i class="fas fa-arrow-down ml-2"></i></a>
+      </div>
+    </section>
+
+    <!-- Slide 5: Capital Humano -->
+    <section id="capital-humano" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Capital Humano para la Innovación</h2>
+        <div class="text-xs text-gray-500">Sección 5 / 7</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6"><span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Talento y Capacidades</span></div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Capital Humano <br /><span class="text-blue-500 text-xl sm:text-2xl lg:text-3xl">para la Innovación</span>
+            </h1>
+
+            <div class="bg-gray-50 border-l-4 border-blue-900 p-5 sm:p-6 mb-8 rounded-r-lg">
+              <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Objetivo del Programa</h3>
+              <p class="text-gray-800 font-medium leading-relaxed">Financiar la contratación de profesionales especializados en I+D para potenciar el equipo técnico.</p>
+            </div>
+
+            <div class="mt-auto space-y-4">
+              <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center relative overflow-hidden">
+                <div class="absolute left-0 top-0 h-full w-2 bg-green-500"></div>
+                <div class="mr-4 text-green-600 text-3xl"><i class="fas fa-coins"></i></div>
+                <div>
+                  <p class="text-xs font-bold text-gray-400 uppercase">Monto del Subsidio</p>
+                  <p class="text-xl sm:text-2xl font-bold text-gray-800">Variable</p>
+                  <p class="text-xs text-gray-500">Dependiente del perfil y proyecto</p>
+                </div>
+              </div>
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center relative overflow-hidden">
+                <div class="absolute left-0 top-0 h-full w-2 bg-blue-500"></div>
+                <div class="mr-4 text-blue-600 text-3xl"><i class="fas fa-hand-holding-dollar"></i></div>
+                <div>
+                  <p class="text-xs font-bold text-gray-400 uppercase">Cofinanciamiento</p>
+                  <p class="text-xl sm:text-2xl font-bold text-gray-800">Hasta 70%</p>
+                  <p class="text-xs text-gray-500">Del costo de contratación</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              <div class="bg-blue-50 rounded-xl p-5 sm:p-6 relative">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-user-graduate text-6xl text-chile-blue"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-chile-blue mb-4 flex items-center"><i class="fas fa-star mr-2 text-chile-red"></i> Expectativas</h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base">
+                  <li><p>Fortalecer competencias internas en tecnología e innovación.</p></li>
+                  <li><p>Incorporación de conocimiento experto al equipo de desarrollo.</p></li>
+                </ul>
+              </div>
+
+              <div class="bg-gray-50 border border-gray-100 rounded-xl p-5 sm:p-6 relative">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-file-contract text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-list-check mr-2 text-chile-red"></i> Requisitos Clave</h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base">
+                  <li><p>Justificación técnica del perfil profesional requerido.</p></li>
+                  <li><p>Contrato formal de trabajo.</p></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mt-6 bg-white border border-gray-200 rounded-xl p-5 flex items-center justify-between shadow-sm">
+              <div>
+                <h4 class="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wide mb-1">Estado Convocatoria</h4>
+                <div class="flex items-center text-green-700 font-bold text-sm sm:text-lg">
+                  <span class="relative flex h-3 w-3 mr-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                  </span>
+                  Abierta - Cierre: Abril 2025
+                </div>
+              </div>
+              <div class="bg-green-50 p-3 rounded-lg text-center min-w-[120px] border border-green-100">
+                <p class="text-xs text-green-600 font-semibold uppercase">Estado</p>
+                <p class="text-lg sm:text-xl font-bold text-green-700">Vigente</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 5</div>
+        </div>
+      </div>
+
+      <div class="mt-4 flex items-center justify-between">
+        <a href="#semilla" class="inline-flex items-center text-sm font-semibold text-chile-blue hover:underline"><i class="fas fa-arrow-up mr-2"></i>Anterior</a>
+        <a href="#prospeccion" class="inline-flex items-center text-sm font-semibold text-chile-blue hover:underline">Siguiente <i class="fas fa-arrow-down ml-2"></i></a>
+      </div>
+    </section>
+
+    <!-- Slide 6: Prospección -->
+<span class="text-blue-500 text-lg sm:text-xl lg:text-2xl">y Vinculación Internacional</span>
 </h1>
-<div class="flex items-center mb-8">
-<div class="bg-gray-100 px-4 py-2 rounded text-2xl font-bold text-gray-700">
-                        CORFO 2026
-                    </div>
+
+
+<div class="bg-gray-50 border-l-4 border-blue-900 p-5 sm:p-6 mb-8 rounded-r-lg">
+<h3 class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Objetivo del Programa</h3>
+<p class="text-gray-800 font-medium leading-relaxed">Facilitar el acceso a tecnologías extranjeras mediante vinculación con centros internacionales.</p>
 </div>
-<div class="border-l-4 border-red-600 pl-6 mb-10">
-<p class="text-sm font-semibold text-gray-400 uppercase mb-1">Proyecto Objetivo</p>
-<h2 class="text-2xl font-bold text-gray-800">
-                        Tecnología Médica en Oftalmología
-                    </h2>
+
+
+<div class="mt-auto space-y-4">
+<div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center relative overflow-hidden">
+<div class="absolute left-0 top-0 h-full w-2 bg-green-500"></div>
+<div class="mr-4 text-green-600 text-3xl"><i class="fas fa-sack-dollar"></i></div>
+<div>
+<p class="text-xs font-bold text-gray-400 uppercase">Monto Máximo</p>
+<p class="text-xl sm:text-2xl font-bold text-gray-800">$30.000.000</p>
 </div>
-<!-- Feature List -->
-<div class="space-y-5">
-<p class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2">Plataforma Integrada:</p>
-<div class="flex items-center p-3 bg-white border border-gray-100 rounded-lg shadow-sm">
-<div class="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-full text-blue-600 mr-4 flex-shrink-0">
-<i class="fas fa-brain"></i>
 </div>
-<p class="text-gray-700 font-medium text-sm">IA para análisis de imágenes médicas oftalmológicas</p>
-</div>
-<div class="flex items-center p-3 bg-white border border-gray-100 rounded-lg shadow-sm">
-<div class="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-full text-blue-600 mr-4 flex-shrink-0">
-<i class="fas fa-truck-medical"></i>
-</div>
-<p class="text-gray-700 font-medium text-sm">Consultorio móvil para zonas de alta densidad</p>
-</div>
-<div class="flex items-center p-3 bg-white border border-gray-100 rounded-lg shadow-sm">
-<div class="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-full text-blue-600 mr-4 flex-shrink-0">
-<i class="fas fa-user-doctor"></i>
-</div>
-<p class="text-gray-700 font-medium text-sm">Telemedicina y triage remoto con respaldo imagenológico</p>
+
+
+<div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center relative overflow-hidden">
+<div class="absolute left-0 top-0 h-full w-2 bg-blue-500"></div>
+<div class="mr-4 text-blue-600 text-3xl"><i class="fas fa-hand-holding-dollar"></i></div>
+<div>
+<p class="text-xs font-bold text-gray-400 uppercase">Cofinanciamiento</p>
+<p class="text-xl sm:text-2xl font-bold text-gray-800">Hasta 70%</p>
 </div>
 </div>
 </div>
-<!-- Right Column: Visual (Empty here as it's covered by the background image but serves layout if needed) -->
-<div class="w-1/2 flex flex-col justify-end items-end pb-8">
-<!-- Optional overlay card on the image -->
-<div class="bg-blue-900 bg-opacity-90 p-6 rounded-l-xl text-white max-w-sm backdrop-filter backdrop-blur-sm border-r-4 border-red-500">
-<h3 class="font-bold text-lg mb-2"><i class="fas fa-chart-line mr-2"></i>Objetivo de la Asesoría</h3>
-<p class="text-sm text-blue-100 leading-relaxed">
-                        Maximizar la probabilidad de adjudicación mediante la selección estratégica de instrumentos CORFO y la estructuración técnica del proyecto.
-                    </p>
+</div>
+
+
+<div class="w-3/5 flex flex-col justify-between">
+<div class="grid grid-cols-1 gap-6 sm:gap-8">
+<div class="bg-blue-50 rounded-xl p-5 sm:p-6 relative">
+<div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-globe-americas text-6xl text-chile-blue"></i></div>
+<h3 class="text-lg sm:text-xl font-bold text-chile-blue mb-4 flex items-center"><i class="fas fa-star mr-2 text-chile-red"></i> Expectativas</h3>
+<ul class="custom-list text-gray-700 text-sm sm:text-base">
+<li><p>Diagnóstico tecnológico exhaustivo.</p></li>
+<li><p>Búsqueda activa de soluciones internacionales.</p></li>
+<li><p>Acercamiento estratégico a centros I+D internacionales.</p></li>
+</ul>
+</div>
+
+
+<div class="bg-gray-50 border border-gray-100 rounded-xl p-5 sm:p-6 relative">
+<div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-clipboard-check text-6xl text-gray-600"></i></div>
+<h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-list-check mr-2 text-chile-red"></i> Requisitos Clave</h3>
+<ul class="custom-list text-gray-700 text-sm sm:text-base">
+<li><p>Capacidad técnica y de implementación demostrable.</p></li>
+</ul>
+</div>
+</div>
+
+
+<div class="mt-6 bg-white border border-gray-200 rounded-xl p-5 flex items-center justify-between shadow-sm">
+<div>
+<h4 class="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wide mb-1">Estado Convocatoria</h4>
+<div class="flex items-center text-blue-800 font-bold text-sm sm:text-lg">
+<span class="relative flex h-3 w-3 mr-3"><span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-400"></span></span>
+Apertura estimada: Segundo Semestre 2026
+</div>
+</div>
+<div class="bg-gray-100 p-3 rounded-lg text-center min-w-[120px]">
+<p class="text-xs text-gray-500 font-semibold uppercase">Prioridad</p>
+<p class="text-lg sm:text-xl font-bold text-yellow-600">Media</p>
 </div>
 </div>
 </div>
-<!-- Footer Strip -->
-<div class="absolute bottom-0 left-0 w-full h-3 bg-gradient-to-r from-blue-900 via-blue-700 to-red-600"></div>
 </div>
+
+
+<div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+<div class="flex items-center space-x-2">
+<div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+<span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+</div>
+<div class="text-xs text-gray-400">Página 6</div>
+</div>
+</div>
+</section>
+
+          ```html
+<!-- Slide 7: Start-Up Chile -->
+<section id="startup-chile" class="snap-start scroll-mt-20">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Start-Up Chile (Build / Ignite / Growth)</h2>
+    <div class="text-xs text-gray-500">Sección 7 / 7</div>
+  </div>
+
+  <div class="slide-frame flex flex-col">
+    <div class="w-full h-2 bg-chile-blue"></div>
+    <div class="w-full h-1 bg-chile-red"></div>
+
+    <div class="flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+      <div class="w-2/5 flex flex-col">
+        <div class="mb-6">
+          <span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">
+            Emprendimiento Tecnológico
+          </span>
+        </div>
+
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+          Start-Up Chile <br />
+          <span class="text-blue-500 text-lg sm:text-xl lg:text-2xl">(Build / Ignite / Growth)</span>
+        </h1>
+
+        <div class="bg-gray-50 border-l-4 border-blue-900 p-5 sm:p-6 mb-8 rounded-r-lg">
+          <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Objetivo del Programa</h3>
+          <p class="text-gray-800 font-medium leading-relaxed">
+            Financiar y acelerar startups tecnológicas según su etapa de desarrollo.
+          </p>
+        </div>
+
+        <div class="mt-auto space-y-4">
+          <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-start relative overflow-hidden">
+            <div class="absolute left-0 top-0 h-full w-2 bg-green-500"></div>
+            <div class="mr-4 text-green-600 text-3xl mt-1">
+              <i class="fas fa-sack-dollar"></i>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-gray-400 uppercase mb-1">Montos por Etapa</p>
+              <div class="space-y-1 text-sm">
+                <p class="text-gray-800 font-bold flex justify-between w-full gap-4"><span>Build:</span> <span>$10 Millones</span></p>
+                <p class="text-gray-800 font-bold flex justify-between w-full gap-4"><span>Ignite:</span> <span>$25M + $20M add.</span></p>
+                <p class="text-gray-800 font-bold flex justify-between w-full gap-4"><span>Growth:</span> <span>$75 Millones</span></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center relative overflow-hidden">
+            <div class="absolute left-0 top-0 h-full w-2 bg-blue-500"></div>
+            <div class="mr-4 text-blue-600 text-3xl">
+              <i class="fas fa-hand-holding-dollar"></i>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-gray-400 uppercase">Cofinanciamiento</p>
+              <p class="text-xl sm:text-2xl font-bold text-gray-800">100%</p>
+              <p class="text-xs text-gray-500">Sin equity (Equity Free)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-3/5 flex flex-col justify-between">
+        <div class="grid grid-cols-1 gap-6 sm:gap-8">
+          <div class="bg-blue-50 rounded-xl p-5 sm:p-6 relative">
+            <div class="absolute top-0 right-0 p-4 opacity-10">
+              <i class="fas fa-rocket text-6xl text-chile-blue"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-chile-blue mb-4 flex items-center">
+              <i class="fas fa-star mr-2 text-chile-red"></i> Expectativas
+            </h3>
+            <ul class="custom-list text-gray-700 text-sm sm:text-base">
+              <li><p>Validación comercial y escalamiento acelerado del negocio.</p></li>
+              <li><p>Conexión efectiva con redes de inversión y programas de aceleración.</p></li>
+            </ul>
+          </div>
+
+          <div class="bg-gray-50 border border-gray-100 rounded-xl p-5 sm:p-6 relative">
+            <div class="absolute top-0 right-0 p-4 opacity-10">
+              <i class="fas fa-layer-group text-6xl text-gray-600"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+              <i class="fas fa-list-check mr-2 text-chile-red"></i> Enfoque
+            </h3>
+            <ul class="custom-list text-gray-700 text-sm sm:text-base">
+              <li><p><strong>Build:</strong> Startups en etapa temprana de validación.</p></li>
+              <li><p><strong>Ignite:</strong> Startups con producto mínimo viable y primeras ventas.</p></li>
+              <li><p><strong>Growth:</strong> Startups en etapa de expansión y levantamiento de capital.</p></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 bg-white border border-gray-200 rounded-xl p-5 flex items-center justify-between shadow-sm">
+          <div>
+            <h4 class="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wide mb-1">Estado Convocatoria</h4>
+            <div class="flex items-center text-blue-800 font-bold text-sm sm:text-lg">
+              <span class="relative flex h-3 w-3 mr-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+              </span>
+              Programa Anual - Próxima: 2° Trimestre 2026
+            </div>
+          </div>
+          <div class="bg-gray-100 p-3 rounded-lg text-center min-w-[120px]">
+            <p class="text-xs text-gray-500 font-semibold uppercase">Prioridad</p>
+            <p class="text-lg sm:text-xl font-bold text-chile-red">Media</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+        <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+      </div>
+      <div class="text-xs text-gray-400">Página 7</div>
+    </div>
+  </div>
+
+  <div class="mt-10 p-5 rounded-2xl bg-white border border-gray-200 shadow-sm">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h3 class="text-lg font-extrabold text-chile-blue">¿Siguiente paso?</h3>
+        <p class="text-sm text-gray-600">
+          Si quieres, le sumo una sección final tipo “Resumen / Recomendación” con CTA (agenda, correo, etc.).
+        </p>
+      </div>
+      <div class="flex gap-2">
+        <a class="px-4 py-3 rounded-xl bg-chile-blue text-white font-semibold hover:opacity-90" href="#portada">
+          <i class="fas fa-arrow-up mr-2"></i>Revisar de nuevo
+        </a>
+        <button id="copyLink" class="px-4 py-3 rounded-xl border border-gray-300 font-semibold hover:bg-gray-50">
+          <i class="fas fa-link mr-2"></i>Copiar link
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="pt-4 pb-10 text-center text-xs text-gray-500">
+  Hecho para funcionar como landing + presentación.
+  <span class="text-gray-400">(Sí, es un “PowerPoint” que se cree web.)</span>
+</footer>
+</main>
+
+<script>
+  // Mobile menu toggle
+  const openMenu = document.getElementById('openMenu');
+  const mobileMenu = document.getElementById('mobileMenu');
+  openMenu?.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // Presentation (scroll snap) toggle
+  const page = document.getElementById('page');
+  const toggleSnap = document.getElementById('toggleSnap');
+  let snapOn = false;
+  toggleSnap?.addEventListener('click', () => {
+    snapOn = !snapOn;
+    page.classList.toggle('snap-y', snapOn);
+    toggleSnap.innerHTML = snapOn
+      ? '<i class="fas fa-clapperboard mr-2"></i>Modo presentación: ON'
+      : '<i class="fas fa-clapperboard mr-2"></i>Modo presentación';
+  });
+
+  // Copy current URL (with hash) to clipboard
+  const copyLink = document.getElementById('copyLink');
+  copyLink?.addEventListener('click', async () => {
+    try {
+      const url = window.location.href;
+      await navigator.clipboard.writeText(url);
+      copyLink.innerHTML = '<i class="fas fa-check mr-2"></i>Copiado';
+      setTimeout(() => (copyLink.innerHTML = '<i class="fas fa-link mr-2"></i>Copiar link'), 1600);
+    } catch (e) {
+      alert('No pude copiar el link automáticamente. Copia la URL del navegador 🙂');
+    }
+  });
+
+  // Highlight active nav item based on section in view
+  const sections = Array.from(document.querySelectorAll('main section[id]'));
+  const navLinks = Array.from(document.querySelectorAll('a.nav-link'));
+
+  const setActive = (id) => {
+    navLinks.forEach((a) => {
+      const isActive = a.getAttribute('href') === `#${id}`;
+      a.setAttribute('aria-current', isActive ? 'true' : 'false');
+    });
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible?.target?.id) setActive(visible.target.id);
+    },
+    { root: null, threshold: [0.2, 0.4, 0.6] }
+  );
+
+  sections.forEach((s) => observer.observe(s));
+
+  // Close mobile menu after click
+  document.querySelectorAll('#mobileMenu a').forEach((a) => {
+    a.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+  });
+
+  // Initial active state
+  setActive((window.location.hash || '#portada').replace('#', ''));
+</script>
 </body>
 </html>
+```
