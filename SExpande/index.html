@@ -225,14 +225,17 @@
     .btnIcon{ width:42px; padding:10px 0; }
 
     /* Main */
-    main{
-      position:relative;
-      height:100dvh;
-      padding: calc(var(--headerH) + 14px) 16px 16px;
-      display:flex;
-      justify-content:center;
-      align-items:stretch;
-    }
+    main{ height: 100dvh; align-items: stretch; }
+.stage{ height: calc(100dvh - 110px); } /* header + márgenes */
+.slide{
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(26px + 72px + env(safe-area-inset-bottom));
+}
+@media (max-width: 720px){
+  .hints{ display:none; } /* evita tapar el final */
+}
+
 
     .stage{
       width: min(var(--maxw), 100%);
@@ -498,6 +501,47 @@
       button{ transition:none; }
       .dotBtn{ transition:none; }
     }
+    /* === CORFO-ish light theme readability overrides === */
+:root{
+  --text: rgba(15,23,42,.92);
+  --muted: rgba(15,23,42,.70);
+  --muted2: rgba(15,23,42,.56);
+  --stroke: rgba(15,23,42,.12);
+}
+
+body{ color: var(--text); }
+
+/* Fuerza colores “texto” en cosas que antes estaban blancas */
+.slide, .card, .pill, .dots, .hints, .score, .kpi .box{
+  color: var(--text);
+}
+
+li{ color: var(--text) !important; }
+.small{ color: var(--muted2) !important; }
+.muted{ color: var(--muted) !important; }
+.card h3{ color: var(--muted) !important; }
+.hr{ background: var(--stroke) !important; }
+
+/* Badges/tags con contraste correcto */
+.badge, .tag{
+  border-color: var(--stroke) !important;
+  background: rgba(2,6,23,.04) !important;
+  color: var(--muted) !important;
+}
+.tag b{ color: #005AA3 !important; } /* CORFO-ish blue */
+
+/* Botones legibles en light */
+button{
+  background: rgba(255,255,255,.90) !important;
+  border-color: var(--stroke) !important;
+  color: var(--text) !important;
+}
+.btnPrimary{
+  background: linear-gradient(135deg, rgba(0,90,163,.14), rgba(38,122,191,.10)) !important;
+  border-color: rgba(0,90,163,.22) !important;
+}
+button:focus-visible{ outline: 3px solid rgba(0,90,163,.25) !important; }
+
   </style>
 </head>
 
