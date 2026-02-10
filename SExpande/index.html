@@ -3,41 +3,39 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Semilla Expande — Landing en formato de diapositivas</title>
+  <title>Semilla Expande 2026 — Landing en diapositivas (CORFO)</title>
   <style>
     :root{
-      --bg: #0b0f17;
-      --panel: rgba(255,255,255,0.06);
-      --panel2: rgba(255,255,255,0.10);
-      --text: rgba(255,255,255,0.92);
-      --muted: rgba(255,255,255,0.70);
-      --muted2: rgba(255,255,255,0.55);
-      --accent: #7dd3fc;
-      --accent2: #a78bfa;
-      --danger: #fb7185;
-      --ok: #34d399;
-      --warn: #fbbf24;
-      --shadow: 0 14px 40px rgba(0,0,0,0.35);
-      --radius: 22px;
-      --maxw: 1080px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --bg:#0b0f17;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.10);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --muted2:rgba(255,255,255,.55);
+      --accent:#7dd3fc;
+      --accent2:#a78bfa;
+      --warn:#fbbf24;
+      --ok:#34d399;
+      --bad:#fb7185;
+      --shadow:0 14px 40px rgba(0,0,0,.35);
+      --radius:22px;
+      --maxw:1120px;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
     }
     *{ box-sizing:border-box; }
     body{
       margin:0;
-      font-family: var(--sans);
-      color: var(--text);
+      font-family:var(--sans);
+      color:var(--text);
       background:
-        radial-gradient(1200px 800px at 15% 20%, rgba(125,211,252,0.22), transparent 55%),
-        radial-gradient(1000px 700px at 85% 30%, rgba(167,139,250,0.18), transparent 60%),
-        radial-gradient(800px 700px at 40% 90%, rgba(52,211,153,0.10), transparent 55%),
-        linear-gradient(180deg, #070a10, var(--bg));
+        radial-gradient(1200px 800px at 15% 20%, rgba(125,211,252,.22), transparent 55%),
+        radial-gradient(1000px 700px at 85% 30%, rgba(167,139,250,.18), transparent 60%),
+        radial-gradient(800px 700px at 40% 90%, rgba(52,211,153,.10), transparent 55%),
+        linear-gradient(180deg,#070a10,var(--bg));
       min-height:100vh;
       overflow:hidden;
     }
-
-    /* Top bar */
     header{
       position:fixed;
       top:0; left:0; right:0;
@@ -47,555 +45,675 @@
       align-items:center;
       gap:12px;
       z-index:20;
-      backdrop-filter: blur(10px);
-      background: rgba(0,0,0,0.25);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(10px);
+      background:rgba(0,0,0,.25);
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      min-width:240px;
-    }
+    .brand{ display:flex; align-items:center; gap:10px; min-width:260px; }
     .dot{
       width:10px; height:10px; border-radius:999px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 0 3px rgba(125,211,252,0.10);
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      box-shadow:0 0 0 3px rgba(125,211,252,.10);
     }
-    .brand b{ font-weight:700; letter-spacing:0.2px; }
+    .brand b{ font-weight:800; letter-spacing:.2px; }
     .brand span{
-      color: var(--muted2);
-      font-size: 13px;
-      margin-left:8px;
-      white-space: nowrap;
+      color:var(--muted2);
+      font-size:13px;
+      margin-left:10px;
+      white-space:nowrap;
       overflow:hidden;
-      text-overflow: ellipsis;
-      max-width: 42vw;
+      text-overflow:ellipsis;
+      max-width:46vw;
+      display:inline-block;
+      vertical-align:bottom;
     }
-
     .controls{
       display:flex; align-items:center; gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
+      flex-wrap:wrap; justify-content:flex-end;
     }
     .pill{
       display:flex; align-items:center; gap:10px;
       padding:8px 12px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.06);
-      box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.06);
+      box-shadow:0 10px 22px rgba(0,0,0,.25);
     }
-    .pill small{ color: var(--muted2); font-size:12px; }
-    .pill strong{ font-variant-numeric: tabular-nums; }
-
+    .pill small{ color:var(--muted2); font-size:12px; }
+    .pill strong{ font-variant-numeric:tabular-nums; }
     button{
-      all: unset;
+      all:unset;
       cursor:pointer;
       user-select:none;
       padding:10px 12px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,0.10);
-      transition: transform .06s ease, background .15s ease, border-color .15s ease;
+      border-radius:12px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      transition:transform .06s ease, background .15s ease, border-color .15s ease;
     }
-    button:hover{ background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.16); }
-    button:active{ transform: translateY(1px); }
+    button:hover{ background:rgba(255,255,255,.10); border-color:rgba(255,255,255,.16); }
+    button:active{ transform:translateY(1px); }
     button:focus-visible{
-      outline: 3px solid rgba(125,211,252,0.35);
-      outline-offset: 2px;
+      outline:3px solid rgba(125,211,252,.35);
+      outline-offset:2px;
     }
     .btnAccent{
-      background: linear-gradient(90deg, rgba(125,211,252,0.22), rgba(167,139,250,0.18));
-      border-color: rgba(125,211,252,0.25);
+      background:linear-gradient(90deg, rgba(125,211,252,.22), rgba(167,139,250,.18));
+      border-color:rgba(125,211,252,.25);
     }
 
-    /* Slide stage */
     main{
       position:relative;
-      height: 100vh;
-      padding: 86px 18px 18px;
+      height:100vh;
+      padding:86px 18px 18px;
       display:flex;
       justify-content:center;
       align-items:center;
     }
     .stage{
-      width: min(var(--maxw), 100%);
-      height: min(640px, calc(100vh - 120px));
+      width:min(var(--maxw), 100%);
+      height:min(690px, calc(100vh - 120px));
       position:relative;
     }
     .slide{
       position:absolute;
       inset:0;
-      padding: 28px;
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: var(--shadow);
+      padding:28px;
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:var(--shadow);
       opacity:0;
-      transform: translateX(18px) scale(0.985);
-      transition: opacity .25s ease, transform .25s ease;
+      transform:translateX(18px) scale(.985);
+      transition:opacity .25s ease, transform .25s ease;
       pointer-events:none;
       overflow:auto;
     }
     .slide.active{
       opacity:1;
-      transform: translateX(0) scale(1);
+      transform:translateX(0) scale(1);
       pointer-events:auto;
     }
-    .slide h1{
-      margin:0 0 10px;
-      font-size: clamp(22px, 2.3vw, 34px);
-      letter-spacing: -0.2px;
-    }
-    .slide h2{
-      margin: 0 0 12px;
-      font-size: clamp(18px, 2.0vw, 26px);
-      color: rgba(255,255,255,0.90);
-      letter-spacing: -0.1px;
-    }
-    .meta{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin: 10px 0 18px;
-    }
+    h1{ margin:0 0 10px; font-size:clamp(22px,2.3vw,34px); letter-spacing:-.2px; }
+    h2{ margin:0 0 12px; font-size:clamp(18px,2.0vw,26px); letter-spacing:-.1px; }
+    .meta{ display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 18px; }
     .tag{
-      font-size: 12px;
-      color: rgba(255,255,255,0.82);
+      font-size:12px;
+      color:rgba(255,255,255,.82);
       padding:6px 10px;
       border-radius:999px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(0,0,0,0.15);
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.15);
     }
-    .tag b{ color: var(--accent); font-weight:700; }
+    .tag b{ color:var(--accent); font-weight:800; }
     .grid{
       display:grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 16px;
+      grid-template-columns: 1.15fr .85fr;
+      gap:16px;
     }
-    @media (max-width: 900px){
+    @media (max-width: 920px){
       .grid{ grid-template-columns: 1fr; }
       header{ padding:12px 12px; }
       .brand span{ display:none; }
     }
-
     .card{
-      border-radius: 18px;
-      background: rgba(0,0,0,0.18);
-      border: 1px solid rgba(255,255,255,0.10);
-      padding: 14px 14px;
+      border-radius:18px;
+      background:rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.10);
+      padding:14px 14px;
     }
     .card h3{
       margin:0 0 10px;
-      font-size: 14px;
-      letter-spacing: 0.1px;
-      color: rgba(255,255,255,0.88);
-      text-transform: uppercase;
+      font-size:14px;
+      letter-spacing:.1px;
+      color:rgba(255,255,255,.88);
+      text-transform:uppercase;
     }
-    ul{ margin: 0; padding-left: 18px; }
-    li{ margin: 8px 0; color: rgba(255,255,255,0.86); line-height: 1.35; }
-    li em{ color: var(--muted); font-style: normal; }
-    .muted{ color: var(--muted); }
-    .small{ font-size: 12px; color: var(--muted2); }
+    ul{ margin:0; padding-left:18px; }
+    li{ margin:8px 0; color:rgba(255,255,255,.86); line-height:1.35; }
+    li em{ color:var(--muted); font-style:normal; }
+    .small{ font-size:12px; color:var(--muted2); }
+    .muted{ color:var(--muted); }
+    .hr{ height:1px; background:rgba(255,255,255,.10); margin:14px 0; }
+
+    .callout{
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(125,211,252,.25);
+      background:linear-gradient(90deg, rgba(125,211,252,.10), rgba(167,139,250,.08));
+    }
+    .callout b{ color:var(--accent); }
+
     .kpi{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(4, 1fr);
+      gap:10px;
     }
     .kpi .box{
-      border-radius: 16px;
-      padding: 12px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
+      border-radius:16px;
+      padding:12px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
     }
     .kpi .box strong{
       display:block;
-      font-size: 18px;
-      font-variant-numeric: tabular-nums;
-      letter-spacing: -0.2px;
+      font-size:16px;
+      font-variant-numeric:tabular-nums;
+      letter-spacing:-.2px;
     }
     .kpi .box span{
       display:block;
-      font-size: 12px;
-      color: var(--muted2);
-      margin-top: 6px;
-      line-height: 1.2;
+      font-size:12px;
+      color:var(--muted2);
+      margin-top:6px;
+      line-height:1.2;
     }
-    @media (max-width: 720px){
+    @media (max-width: 860px){
       .kpi{ grid-template-columns: 1fr; }
     }
 
-    .callout{
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(125,211,252,0.25);
-      background: linear-gradient(90deg, rgba(125,211,252,0.10), rgba(167,139,250,0.08));
-    }
-    .callout b{ color: var(--accent); }
-
-    .hr{
-      height:1px;
-      background: rgba(255,255,255,0.10);
-      margin: 14px 0;
-    }
-
-    /* Footer hints */
     .hints{
-      position: fixed;
-      left: 18px;
-      bottom: 14px;
-      z-index: 15;
+      position:fixed;
+      left:18px;
+      bottom:14px;
+      z-index:15;
       display:flex;
       gap:10px;
       align-items:center;
-      color: var(--muted2);
-      font-size: 12px;
-      background: rgba(0,0,0,0.25);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 999px;
-      padding: 8px 12px;
-      backdrop-filter: blur(8px);
+      color:var(--muted2);
+      font-size:12px;
+      background:rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:999px;
+      padding:8px 12px;
+      backdrop-filter:blur(8px);
     }
     .kbd{
-      font-family: var(--mono);
-      font-size: 11px;
-      padding: 2px 6px;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.82);
+      font-family:var(--mono);
+      font-size:11px;
+      padding:2px 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.15);
+      background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.82);
     }
+
+    .scoreRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+    .score{
+      flex:1 1 210px;
+      border-radius:16px;
+      padding:12px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .score .pct{
+      font-weight:900;
+      color:var(--accent);
+      font-variant-numeric:tabular-nums;
+    }
+    .badge{
+      display:inline-block;
+      font-size:12px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.18);
+      color:rgba(255,255,255,.84);
+      margin-left:6px;
+    }
+    .pro{ border-color: rgba(52,211,153,.22); }
+    .con{ border-color: rgba(251,113,133,.25); }
   </style>
 </head>
+
 <body>
-  <header>
-    <div class="brand">
-      <div class="dot" aria-hidden="true"></div>
-      <div>
-        <b>Semilla Expande</b>
-        <span id="subtitle">Landing en formato de diapositivas — foco en criterios, fricciones y armado del proyecto</span>
-      </div>
+<header>
+  <div class="brand">
+    <div class="dot" aria-hidden="true"></div>
+    <div>
+      <b>Semilla Expande 2026</b>
+      <span id="subtitle">Landing en formato de diapositivas — CORFO</span>
     </div>
+  </div>
 
-    <div class="controls">
-      <div class="pill" aria-label="Estado de la presentación">
-        <small>Diapositiva</small>
-        <strong id="counter">1 / 1</strong>
-      </div>
-      <button id="prevBtn" title="Anterior (← / PageUp)">←</button>
-      <button id="nextBtn" class="btnAccent" title="Siguiente (→ / PageDown)">→</button>
-      <button id="fsBtn" title="Pantalla completa (F)">⛶</button>
+  <div class="controls">
+    <div class="pill" aria-label="Estado de la presentación">
+      <small>Diapositiva</small>
+      <strong id="counter">1 / 12</strong>
     </div>
-  </header>
+    <button id="prevBtn" title="Anterior (← / PageUp)">←</button>
+    <button id="nextBtn" class="btnAccent" title="Siguiente (→ / PageDown)">→</button>
+    <button id="fsBtn" title="Pantalla completa (F)">⛶</button>
+  </div>
+</header>
 
-  <main>
-    <div class="stage" id="stage" aria-live="polite">
-      <!-- SLIDE 1 -->
-      <section class="slide active" data-title="Marco">
-        <h1>Semilla Expande — Landing / Pitch para Cliente</h1>
-        <div class="meta">
-          <div class="tag"><b>Objetivo</b> Alinear postulación “ganable”</div>
-          <div class="tag"><b>Enfoque</b> Criterios + evidencia + ejecución</div>
-          <div class="tag"><b>Formato</b> Diapositivas tipo landing</div>
-        </div>
+<main>
+  <div class="stage" id="stage" aria-live="polite">
 
-        <div class="grid">
-          <div class="card">
-            <h3>Qué cubre esta presentación</h3>
-            <ul>
-              <li><b>Qué es</b> Semilla Expande y cuál es su lógica: cofinanciar <em>crecimiento comercial medible</em>.</li>
-              <li><b>Qué espera</b> el instrumento: resultados, nuevo mercado, ejecución y control.</li>
-              <li><b>Cómo se arma</b> un proyecto sólido: brecha → plan → hitos → KPIs → presupuesto.</li>
-              <li><b>Fricciones típicas</b> (por qué se caen postulaciones) y cómo evitarlas sin “inventar” negocio.</li>
-            </ul>
-            <div class="hr"></div>
-            <div class="callout">
-              <b>Nota:</b> todo el contenido es <em>neutral</em>. Inserta tu caso en los placeholders: [Producto], [Segmento], [Región], [Canal], [Ticket], [Ciclo], etc.
-            </div>
-          </div>
+    <!-- 1 -->
+    <section class="slide active" data-title="Portada">
+      <h1>Semilla Expande 2026 (CORFO)</h1>
+      <div class="meta">
+        <div class="tag"><b>Formato</b> landing en diapositivas</div>
+        <div class="tag"><b>Enfoque</b> lectura neutra de bases</div>
+        <div class="tag"><b>Uso</b> alineamiento con cliente</div>
+      </div>
 
-          <div class="card">
-            <h3>Checklist rápido (lo que no puede faltar)</h3>
-            <ul>
-              <li>Línea base: ventas y capacidades actuales (aunque sea estimada).</li>
-              <li>Meta de crecimiento + mecanismo (embudo y capacidad).</li>
-              <li>Nuevo mercado: región o internacional con plan de entrada.</li>
-              <li>Presupuesto con causalidad (cada ítem mueve un KPI).</li>
-              <li>Riesgos + mitigación + reporte mensual.</li>
-            </ul>
-            <p class="small">Sugerencia: usa esta landing como guion de reunión con cliente (30–45 min).</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 2 -->
-      <section class="slide" data-title="Definición">
-        <h2>Qué es Semilla Expande (en términos operativos)</h2>
-        <div class="grid">
-          <div class="card">
-            <h3>Definición de trabajo</h3>
-            <ul>
-              <li>Instrumento de cofinanciamiento para <b>emprendimientos con validación inicial</b> que necesitan ejecutar un plan de <b>despegue comercial</b>.</li>
-              <li>Corfo “compra” <b>capacidad de crecer</b>: evidencia + gestión + ejecución, no solo “un producto”.</li>
-              <li>Proyecto debe ser un <b>motor de ventas</b>, no un proyecto interno de mejora sin salida comercial.</li>
-            </ul>
-            <div class="hr"></div>
-            <div class="callout">
-              <b>Traducción:</b> cada actividad y gasto debe explicar cómo contribuye a <em>pipeline, cierres o expansión</em>.
-            </div>
-          </div>
-          <div class="card">
-            <h3>Estructura del instrumento</h3>
-            <ul>
-              <li><b>Etapa 1</b> (ejecución principal): foco en habilitadores + ventas + nuevo mercado.</li>
-              <li><b>Etapa 2</b> (extensión): se justifica si ya hay tracción y el cuello está en escala.</li>
-              <li><b>Cofinanciamiento</b>: el beneficiario aporta un % (propio) y Corfo cubre el resto.</li>
-            </ul>
-            <p class="small">Ajusta montos/condiciones exactas según bases vigentes del llamado que uses.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 3 -->
-      <section class="slide" data-title="Resultados">
-        <h2>Resultados esperados (cómo se ve “éxito” en Semilla Expande)</h2>
+      <div class="grid">
         <div class="card">
-          <h3>Resultados “duros” (que deben quedar explícitos)</h3>
-          <div class="kpi">
-            <div class="box">
-              <strong>+30%</strong>
-              <span>Crecimiento de ventas vs período base (referencia típica)</span>
-            </div>
-            <div class="box">
-              <strong>$6MM+</strong>
-              <span>Incremento mínimo de ventas (referencia típica)</span>
-            </div>
-            <div class="box">
-              <strong>Nuevo mercado</strong>
-              <span>Otra región y/o internacional (venta real o primer cierre)</span>
-            </div>
-          </div>
-          <div class="hr"></div>
+          <h3>Objetivo de esta presentación</h3>
           <ul>
-            <li><b>Importante:</b> no basta declarar metas. Hay que mostrar <em>mecanismo</em>: embudo, capacidad y actividades.</li>
-            <li>El evaluador busca coherencia: <b>metas ↔ actividades ↔ KPIs ↔ presupuesto</b>.</li>
-            <li>Si el proyecto no “mueve ventas”, normalmente se percibe como <em>desalineado</em>.</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- SLIDE 4 -->
-      <section class="slide" data-title="Fricciones">
-        <h2>Fricciones típicas (dónde se caen postulaciones)</h2>
-        <div class="grid">
-          <div class="card">
-            <h3>Fricciones de admisibilidad / forma</h3>
-            <ul>
-              <li>Documentación incompleta o inconsistente (SII/antecedentes/formatos).</li>
-              <li>Datos base débiles: sin línea base de ventas, sin métricas mínimas.</li>
-              <li>Relato poco verificable: no hay evidencia de tracción o aprendizaje.</li>
-            </ul>
-            <div class="hr"></div>
-            <div class="callout">
-              <b>Mitigación:</b> checklist temprano + consolidación de antecedentes + cuadro “línea base” simple.
-            </div>
-          </div>
-
-          <div class="card">
-            <h3>Fricciones de fondo (evaluación)</h3>
-            <ul>
-              <li><b>Proyecto “de compras”:</b> mucho equipamiento / poco crecimiento.</li>
-              <li><b>Metas sin mecanismo:</b> +30% sin embudo ni capacidad de venta/entrega.</li>
-              <li><b>Presupuesto sin causalidad:</b> ítems que no mueven KPIs.</li>
-              <li><b>Riesgos omitidos:</b> dependencia de un canal/cliente, ciclo largo, operación no preparada.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 5 -->
-      <section class="slide" data-title="Cómo ganar">
-        <h2>Cómo se arma un proyecto “ganable” (plantilla neutral)</h2>
-        <div class="grid">
-          <div class="card">
-            <h3>Estructura recomendada</h3>
-            <ul>
-              <li><b>Brecha</b>: ¿qué impide crecer hoy? (comercial / operación / producto)</li>
-              <li><b>Estrategia</b>: ¿cuál es el motor? (canal / segmento / expansión / oferta)</li>
-              <li><b>Plan</b>: actividades → entregables → hitos → KPIs (mensual)</li>
-              <li><b>Presupuesto</b>: cada gasto amarrado a un hito de ventas o expansión</li>
-              <li><b>Control</b>: reporte mensual + gestión de desviaciones</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Regla de oro (para cada ítem)</h3>
-            <ul>
-              <li>¿Qué hito comercial habilita?</li>
-              <li>¿Qué KPI mueve (pipeline/cierre/retención/nuevo mercado)?</li>
-              <li>¿Qué evidencia deja (documento, registro, contrato, reporte)?</li>
-              <li>¿Qué pasa si se recorta? (¿se cae el crecimiento o solo “se ve bien”?)</li>
-            </ul>
-            <div class="hr"></div>
-            <p class="small"><b>Tip:</b> si un gasto no responde estas preguntas, suele ser un “punto débil” ante evaluación.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 6 -->
-      <section class="slide" data-title="Crecimiento">
-        <h2>Crecimiento comercial (cómo se presenta sin “inventar” negocio)</h2>
-        <div class="card">
-          <h3>Lo mínimo que debe verse (con placeholders)</h3>
-          <ul>
-            <li><b>Embudo:</b> Leads → Reunión → Propuesta/Piloto → Cierre → Renovación/Expansión.</li>
-            <li><b>Supuestos cuantitativos:</b> tasas de conversión esperadas, ticket [CLP], ciclo [días], # cuentas/mes.</li>
-            <li><b>Capacidad:</b> quién vende, quién entrega, cuántos clientes simultáneos soporta la operación.</li>
-            <li><b>Nuevo mercado:</b> [Región/País] + canal de entrada [Partner/Directo/Distribución] + primer hito (primer contrato/venta).</li>
+            <li>Explicar <b>qué es</b> Semilla Expande, su <b>racional</b> y qué busca financiar.</li>
+            <li>Dejar claros los <b>resultados esperados</b> (los “4” del instrumento) y sus implicancias.</li>
+            <li>Enmarcar <b>obligaciones</b> (actividades mínimas, patrocinador/incubadora, timing).</li>
+            <li>Mostrar una lectura neutra de <b>evaluación</b>, filtros y fricciones típicas.</li>
           </ul>
           <div class="hr"></div>
           <div class="callout">
-            <b>Plantilla de meta mensual:</b> “Mes N: pipeline $X, cierres $Y, 1er paso nuevo mercado: [actividad verificable]”.
+            <b>Nota:</b> este deck no ajusta ningún negocio. Sirve como “marco” para diseñar una postulación coherente.
           </div>
         </div>
-      </section>
 
-      <!-- SLIDE 7 -->
-      <section class="slide" data-title="Plan 9M">
-        <h2>Plan de ejecución tipo (Etapa 1: 9 meses)</h2>
-        <div class="grid">
-          <div class="card">
-            <h3>Fase 1 — Habilitadores (Mes 1–2)</h3>
-            <ul>
-              <li>Oferta empaquetada + pricing (o ajuste) + material de ventas.</li>
-              <li>Pipeline inicial: prospección y primeras oportunidades.</li>
-              <li>Hito: “primeras propuestas/pilotos emitidos” + KPI de conversión inicial.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Fase 2 — Conversión (Mes 3–5)</h3>
-            <ul>
-              <li>Pilotos → cierres (contratos) + optimización de conversión.</li>
-              <li>Operación: onboarding/entrega, soporte, procesos y métricas.</li>
-              <li>Hito: “cierres mensuales sostenidos” + evidencia contractual.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Fase 3 — Expansión (Mes 6–9)</h3>
-            <ul>
-              <li>Entrada a nuevo mercado: agenda, canal y primera venta/cierre.</li>
-              <li>Escalamiento: estandarización + playbook + canales.</li>
-              <li>Hito: “primer cierre en nuevo mercado” + crecimiento acumulado.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Reporte mensual (control)</h3>
-            <ul>
-              <li>Avance de hitos + KPIs + desviaciones.</li>
-              <li>Acciones correctivas y cambios controlados.</li>
-              <li>Trazabilidad gasto ↔ actividad ↔ indicador.</li>
-            </ul>
+        <div class="card">
+          <h3>Qué deberías validar al final</h3>
+          <ul>
+            <li>¿La propuesta está construida para <b>despegue comercial</b> (no “solo mejoras”)?</li>
+            <li>¿Se demuestra potencial real de <b>nuevo mercado</b> (regiones / internacional)?</li>
+            <li>¿Se cumple el “timing” de <b>servicios de apoyo</b> y patrocinador?</li>
+            <li>¿El plan mapea <b>actividades → resultados</b> (ventas, mercado, apoyo, sostenibilidad)?</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="slide" data-title="Qué es">
+      <h2>1) Qué es Semilla Expande (propósito)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Propósito del instrumento</h3>
+          <ul>
+            <li>Apoyar emprendimientos dinámicos <b>con ventas iniciales</b> y soluciones <b>innovadoras y escalables</b>.</li>
+            <li>Cofinancia actividades para <b>crecimiento inicial</b> y <b>despegue comercial</b>.</li>
+            <li>Foco explícito: innovación + problemática/oportunidad relevante (al menos regional) + potencial de expansión a nuevos mercados (regiones y/o internacional).</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Traducción:</b> el diseño exige demostrar <em>tracción</em> y un camino de <em>escalamiento</em>.
           </div>
         </div>
-      </section>
 
-      <!-- SLIDE 8 -->
-      <section class="slide" data-title="Cierre">
-        <h2>Cierre: mensaje clave para Semilla Expande</h2>
-        <div class="grid">
-          <div class="card">
-            <h3>Qué debe quedar instalado en el cliente</h3>
-            <ul>
-              <li>Semilla Expande se gana cuando el proyecto demuestra <b>crecimiento medible</b>, con <b>mecanismo</b> y <b>control</b>.</li>
-              <li>La narrativa debe ser “ejecutable”: actividades financiables + KPIs + evidencia.</li>
-              <li>El presupuesto se defiende con causalidad: cada ítem conecta a ventas o a nuevo mercado.</li>
-            </ul>
-            <div class="hr"></div>
-            <div class="callout">
-              <b>CTA:</b> “Hagamos un cuadro de línea base + metas mensuales + embudo + presupuesto por hito”.
-            </div>
-          </div>
-          <div class="card">
-            <h3>Próximo paso (plantilla)</h3>
-            <ul>
-              <li>1) Consolidar admisibilidad/documentos.</li>
-              <li>2) Definir línea base + meta de crecimiento + nuevo mercado.</li>
-              <li>3) Diseñar plan de trabajo (9 meses) con KPIs mensuales.</li>
-              <li>4) Armar presupuesto con causalidad + evidencias.</li>
-              <li>5) Revisión final: coherencia + riesgos + plan de control.</li>
-            </ul>
-            <p class="small">Reemplaza placeholders según caso real y llamado vigente.</p>
+        <div class="card">
+          <h3>Pistas de “encaje” (lectura práctica)</h3>
+          <ul>
+            <li>Se premia claridad de propuesta, escalabilidad y expansión.</li>
+            <li>La innovación se evalúa como diferencial: no basta “hacer lo mismo mejor”.</li>
+            <li>El relato debe ser regionalizable: evitar quedar “amarrado” a un solo territorio comunal/provincial.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="slide" data-title="Marco teórico">
+      <h2>2) Marco teórico (racional del instrumento)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Justificación CORFO</h3>
+          <ul>
+            <li><b>Asimetrías de información</b> (emprendedor vs. inversionistas) dificultan valorización y financiamiento temprano.</li>
+            <li>Falta de conexión con el ecosistema (servicios no financieros) reduce probabilidad de éxito.</li>
+            <li>Evidencia sugiere que acceso a servicios adicionales aumenta tracción y opciones de financiamiento.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Consecuencia de diseño</h3>
+          <ul>
+            <li>El apoyo combina <b>cofinanciamiento + servicios de apoyo</b> (mentoría/incubación/aceleración).</li>
+            <li>Orientación explícita: <b>tracción</b> y <b>escalamiento</b> (no solo ejecución técnica).</li>
+            <li>Esto explica por qué hay obligaciones de “timing” y evidencias de activación de apoyos.</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Clave:</b> la narrativa debe integrar “dinero” y “ecosistema” como parte del mecanismo de éxito.
           </div>
         </div>
-      </section>
-    </div>
-  </main>
+      </div>
+    </section>
 
-  <div class="hints" aria-hidden="true">
-    <span>Navegar:</span>
-    <span class="kbd">←</span><span class="kbd">→</span>
-    <span class="kbd">PgUp</span><span class="kbd">PgDn</span>
-    <span class="kbd">F</span><span class="muted">pantalla completa</span>
+    <!-- 4 -->
+    <section class="slide" data-title="Objetivos">
+      <h2>3) Objetivo general y objetivos específicos</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Objetivo general</h3>
+          <ul>
+            <li>Apoyar emprendimientos <b>validados comercialmente</b> para crecimiento/despegue comercial.</li>
+            <li>Facilitar acceso a <b>servicios de apoyo</b> para implementación y crecimiento.</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Lectura:</b> “validado” implica que se parte con base comercial; el proyecto empuja un salto de crecimiento.
+          </div>
+        </div>
+        <div class="card">
+          <h3>Objetivos específicos (resumen)</h3>
+          <ul>
+            <li>Crecer ventas y hacerlas <b>recurrentes</b>.</li>
+            <li>Fortalecer modelo de negocios para siguiente fase de financiamiento.</li>
+            <li>Acceder a servicios de apoyo (mentoría/incubación/aceleración).</li>
+            <li>Generar valor frente a un problema/oportunidad relevante y operar de manera sostenible.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="slide" data-title="Resultados esperados">
+      <h2>4) Resultados esperados (los “4” del instrumento)</h2>
+
+      <div class="card">
+        <h3>Al término de la ejecución, se espera:</h3>
+        <div class="kpi" style="margin-top:10px;">
+          <div class="box">
+            <strong>1) +30% ventas</strong>
+            <span>vs. 12 meses previos, mínimo $6.000.000 de crecimiento</span>
+          </div>
+          <div class="box">
+            <strong>2) Nuevo mercado</strong>
+            <span>otra(s) región(es) y/o internacional</span>
+          </div>
+          <div class="box">
+            <strong>3) Servicios de apoyo</strong>
+            <span>mentoría + incubación/aceleración dentro de los primeros 4 meses</span>
+          </div>
+          <div class="box">
+            <strong>4) Sostenibilidad</strong>
+            <span>diagnóstico → priorización → indicadores → plan de acción en ejecución</span>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+        <ul>
+          <li><b>Relevante:</b> estos resultados funcionan como “columna vertebral” del diseño: si falta uno, la coherencia cae.</li>
+          <li><b>Práctico:</b> todo plan y presupuesto debe poder explicarse como contribución directa a 1–4.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="slide" data-title="Implicancias">
+      <h2>5) Implicancias clave de esos resultados</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Implicancias operativas</h3>
+          <ul>
+            <li>“Nuevo mercado” se entiende como <b>regiones y/o internacional</b>, no solo “crecer en el mismo territorio”.</li>
+            <li>El “cómo” se aborda vía <b>Plan de Expansión</b>, revisado por suficiencia y coherencia.</li>
+            <li>Servicios de apoyo deben activarse <b>temprano</b> (≤ 4 meses), por lo que la planificación no puede dejarlo “para el final”.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Implicancias de evaluación</h3>
+          <ul>
+            <li>El evaluador busca consistencia: <b>diagnóstico → actividades → resultados 1–4 → evidencia</b>.</li>
+            <li>Expansión territorial sin mecanismo (canal/alianzas/agenda) suele verse insuficiente.</li>
+            <li>La sostenibilidad exige indicadores y ejecución (no solo “declaración”).</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Guía:</b> por cada resultado esperado, define 2–4 actividades y 1–2 evidencias verificables.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="slide" data-title="Obligatorias">
+      <h2>6) Actividades obligatorias (qué sí o sí debe estar)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Obligatorias por diseño</h3>
+          <ul>
+            <li><b>Mentorías:</b> obligatorias <b>solo Etapa 1</b>.</li>
+            <li><b>Incubación y/o aceleración:</b> obligatoria para <b>ambas etapas</b>.</li>
+            <li><b>Prospección comercial:</b> exploración y búsqueda de clientes (ferias, rondas, visitas) y otras actividades que permitan expansión.</li>
+            <li><b>Sostenibilidad:</b> estrategia con diagnóstico → indicadores → plan de acción (según anexo).</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Punto crítico (aprobación CORFO)</h3>
+          <ul>
+            <li>Antes de ejecutar gasto en incubación/aceleración, se requiere <b>aprobación previa de CORFO</b> sobre monto, idoneidad y suficiencia del servicio.</li>
+            <li>Esto obliga a: selección informada del servicio + justificación + coherencia con el plan.</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Fricción típica:</b> postular con “servicio” poco justificable o no alineado a resultados (se cae en revisión).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="slide" data-title="Patrocinador">
+      <h2>7) Patrocinador/Incubadora (rol, obligatoriedad y timing)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Obligatoriedad y plazos</h3>
+          <ul>
+            <li><b>Entidad Patrocinadora:</b> participante <b>obligatorio</b>.</li>
+            <li>Post-adjudicación: contrato de patrocinio dentro de <b>15 días hábiles</b> desde comunicación de aprobación (prórroga excepcional hasta 15 días hábiles).</li>
+            <li>Si no se presenta o no incluye aspectos esenciales → <b>se tiene por desistido el proyecto</b>.</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Riesgo real:</b> no es “administrativo menor”; afecta continuidad del proyecto.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Servicios mínimos + restricciones</h3>
+          <ul>
+            <li>Mínimos del patrocinador: supervisión, apoyo al seguimiento y administración (regulados en contrato).</li>
+            <li>No puede tomar participación patrimonial/opciones desde publicación del llamado.</li>
+            <li>No puede cobrar por patrocinio ni por servicios mínimos.</li>
+            <li>Servicios adicionales: requieren aprobación previa y <b>nunca</b> son obligatorios para el beneficiario.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="slide" data-title="Evaluación">
+      <h2>8) Evaluación: cómo se puntúa (lectura neutra)</h2>
+      <div class="card">
+        <h3>Ejes y ponderaciones (resumen)</h3>
+
+        <div class="scoreRow">
+          <div class="score">
+            <div><span class="pct">Innovación</span> <span class="badge">40%</span></div>
+            <div class="small" style="margin-top:6px;">Diferencial, propuesta de valor, novedad y relevancia.</div>
+          </div>
+          <div class="score">
+            <div><span class="pct">Escalabilidad</span> <span class="badge">30%</span></div>
+            <div class="small" style="margin-top:6px;">Modelo de Negocios (10%), Mercado (10%), Plan de Expansión (5%), Sostenibilidad (5%).</div>
+          </div>
+          <div class="score">
+            <div><span class="pct">Equipo</span> <span class="badge">30%</span></div>
+            <div class="small" style="margin-top:6px;">Capacidad, compromiso, redes/alianzas.</div>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+        <ul>
+          <li><b>Lectura práctica:</b> el “peso” fuerte está en <b>innovación + escalabilidad</b>; el equipo sostiene credibilidad de ejecución.</li>
+          <li>Plan de Expansión y Sostenibilidad aparecen explícitos dentro de Escalabilidad: deben ser <b>concretos</b> y medibles.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="slide" data-title="Filtros">
+      <h2>9) Criterios “filtro” relevantes para alineamiento</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Riesgo de no admisibilidad (por encaje)</h3>
+          <ul>
+            <li>No admisible si la solución <b>no tiene potencial</b> de expandirse a nuevos mercados (otra(s) región(es)/internacional).</li>
+            <li>Riesgo alto si el alcance es exclusivamente <b>local</b> (comunal/provincial) y no se justifica expansión real.</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Implicancia:</b> el relato debe construir “expansión” como parte central del diseño, no como add-on.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Enfoque del instrumento</h3>
+          <ul>
+            <li>El énfasis debe estar en <b>crecimiento/despegue comercial</b>.</li>
+            <li>No debe presentarse la compra de activos como objetivo principal.</li>
+          </ul>
+          <div class="hr"></div>
+          <ul class="small">
+            <li><b>Traducción:</b> el presupuesto debe leerse como “palanca de ventas + expansión”, no como “lista de compras”.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="slide" data-title="Pros y contras">
+      <h2>10) Pros y contras (desde las bases)</h2>
+      <div class="grid">
+        <div class="card pro">
+          <h3>Pros</h3>
+          <ul>
+            <li>Diseño explícito para cerrar brechas de financiamiento temprano + acceso a servicios del ecosistema (mentoría/incubación/aceleración).</li>
+            <li>Marco de evaluación orientado a escalamiento y tracción (plan de expansión, mercado, modelo de negocio).</li>
+          </ul>
+        </div>
+
+        <div class="card con">
+          <h3>Contras / fricciones típicas</h3>
+          <ul>
+            <li>Exigencia operacional: activar servicios de apoyo temprano (≤ 4 meses) y sostener trazabilidad de ejecución.</li>
+            <li>“Nuevo mercado” definido por regiones/internacional obliga a diseñar expansión territorial real.</li>
+            <li>Dependencia formal del patrocinador: contrato y coordinación con plazos estrictos; cambio durante ejecución es, por regla general, no permitido (salvo excepciones).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section class="slide" data-title="Mensajes">
+      <h2>11) Mensajes de alineamiento para cliente (neutros)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Mensajes clave</h3>
+          <ul>
+            <li>El instrumento no financia “cualquier mejora”: financia <b>despegue comercial</b> con obligaciones de expansión y soporte del ecosistema.</li>
+            <li>La propuesta debe mapear explícitamente <b>actividades → resultados esperados</b> (ventas, nuevo mercado, servicios de apoyo, sostenibilidad).</li>
+            <li>La relación con patrocinador es estructural, con restricciones económicas (no cobros por patrocinio/servicios mínimos) y condiciones contractuales claras.</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Regla final:</b> si el evaluador no puede “trazar” cada actividad hacia 1–4, la postulación se debilita.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Uso recomendado (cómo presentar esto al cliente)</h3>
+          <ul>
+            <li>Slide 2–6: fijan “marco” (propósito, racional, objetivos y resultados).</li>
+            <li>Slide 7–8: obligaciones y timing (actividades + patrocinador).</li>
+            <li>Slide 9–10: cómo se evalúa y qué filtra (para alinear diseño).</li>
+            <li>Slide 11–12: pros/contras + mensajes de alineamiento (expectativas realistas).</li>
+          </ul>
+          <p class="small">Puedes duplicar este archivo y reemplazar el subtítulo por el nombre del proyecto/cliente si lo necesitas.</p>
+        </div>
+      </div>
+    </section>
+
   </div>
+</main>
 
-  <script>
-    (function(){
-      const slides = Array.from(document.querySelectorAll(".slide"));
-      const counterEl = document.getElementById("counter");
-      const subtitleEl = document.getElementById("subtitle");
-      const prevBtn = document.getElementById("prevBtn");
-      const nextBtn = document.getElementById("nextBtn");
-      const fsBtn = document.getElementById("fsBtn");
+<div class="hints" aria-hidden="true">
+  <span>Navegar:</span>
+  <span class="kbd">←</span><span class="kbd">→</span>
+  <span class="kbd">PgUp</span><span class="kbd">PgDn</span>
+  <span class="kbd">F</span><span class="muted">pantalla completa</span>
+</div>
 
-      let i = 0;
+<script>
+  (function(){
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const counterEl = document.getElementById("counter");
+    const subtitleEl = document.getElementById("subtitle");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const fsBtn = document.getElementById("fsBtn");
 
-      function setSlide(idx){
-        i = Math.max(0, Math.min(slides.length - 1, idx));
-        slides.forEach((s, k) => s.classList.toggle("active", k === i));
-        counterEl.textContent = `${i+1} / ${slides.length}`;
-        const title = slides[i].dataset.title ? `— ${slides[i].dataset.title}` : "";
-        subtitleEl.textContent = `Landing en formato de diapositivas ${title}`;
-        // accessibility: focus first heading in slide
-        const focusTarget = slides[i].querySelector("h1, h2");
-        if (focusTarget) focusTarget.setAttribute("tabindex","-1"), focusTarget.focus({preventScroll:true});
+    let i = 0;
+
+    function setSlide(idx){
+      i = Math.max(0, Math.min(slides.length - 1, idx));
+      slides.forEach((s, k) => s.classList.toggle("active", k === i));
+      counterEl.textContent = `${i+1} / ${slides.length}`;
+      const title = slides[i].dataset.title ? `— ${slides[i].dataset.title}` : "";
+      subtitleEl.textContent = `Landing en formato de diapositivas ${title}`;
+      const focusTarget = slides[i].querySelector("h1, h2");
+      if (focusTarget){
+        focusTarget.setAttribute("tabindex","-1");
+        focusTarget.focus({preventScroll:true});
       }
+    }
+    function next(){ setSlide(i + 1); }
+    function prev(){ setSlide(i - 1); }
 
-      function next(){ setSlide(i + 1); }
-      function prev(){ setSlide(i - 1); }
+    prevBtn.addEventListener("click", prev);
+    nextBtn.addEventListener("click", next);
 
-      prevBtn.addEventListener("click", prev);
-      nextBtn.addEventListener("click", next);
+    document.addEventListener("keydown", (e) => {
+      const key = e.key.toLowerCase();
+      if (key === "arrowright" || key === "pagedown" || key === " ") { e.preventDefault(); next(); }
+      if (key === "arrowleft"  || key === "pageup") { e.preventDefault(); prev(); }
+      if (key === "home") { e.preventDefault(); setSlide(0); }
+      if (key === "end")  { e.preventDefault(); setSlide(slides.length - 1); }
+      if (key === "f") { e.preventDefault(); toggleFullscreen(); }
+    });
 
-      document.addEventListener("keydown", (e) => {
-        const key = e.key.toLowerCase();
-        if (key === "arrowright" || key === "pagedown" || key === " ") { e.preventDefault(); next(); }
-        if (key === "arrowleft"  || key === "pageup") { e.preventDefault(); prev(); }
-        if (key === "home") { e.preventDefault(); setSlide(0); }
-        if (key === "end")  { e.preventDefault(); setSlide(slides.length - 1); }
-        if (key === "f") { e.preventDefault(); toggleFullscreen(); }
-      });
-
-      function toggleFullscreen(){
-        const el = document.documentElement;
-        if (!document.fullscreenElement){
-          el.requestFullscreen?.();
-        }else{
-          document.exitFullscreen?.();
-        }
+    function toggleFullscreen(){
+      const el = document.documentElement;
+      if (!document.fullscreenElement){
+        el.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
       }
-      fsBtn.addEventListener("click", toggleFullscreen);
+    }
+    fsBtn.addEventListener("click", toggleFullscreen);
 
-      // Swipe on touch
-      let x0 = null;
-      document.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, {passive:true});
-      document.addEventListener("touchend", (e) => {
-        if (x0 === null) return;
-        const x1 = e.changedTouches[0].clientX;
-        const dx = x1 - x0;
-        if (Math.abs(dx) > 45) (dx < 0 ? next() : prev());
-        x0 = null;
-      }, {passive:true});
+    // Touch swipe
+    let x0 = null;
+    document.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, {passive:true});
+    document.addEventListener("touchend", (e) => {
+      if (x0 === null) return;
+      const x1 = e.changedTouches[0].clientX;
+      const dx = x1 - x0;
+      if (Math.abs(dx) > 45) (dx < 0 ? next() : prev());
+      x0 = null;
+    }, {passive:true});
 
-      setSlide(0);
-    })();
-  </script>
+    setSlide(0);
+  })();
+</script>
 </body>
 </html>
