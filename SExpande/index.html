@@ -16,71 +16,489 @@
   -->
 
   <style>
-border-color: rgba(125,211,252,.55);
-}
+    :root{
+      /* Core (more standard / professional) */
+      --bg0:#F6F7FB;
+      --bg1:#EEF1F7;
+      --card:rgba(255,255,255,.92);
+      --card2:rgba(255,255,255,.98);
+      --stroke:rgba(15,23,42,.10);
+      --stroke2:rgba(15,23,42,.16);
+      --text:rgba(15,23,42,.92);
+      --muted:rgba(15,23,42,.70);
+      --muted2:rgba(15,23,42,.56);
 
+      /* Brand (kept subtle) */
+      --accent:#2563EB;   /* blue-600 */
+      --accent2:#7C3AED;  /* violet-600 */
+      --ok:#16A34A;
+      --bad:#E11D48;
+      --warn:#D97706;
 
-/* Hints */
-.hints{
-position:fixed;
-left:16px;
-bottom: calc(14px + env(safe-area-inset-bottom));
-z-index:25;
-display:flex;
-gap:10px;
-align-items:center;
-color: var(--muted2);
-font-size:12px;
-background: rgba(255,255,255,.75);
-border: 1px solid var(--stroke);
-border-radius: var(--radiusPill);
-padding: 8px 12px;
-backdrop-filter: blur(10px);
-box-shadow: 0 10px 24px rgba(2,6,23,.10);
-}
+      /* Effects */
+      --shadow: 0 18px 55px rgba(2,6,23,.14);
+      --shadow2: 0 10px 26px rgba(2,6,23,.10);
+      --radius: 18px;
+      --radius2: 14px;
+      --radiusPill: 999px;
+      --maxw: 1120px;
 
+      /* Typography */
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-@media (prefers-color-scheme: dark){
-.hints{ background: rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.10); box-shadow:none; }
-}
-.kbd{
-font-family: var(--mono);
-font-size:11px;
-padding: 2px 6px;
-border-radius: 8px;
-border: 1px solid rgba(255,255,255,.15);
-background: rgba(255,255,255,.06);
-color: rgba(255,255,255,.82);
-}
+      /* Layout */
+      --headerH: 70px;
+    }
 
+    /* Dark mode (auto) */
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg0:#070A12;
+        --bg1:#0B1020;
+        --card:rgba(255,255,255,.07);
+        --card2:rgba(255,255,255,.10);
+        --stroke:rgba(255,255,255,.12);
+        --stroke2:rgba(255,255,255,.18);
+        --text:rgba(255,255,255,.92);
+        --muted:rgba(255,255,255,.72);
+        --muted2:rgba(255,255,255,.56);
+        --shadow: 0 18px 55px rgba(0,0,0,.42);
+        --shadow2: 0 10px 30px rgba(0,0,0,.35);
+        --accent:#7dd3fc;
+        --accent2:#a78bfa;
+        --ok:#34d399;
+        --bad:#fb7185;
+        --warn:#fbbf24;
+      }
+    }
 
-/* Responsive */
-@media (max-width: 920px){
-header{ padding: 10px 12px; }
-.brandText span{ display:none; }
-.grid{ grid-template-columns: 1fr; }
-.stage{ height: min(760px, calc(100vh - (var(--headerH) + 32px))); }
-}
-@media (max-width: 860px){
-.kpi{ grid-template-columns: 1fr; }
-.dots{ display:none; }
-}
+    *{ box-sizing:border-box; }
+    html, body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 15% 20%, rgba(37,99,235,.10), transparent 60%),
+        radial-gradient(900px 650px at 85% 30%, rgba(124,58,237,.08), transparent 62%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow:hidden;
+    }
 
+    @media (prefers-color-scheme: dark){
+      body{
+        background:
+          radial-gradient(1000px 700px at 15% 20%, rgba(125,211,252,.18), transparent 55%),
+          radial-gradient(900px 650px at 85% 30%, rgba(167,139,250,.14), transparent 60%),
+          radial-gradient(900px 800px at 40% 92%, rgba(52,211,153,.08), transparent 58%),
+          linear-gradient(180deg, var(--bg0), var(--bg1));
+      }
+    }
 
-@media (max-width: 720px){
-.hints{ display:none; }
-}
-.dots{ display:none; }
-}
+    /* Header */
+    header{
+      position:fixed;
+      top:0; left:0; right:0;
+      height:var(--headerH);
+      padding:12px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      z-index:30;
 
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,.75);
+      border-bottom: 1px solid var(--stroke);
+    }
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce){
-.slide{ transition:none; }
-button{ transition:none; }
-.dotBtn{ transition:none; }
-}
-</style>
+    @media (prefers-color-scheme: dark){
+      header{ background: rgba(0,0,0,.30); border-bottom: 1px solid rgba(255,255,255,.10); }
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 260px;
+    }
+
+    .mark{
+      width:34px; height:34px;
+      border-radius:12px;
+      background:
+        radial-gradient(12px 12px at 30% 30%, rgba(255,255,255,.65), transparent 60%),
+        linear-gradient(135deg, rgba(37,99,235,.95), rgba(124,58,237,.90));
+      box-shadow: 0 10px 18px rgba(2,6,23,.12);
+      border:1px solid var(--stroke);
+      flex: 0 0 auto;
+    }
+
+    @media (prefers-color-scheme: dark){
+      .mark{
+        background:
+          radial-gradient(12px 12px at 30% 30%, rgba(255,255,255,.25), transparent 60%),
+          linear-gradient(135deg, rgba(125,211,252,.95), rgba(167,139,250,.90));
+        box-shadow: 0 10px 22px rgba(0,0,0,.35);
+        border:1px solid rgba(255,255,255,.18);
+      }
+    }
+
+    .brandText{ display:flex; flex-direction:column; line-height:1.05; }
+    .brandText b{ font-weight:850; letter-spacing:-.2px; font-size:14px; }
+    .brandText span{ color:var(--muted2); font-size:12.5px; margin-top:4px; max-width:48vw; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+    .controls{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .pill{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border-radius:var(--radiusPill);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      box-shadow: var(--shadow2);
+    }
+    .pill small{ color:var(--muted2); font-size:12px; }
+    .pill strong{ font-variant-numeric: tabular-nums; font-size:13px; }
+
+    .btnRow{ display:flex; gap:8px; align-items:center; }
+
+    button{
+      all:unset;
+      cursor:pointer;
+      user-select:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.86);
+      border: 1px solid var(--stroke);
+      box-shadow: 0 8px 18px rgba(2,6,23,.10);
+      transition: transform .07s ease, background .15s ease, border-color .15s ease, opacity .15s ease;
+      font-weight:650;
+      color: var(--text);
+    }
+    button:hover{ background: rgba(255,255,255,.96); border-color: var(--stroke2); }
+    button:active{ transform: translateY(1px); }
+    button:focus-visible{ outline: 3px solid rgba(37,99,235,.30); outline-offset: 2px; }
+    button[disabled]{ opacity:.45; cursor:not-allowed; transform:none; }
+
+    @media (prefers-color-scheme: dark){
+      button{
+        background: rgba(255,255,255,.06);
+        border: 1px solid rgba(255,255,255,.12);
+        box-shadow: 0 8px 18px rgba(0,0,0,.25);
+        color: rgba(255,255,255,.92);
+      }
+      button:hover{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.20); }
+      button:focus-visible{ outline: 3px solid rgba(125,211,252,.35); }
+    }
+    button:hover{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.20); }
+    button:active{ transform: translateY(1px); }
+    button:focus-visible{ outline: 3px solid rgba(125,211,252,.35); outline-offset: 2px; }
+    button[disabled]{ opacity:.45; cursor:not-allowed; transform:none; }
+
+    .btnPrimary{
+      background: linear-gradient(135deg, rgba(37,99,235,.18), rgba(124,58,237,.14));
+      border-color: rgba(37,99,235,.22);
+    }
+    .btnPrimary:hover{ border-color: rgba(37,99,235,.30); }
+
+    @media (prefers-color-scheme: dark){
+      .btnPrimary{
+        background: linear-gradient(135deg, rgba(125,211,252,.22), rgba(167,139,250,.16));
+        border-color: rgba(125,211,252,.26);
+      }
+      .btnPrimary:hover{ border-color: rgba(125,211,252,.34); }
+    }
+
+    .btnIcon{ width:42px; padding:10px 0; }
+
+    /* Main */
+    main{
+      position:relative;
+      height:100dvh;
+      padding: calc(var(--headerH) + 14px) 16px 16px;
+      display:flex;
+      justify-content:center;
+      align-items:stretch;
+    }
+
+    .stage{
+      width: min(var(--maxw), 100%);
+      height: min(760px, calc(100dvh - (var(--headerH) + 40px)));
+      position:relative;
+      margin:auto;
+    }
+
+    /* Progress bar */
+    .progress{
+      position:absolute;
+      top:-10px;
+      left:8px;
+      right:8px;
+      height:4px;
+      border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.08);
+      overflow:hidden;
+      pointer-events:none;
+    }
+    .progress > i{
+      display:block;
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(125,211,252,.85), rgba(167,139,250,.85));
+    }
+
+    /* Slide */
+    .slide{
+      position:absolute;
+      inset:0;
+      padding: 26px;
+      padding-bottom: calc(26px + 64px + env(safe-area-inset-bottom)); /* ensures you can scroll past fixed UI */
+      border-radius: var(--radius);
+      background:
+        radial-gradient(900px 600px at 20% 10%, rgba(15,23,42,.06), transparent 60%),
+        linear-gradient(180deg, var(--card2), var(--card));
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+
+      opacity:0;
+      transform: translateX(18px) scale(.988);
+      transition: opacity .22s ease, transform .22s ease;
+      pointer-events:none;
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+
+    @media (prefers-color-scheme: dark){
+      .slide{
+        background:
+          radial-gradient(900px 600px at 20% 10%, rgba(255,255,255,.10), transparent 55%),
+          linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+        border: 1px solid rgba(255,255,255,.12);
+      }
+    }
+    .slide.active{
+      opacity:1;
+      transform: translateX(0) scale(1);
+      pointer-events:auto;
+    }
+
+    /* Type */
+    h1, h2{ margin:0 0 10px; letter-spacing:-.25px; }
+    h2{ font-size: clamp(18px, 2.0vw, 26px); }
+
+    .meta{ display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 16px; }
+    .tag{
+      font-size:12px;
+      color:rgba(255,255,255,.84);
+      padding:6px 10px;
+      border-radius: var(--radiusPill);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+    }
+    .tag b{ color:var(--accent); font-weight:850; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+    }
+
+    .card{
+      border-radius: 16px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid var(--stroke);
+      padding: 14px 14px;
+      box-shadow: 0 10px 24px rgba(2,6,23,.06);
+    }
+
+    @media (prefers-color-scheme: dark){
+      .card{
+        background: rgba(0,0,0,.22);
+        border: 1px solid rgba(255,255,255,.10);
+        box-shadow: none;
+      }
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.82);
+    }
+
+    ul{ margin:0; padding-left: 18px; }
+    li{ margin: 8px 0; color: rgba(255,255,255,.88); line-height:1.42; }
+    li em{ color: var(--muted); font-style: normal; }
+
+    .small{ font-size: 12px; color: var(--muted2); }
+    .muted{ color: var(--muted); }
+    .hr{ height:1px; background: rgba(255,255,255,.10); margin: 14px 0; }
+
+    .callout{
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(37,99,235,.20);
+      background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(124,58,237,.06));
+    }
+    .callout b{ color: var(--accent); }
+
+    @media (prefers-color-scheme: dark){
+      .callout{
+        border: 1px solid rgba(125,211,252,.22);
+        background: linear-gradient(135deg, rgba(125,211,252,.10), rgba(167,139,250,.08));
+      }
+      .callout b{ color: var(--accent); }
+    }
+    .callout b{ color: var(--accent); }
+
+    .kpi{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .kpi .box{
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .kpi .box strong{
+      display:block;
+      font-size: 15px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing:-.2px;
+    }
+    .kpi .box span{
+      display:block;
+      font-size: 12px;
+      color: var(--muted2);
+      margin-top: 6px;
+      line-height:1.25;
+    }
+
+    .scoreRow{ display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+    .score{
+      flex:1 1 220px;
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .score .pct{ font-weight: 900; color: var(--accent); font-variant-numeric: tabular-nums; }
+
+    .badge{
+      display:inline-block;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: var(--radiusPill);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.84);
+      margin-left: 6px;
+    }
+    .pro{ border-color: rgba(52,211,153,.22); }
+    .con{ border-color: rgba(251,113,133,.25); }
+
+    /* Slide dots (optional but pro) */
+    .dots{
+      position:absolute;
+      right: 14px;
+      bottom: 14px;
+      display:flex;
+      gap:8px;
+      padding: 10px 10px;
+      border-radius: var(--radiusPill);
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(10px);
+    }
+    .dotBtn{
+      width:10px; height:10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.18);
+      box-shadow: inset 0 0 0 2px rgba(0,0,0,.12);
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .dotBtn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.38); }
+    .dotBtn.active{
+      background: linear-gradient(90deg, rgba(125,211,252,.95), rgba(167,139,250,.95));
+      border-color: rgba(125,211,252,.55);
+    }
+
+    /* Hints */
+    .hints{
+      position:fixed;
+      left:16px;
+      bottom: calc(14px + env(safe-area-inset-bottom));
+      z-index:25;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      color: var(--muted2);
+      font-size:12px;
+      background: rgba(255,255,255,.75);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radiusPill);
+      padding: 8px 12px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 24px rgba(2,6,23,.10);
+    }
+
+    @media (prefers-color-scheme: dark){
+      .hints{ background: rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.10); box-shadow:none; }
+    }
+    .kbd{
+      font-family: var(--mono);
+      font-size:11px;
+      padding: 2px 6px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.82);
+    }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      header{ padding: 10px 12px; }
+      .brandText span{ display:none; }
+      .grid{ grid-template-columns: 1fr; }
+      .stage{ height: min(760px, calc(100vh - (var(--headerH) + 32px))); }
+    }
+    @media (max-width: 860px){
+      .kpi{ grid-template-columns: 1fr; }
+      .dots{ display:none; }
+    }
+
+    @media (max-width: 720px){
+      .hints{ display:none; }
+    }
+      .dots{ display:none; }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .slide{ transition:none; }
+      button{ transition:none; }
+      .dotBtn{ transition:none; }
+    }
+  </style>
 </head>
 
 <body>
@@ -141,7 +559,7 @@ button{ transition:none; }
 
     <!-- 2 -->
     <section class="slide" data-title="Objetivos">
-      <h2>2) Objetivo general y objetivos específicos</h2>
+      <h2>3) Objetivo general y objetivos específicos</h2>
       <div class="grid">
         <div class="card">
           <h3>Objetivo general</h3>
@@ -168,7 +586,7 @@ button{ transition:none; }
 
     <!-- 3 -->
     <section class="slide" data-title="Resultados esperados">
-      <h2>3) Resultados esperados (los “4” del instrumento)</h2>
+      <h2>4) Resultados esperados (los “4” del instrumento)</h2>
 
       <div class="card">
         <h3>Al término de la ejecución, se espera:</h3>
@@ -199,9 +617,9 @@ button{ transition:none; }
       </div>
     </section>
 
-    <!-- 4 -->
+    <!-- 6 -->
     <section class="slide" data-title="Implicancias">
-      <h2>4) Implicancias clave de esos resultados</h2>
+      <h2>5) Implicancias clave de esos resultados</h2>
       <div class="grid">
         <div class="card">
           <h3>Implicancias operativas</h3>
@@ -227,9 +645,9 @@ button{ transition:none; }
       </div>
     </section>
 
-    <!-- 5 -->
+    <!-- 7 -->
     <section class="slide" data-title="Obligatorias">
-      <h2>5) Actividades obligatorias (qué sí o sí debe estar)</h2>
+      <h2>6) Actividades obligatorias (qué sí o sí debe estar)</h2>
       <div class="grid">
         <div class="card">
           <h3>Obligatorias por diseño</h3>
@@ -255,9 +673,9 @@ button{ transition:none; }
       </div>
     </section>
 
-    <!-- 6 -->
+    <!-- 8 -->
     <section class="slide" data-title="Patrocinador">
-      <h2>6) Patrocinador/Incubadora (rol, obligatoriedad y timing)</h2>
+      <h2>7) Patrocinador/Incubadora (rol, obligatoriedad y timing)</h2>
       <div class="grid">
         <div class="card">
           <h3>Obligatoriedad y plazos</h3>
@@ -284,9 +702,9 @@ button{ transition:none; }
       </div>
     </section>
 
-    <!-- 7 -->
+    <!-- 9 -->
     <section class="slide" data-title="Evaluación">
-      <h2>7) Evaluación: cómo se puntúa (lectura neutra)</h2>
+      <h2>8) Evaluación: cómo se puntúa (lectura neutra)</h2>
       <div class="card">
         <h3>Ejes y ponderaciones (resumen)</h3>
 
@@ -313,9 +731,9 @@ button{ transition:none; }
       </div>
     </section>
 
-    <!-- 8 -->
+    <!-- 10 -->
     <section class="slide" data-title="Filtros">
-      <h2>8) Criterios “filtro” relevantes para alineamiento</h2>
+      <h2>9) Criterios “filtro” relevantes para alineamiento</h2>
       <div class="grid">
         <div class="card">
           <h3>Riesgo de no admisibilidad (por encaje)</h3>
@@ -343,111 +761,187 @@ button{ transition:none; }
       </div>
     </section>
 
-    <!-- 9 -->
-    <section class="slide" data-title="Pros y contras">
-      <h2>9) Pros y contras (desde las bases)</h2>
+    $1
+
+    <!-- 12 -->
+    <section class="slide" data-title="Tensión típica">
+      <h2>11) Tensión típica: servicios profesionales tradicionales</h2>
       <div class="grid">
-        <div class="card pro">
-          <h3>Pros</h3>
+        <div class="card">
+          <h3>Caso</h3>
           <ul>
-            <li>Diseño explícito para cerrar brechas de financiamiento temprano + acceso a servicios del ecosistema (mentoría/incubación/aceleración).</li>
-            <li>Marco de evaluación orientado a escalamiento y tracción (plan de expansión, mercado, modelo de negocio).</li>
+            <li>Estudio boutique de abogados y compliance que ofrece servicios <b>B2B</b> y <b>B2C</b>.</li>
+          </ul>
+          <div class="hr"></div>
+          <h3>Problema de encaje como proyecto principal</h3>
+          <ul>
+            <li>CORFO suele priorizar soluciones <b>innovadoras</b> (producto o servicio nuevo/mejorado), desarrolladas por el equipo, con alcance nacional y potencial de <b>internacionalización</b>.</li>
+            <li>Los servicios legales y de compliance suelen considerarse <b>poco innovadores</b>, salvo que incluyan un componente claramente disruptivo.</li>
           </ul>
         </div>
 
-        <div class="card con">
-          <h3>Contras / fricciones típicas</h3>
+        <div class="card">
+          <h3>Implicancia</h3>
+          <div class="callout">
+            <b>Para competir bien:</b> el proyecto debe convertirse en <em>producto</em> y sumar tecnología relevante o innovación defendible.
+          </div>
+          <div class="hr"></div>
           <ul>
-            <li>Exigencia operacional: activar servicios de apoyo temprano (≤ 4 meses) y sostener trazabilidad de ejecución.</li>
-            <li>“Nuevo mercado” definido por regiones/internacional obliga a diseñar expansión territorial real.</li>
-            <li>Dependencia formal del patrocinador: contrato y coordinación con plazos estrictos; cambio durante ejecución es, por regla general, no permitido (salvo excepciones).</li>
+            <li>Diferenciarse mediante tecnología es clave para cumplir criterios de CORFO y aumentar probabilidades de éxito.</li>
           </ul>
         </div>
       </div>
     </section>
 
-<!-- 10 -->
-<section class="slide" data-title="Tensión típica">
-<h2>10) Tensión típica: servicios profesionales tradicionales</h2>
-<div class="grid">
-<div class="card">
-<h3>Caso</h3>
-<ul>
-<li>Estudio boutique de abogados y compliance que ofrece servicios <b>B2B</b> y <b>B2C</b>.</li>
-</ul>
-<div class="hr"></div>
-<h3>Problema de encaje como proyecto principal</h3>
-<ul>
-<li>CORFO suele priorizar soluciones <b>innovadoras</b> (producto o servicio nuevo/mejorado), desarrolladas por el equipo, con alcance nacional y potencial de <b>internacionalización</b>.</li>
-<li>Los servicios legales y de compliance suelen considerarse <b>poco innovadores</b>, salvo que incluyan un componente claramente disruptivo.</li>
-</ul>
-</div>
+    <!-- 13 -->
+    <section class="slide" data-title="Camino 1: SaaS">
+      <h2>12) Camino viable 1: LegalTech / ComplianceTech (SaaS)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Propuesta</h3>
+          <ul>
+            <li>Plataforma o herramienta digital (SaaS) que <b>automatice</b> procesos de compliance y gestión de riesgos regulatorios.</li>
+          </ul>
+          <div class="hr"></div>
+          <h3>Funcionalidades comunes</h3>
+          <ul>
+            <li>Automatización de compliance y gestión de riesgos regulatorios</li>
+            <li>Due diligence automatizado</li>
+            <li>Monitoreo continuo de cambios normativos</li>
+            <li>Auditorías remotas con IA</li>
+            <li>Contratos inteligentes (smart contracts), cuando aplica</li>
+          </ul>
+        </div>
 
+        <div class="card">
+          <h3>Por qué puede ser exitoso</h3>
+          <ul>
+            <li>Innovación + escalabilidad (crece vía <b>suscripciones</b>).</li>
+            <li>Potencial de internacionalización (LatAm y otros mercados regulados).</li>
+            <li>Mejor encaje si ya existe <b>tracción</b> (piloto o beta pagada).</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Tip:</b> define un “MVP con evidencia” (pilotos pagados + métricas) para sostener la narrativa.
+          </div>
+        </div>
+      </div>
+    </section>
 
-<div class="card">
-<h3>Implicancia</h3>
-<div class="callout">
-<b>Para competir bien:</b> el proyecto debe convertirse en <em>producto</em> y sumar tecnología relevante o innovación defendible.
-</div>
-<div class="hr"></div>
-<ul>
-<li>Diferenciarse mediante tecnología es clave para cumplir criterios de CORFO y aumentar probabilidades de éxito.</li>
-</ul>
-</div>
-</div>
-</section>
+    <!-- 14 -->
+    <section class="slide" data-title="Prioridad 2026">
+      <h2>13) Enfoque prioritario 2026 (si se alinea a sostenibilidad)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Idea fuerza</h3>
+          <div class="callout">
+            <b>Vincule la solución a sostenibilidad y descarbonización</b> para elevar atractivo competitivo.
+          </div>
+          <div class="hr"></div>
+          <h3>Ejemplos de enfoques sostenibles</h3>
+          <ul>
+            <li>Cumplimiento ambiental y reportabilidad <b>ESG</b></li>
+            <li>Certificaciones / huella de carbono / reportes de sostenibilidad</li>
+            <li>Cumplimiento regulatorio para transición energética (p.ej., industrias con metas ambientales)</li>
+          </ul>
+        </div>
 
+        <div class="card">
+          <h3>Cómo se traduce en el proyecto</h3>
+          <ul>
+            <li>Compliance digital + tecnología + sostenibilidad = diferenciación clara.</li>
+            <li>Mejora la historia de expansión regional (problemas comunes en LatAm).</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Lectura 2026:</b> integrar sostenibilidad en compliance digital hace el proyecto más competitivo.
+          </div>
+        </div>
+      </div>
+    </section>
 
-<!-- 11 -->
-<section class="slide" data-title="Camino 1: SaaS">
-<h2>11) Camino viable 1: LegalTech / ComplianceTech (SaaS)</h2>
-<div class="grid">
-<div class="card">
-<h3>Propuesta</h3>
-<ul>
-<li>Plataforma o herramienta digital (SaaS) que <b>automatice</b> procesos de compliance y gestión de riesgos regulatorios.</li>
-</ul>
-<div class="hr"></div>
-<h3>Funcionalidades comunes</h3>
-<ul>
-<li>Automatización de compliance y gestión de riesgos regulatorios</li>
-<li>Due diligence automatizado</li>
-<li>Monitoreo continuo de cambios normativos</li>
-<li>Auditorías remotas con IA</li>
-<li>Contratos inteligentes (smart contracts), cuando aplica</li>
-</ul>
-</div>
+    <!-- 15 -->
+    <section class="slide" data-title="Camino 2: Híbrido">
+      <h2>14) Camino viable 2: Servicio especializado + herramienta propia</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Alternativa intermedia</h3>
+          <ul>
+            <li>Menos SaaS puro, pero más sólido que solo consultoría.</li>
+            <li>Combine asesoría en sectores estratégicos con desarrollo de una <b>herramienta propia</b> para facilitar expansión y diferenciarse.</li>
+          </ul>
+          <div class="hr"></div>
+          <h3>Ejemplos de aplicación</h3>
+          <ul>
+            <li>Compliance para industrias priorizadas (energía, economía circular, exportadores)</li>
+            <li>Cumplimiento para estándares internacionales (p.ej., exigencias de sostenibilidad)</li>
+          </ul>
+        </div>
 
+        <div class="card">
+          <h3>Por qué supera al servicio tradicional</h3>
+          <ul>
+            <li>Herramientas permiten <b>replicar</b> servicios, <b>medir resultados</b> y facilitar expansión comercial.</li>
+            <li>Enfoque en métricas de éxito y procesos repetibles.</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>En resumen:</b> servicios especializados + tecnología propia = ventaja clara y escalable.
+          </div>
+        </div>
+      </div>
+    </section>
 
-<div class="card">
-<h3>Por qué puede ser exitoso</h3>
-<ul>
-<li>Innovación + escalabilidad (crece vía <b>suscripciones</b>).</li>
-<li>Potencial de internacionalización (LatAm y otros mercados regulados).</li>
-<li>Mejor encaje si ya existe <b>tracción</b> (piloto o beta pagada).</li>
-</ul>
-<div class="hr"></div>
-<div class="callout">
-<b>Tip:</b> define un “MVP con evidencia” (pilotos pagados + métricas) para sostener la narrativa.
-</div>
-</div>
-</div>
-</section>
+    <!-- 16 -->
+    <section class="slide" data-title="Referencias">
+      <h2>15) Casos de referencia (Legal/RegTech y compliance con tecnología)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Reclama bien (LegalTech consumidor)</h3>
+          <ul>
+            <li>Plataforma digital para reclamos masivos (automatización + seguimiento).</li>
+            <li><em>Similitud:</em> problema legal/compliance resuelto mediante tecnología escalable.</li>
+          </ul>
+          <div class="hr"></div>
+          <h3>Zero Company (compliance ambiental / ESG con tecnología)</h3>
+          <ul>
+            <li>Software para metas ambientales, reportes de sostenibilidad y cumplimiento ESG.</li>
+            <li>Expansión regional (LatAm).</li>
+            <li><em>Similitud:</em> compliance ambiental, SaaS y capacidad de escalamiento.</li>
+          </ul>
+        </div>
 
+        <div class="card">
+          <h3>Qué se valora</h3>
+          <div class="callout">
+            <b>Producto tecnológico escalable y exportable.</b>
+          </div>
+          <div class="hr"></div>
+          <ul>
+            <li>Priorizar carácter tecnológico + capacidad de crecer y exportar, más allá del “rubro legal”.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-<!-- 12 -->
-<section class="slide" data-title="Prioridad 2026">
-<h2>12) Enfoque prioritario 2026 (si se alinea a sostenibilidad)</h2>
-<div class="grid">
-<div class="card">
-<h3>Idea fuerza</h3>
-<div class="callout">
-<b>Vincule la solución a sostenibilidad y descarbonización</b> para elevar atractivo competitivo.
-</div>
-<div class="hr"></div>
-<h3>Ejemplos de enfoques sostenibles</h3>
-<ul>
-</section>
+    <!-- 17 -->
+    <section class="slide" data-title="Implicancias">
+      <h2>16) Implicancias para el diseño del proyecto (neutro)</h2>
+      <div class="card">
+        <h3>Checklist para encaje competitivo</h3>
+        <ul>
+          <li><b>Innovación defendible:</b> producto/servicio nuevo o significativamente mejorado.</li>
+          <li><b>Escalabilidad:</b> replicabilidad, suscripción/licencias o mecanismos de crecimiento no lineales.</li>
+          <li><b>Tracción inicial:</b> ventas/pilotos pagados.</li>
+          <li><b>Plan de expansión:</b> regiones y/o internacional (no solo crecimiento local).</li>
+        </ul>
+        <div class="hr"></div>
+        <div class="callout">
+          <b>Objetivo:</b> que la historia se lea como “producto escalable con evidencia” y no como “servicio tradicional”.
+        </div>
+      </div>
+    </section>
+
     <div class="dots" id="dots" aria-label="Navegación por diapositivas"></div>
   </div>
 </main>
