@@ -52,7 +52,7 @@
     }
 
     /* Dark mode (auto) */
-    @media (prefers-color-scheme: dark){
+    @media (prefers-color-scheme: light){
       :root{
         --bg0:#070A12;
         --bg1:#0B1020;
@@ -149,12 +149,13 @@
     .brandText span{ color:var(--muted2); font-size:12.5px; margin-top:4px; max-width:48vw; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
     .controls{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:nowrap; /* evita que el header crezca a 2 filas */
+  justify-content:flex-end;
+}
+
 
     .pill{
       display:flex;
@@ -203,10 +204,7 @@
       button:hover{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.20); }
       button:focus-visible{ outline: 3px solid rgba(125,211,252,.35); }
     }
-    button:hover{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.20); }
-    button:active{ transform: translateY(1px); }
-    button:focus-visible{ outline: 3px solid rgba(125,211,252,.35); outline-offset: 2px; }
-    button[disabled]{ opacity:.45; cursor:not-allowed; transform:none; }
+    
 
     .btnPrimary{
       background: linear-gradient(135deg, rgba(37,99,235,.18), rgba(124,58,237,.14));
@@ -225,8 +223,21 @@
     .btnIcon{ width:42px; padding:10px 0; }
 
     /* Main */
-    main{ height: 100dvh; align-items: stretch; }
-.stage{ height: calc(100dvh - 110px); } /* header + márgenes */
+    /* Main (single source of truth) */
+main{
+  position:relative;
+  height:100dvh;
+  padding: calc(var(--headerH) + 14px) 16px 16px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.stage{
+  width: min(var(--maxw), 100%);
+  height: min(760px, calc(100dvh - (var(--headerH) + 40px)));
+  position:relative;
+  margin:auto;
+}
 .slide{
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -492,8 +503,6 @@
     @media (max-width: 720px){
       .hints{ display:none; }
     }
-      .dots{ display:none; }
-    }
 
     /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
@@ -501,7 +510,7 @@
       button{ transition:none; }
       .dotBtn{ transition:none; }
     }
-    /* === CORFO-ish light theme readability overrides === */
+    
 :root{
   --text: rgba(15,23,42,.92);
   --muted: rgba(15,23,42,.70);
@@ -643,7 +652,7 @@ button:focus-visible{ outline: 3px solid rgba(0,90,163,.25) !important; }
         </div>
       </div>
 
-      <section class="card linksBlock" aria-label="Links útiles">
+      <div class="card linksBlock" aria-label="Links útiles">
   <h3>Links útiles</h3>
 
   <div class="linksGrid">
@@ -659,7 +668,7 @@ button:focus-visible{ outline: 3px solid rgba(0,90,163,.25) !important; }
 
     
   </div>
-</section>
+</div>
     </section>
 
     <!-- 2 -->
@@ -865,8 +874,6 @@ button:focus-visible{ outline: 3px solid rgba(0,90,163,.25) !important; }
         </div>
       </div>
     </section>
-
-    $1
 
     <!-- 12 -->
     <section class="slide" data-title="Tensión típica">
