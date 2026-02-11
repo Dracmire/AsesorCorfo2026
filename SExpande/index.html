@@ -1059,17 +1059,7 @@ button:focus-visible{ outline: 3px solid rgba(0,90,163,.25) !important; }
 
     let i = 0;
 
-    // Build dots (UX polish, doesn't change core behavior)
-    const dotButtons = slides.map((_, idx) => {
-      const b = document.createElement('button');
-      b.className = 'dotBtn';
-      b.type = 'button';
-      b.title = `Ir a diapositiva ${idx + 1}`;
-      b.setAttribute('aria-label', `Ir a diapositiva ${idx + 1}`);
-      b.addEventListener('click', () => setSlide(idx));
-      dotsEl.appendChild(b);
-      return b;
-    });
+    
 
     function setSlide(idx){
       i = Math.max(0, Math.min(slides.length - 1, idx));
