@@ -1,0 +1,1016 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>Semilla Expande 2026 — Landing en diapositivas (CORFO)</title>
+
+  <!--
+    Pro UI refactor notes (behavior preserved):
+    - Clearer type scale + spacing
+    - More consistent surfaces (glass) + borders
+    - Better button hierarchy + disabled states
+    - Slide nav dots + progress bar (optional UX polish)
+    - Reduced visual noise (less "busy" gradients)
+    - Accessibility: focus rings, reduced motion, aria updates
+  -->
+
+  <style>
+    :root{
+      /* Core (more standard / professional) */
+      --bg0:#F6F7FB;
+      --bg1:#EEF1F7;
+      --card:rgba(255,255,255,.92);
+      --card2:rgba(255,255,255,.98);
+      --stroke:rgba(15,23,42,.10);
+      --stroke2:rgba(15,23,42,.16);
+      --text:rgba(15,23,42,.92);
+      --muted:rgba(15,23,42,.70);
+      --muted2:rgba(15,23,42,.56);
+
+      /* Brand (kept subtle) */
+      --accent:#005AA3;   /* CORFO-ish blue */
+      --accent2:#267ABF;  /* secondary blue */
+      --ok:#16A34A;
+      --bad:#E11D48;
+      --warn:#D97706;
+
+      /* Effects */
+      --shadow: 0 18px 55px rgba(2,6,23,.14);
+      --shadow2: 0 10px 26px rgba(2,6,23,.10);
+      --radius: 18px;
+      --radius2: 14px;
+      --radiusPill: 999px;
+      --maxw: 1120px;
+
+      /* Typography */
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+      /* Layout */
+      --headerH: 70px;
+    }
+
+    /* Dark mode (auto) */
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{
+  margin:0;
+  font-family:var(--sans);
+  color:var(--text);
+  background:
+    radial-gradient(1100px 700px at 18% 18%, rgba(0,90,163,.10), transparent 60%),
+    radial-gradient(900px 650px at 82% 28%, rgba(0,90,163,.06), transparent 62%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+  height:100%;
+  overflow:hidden;
+}
+}
+
+    /* Header */
+    header{
+  position:fixed;
+  top:0; left:0; right:0;
+  height:var(--headerH);
+  padding:12px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  z-index:30;
+
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,.92);
+  border-bottom: 1px solid var(--stroke);
+}
+}
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 260px;
+    }
+
+    .mark{
+      width:34px; height:34px;
+      border-radius:12px;
+      background:
+        radial-gradient(12px 12px at 30% 30%, rgba(255,255,255,.65), transparent 60%),
+        linear-gradient(135deg, rgba(0,90,163,.95), rgba(38,122,191,.90));
+      box-shadow: 0 10px 18px rgba(2,6,23,.12);
+      border:1px solid var(--stroke);
+      flex: 0 0 auto;
+    }
+
+    }
+
+    .brandText{ display:flex; flex-direction:column; line-height:1.05; }
+    .brandText b{ font-weight:850; letter-spacing:-.2px; font-size:14px; color:var(--text);}
+    .brandText span{ color:var(--muted2); font-size:12.5px; margin-top:4px; max-width:48vw; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+    .controls{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .pill{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 12px;
+  border-radius:var(--radiusPill);
+  border:1px solid var(--stroke);
+  background: rgba(255,255,255,.86);
+  box-shadow: var(--shadow2);
+  color: var(--text);
+}
+.pill small{ color:var(--muted2); font-size:12px; }
+.pill strong{ color:var(--text); font-variant-numeric: tabular-nums; font-size:13px; }
+.btnRow{ display:flex; gap:8px; align-items:center; }
+
+    button{
+      all:unset;
+      cursor:pointer;
+      user-select:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.86);
+      border: 1px solid var(--stroke);
+      box-shadow: 0 8px 18px rgba(2,6,23,.10);
+      transition: transform .07s ease, background .15s ease, border-color .15s ease, opacity .15s ease;
+      font-weight:650;
+      color: var(--text);
+    }
+    button:hover{ background: rgba(255,255,255,.96); border-color: var(--stroke2); }
+    button:active{ transform: translateY(1px); }
+    button:focus-visible{ outline: 3px solid rgba(0,90,163,.25); outline-offset: 2px; }
+    button[disabled]{ opacity:.45; cursor:not-allowed; transform:none; }
+
+    button:hover{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.20); }
+      button:focus-visible{ outline: 3px solid rgba(125,211,252,.35); }
+    }
+.btnPrimary{
+  background: linear-gradient(135deg, rgba(0,90,163,.18), rgba(38,122,191,.14));
+  border-color: rgba(0,90,163,.26);
+}
+.btnPrimary:hover{ border-color: rgba(0,90,163,.34); }
+.btnPrimary:hover{ border-color: rgba(125,211,252,.34); }
+    }
+
+    .btnIcon{ width:42px; padding:10px 0; }
+
+    /* Main */
+main{
+  position:relative;
+  height:100dvh;
+  padding: calc(var(--headerH) + 14px) 16px 16px;
+  display:flex;
+  justify-content:center;
+  align-items:stretch;
+}
+
+.stage{
+  width: min(var(--maxw), 100%);
+  height: min(780px, calc(100dvh - (var(--headerH) + 40px)));
+  position:relative;
+  margin:auto;
+}
+/* Progress bar */
+    .progress{
+  position:absolute;
+  top:-10px;
+  left:8px;
+  right:8px;
+  height:4px;
+  border-radius:999px;
+  background: rgba(2,6,23,.06);
+  border:1px solid var(--stroke);
+  overflow:hidden;
+  pointer-events:none;
+}
+.progress > i{
+  display:block;
+  height:100%;
+  width:0%;
+  background: linear-gradient(90deg, rgba(0,90,163,.85), rgba(38,122,191,.85));
+}
+/* Slide */
+.slide{
+  position:absolute;
+  inset:0;
+  padding: 26px;
+  padding-bottom: calc(26px + 76px + env(safe-area-inset-bottom));
+  border-radius: var(--radius);
+  background:
+    radial-gradient(900px 600px at 20% 10%, rgba(0,90,163,.06), transparent 60%),
+    linear-gradient(180deg, var(--card2), var(--card));
+  border: 1px solid var(--stroke);
+  box-shadow: var(--shadow);
+
+  opacity:0;
+  transform: translateX(18px) scale(.988);
+  transition: opacity .22s ease, transform .22s ease;
+  pointer-events:none;
+
+  overflow:auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+.slide.active{
+  opacity:1;
+  transform: translateX(0) scale(1);
+  pointer-events:auto;
+}
+/* Type */
+    h1, h2{ margin:0 0 10px; letter-spacing:-.25px; }
+    h2{ font-size: clamp(18px, 2.0vw, 26px); }
+
+    .meta{ display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 16px; }
+    .tag{
+  font-size:12px;
+  color:var(--muted);
+  padding:6px 10px;
+  border-radius: var(--radiusPill);
+  border:1px solid var(--stroke);
+  background: rgba(2,6,23,.04);
+}
+.tag b{ color: var(--accent); font-weight:850; }
+.grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+    }
+
+    .card{
+      border-radius: 16px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid var(--stroke);
+      padding: 14px 14px;
+      box-shadow: 0 10px 24px rgba(2,6,23,.06);
+    }
+
+    }
+    .card h3{
+  margin:0 0 10px;
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+ul{ margin:0; padding-left: 18px; }
+    li{ margin: 8px 0; color: var(--text); line-height:1.42; }
+li em{ color: var(--muted); font-style: normal; }
+.small{ font-size: 12px; color: var(--muted2); }
+    .muted{ color: var(--muted); }
+    .hr{ height:1px; background: var(--stroke); margin: 14px 0; }
+.callout{
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,90,163,.22);
+      background: linear-gradient(135deg, rgba(0,90,163,.08), rgba(38,122,191,.06));
+    }
+    .callout b{ color: var(--accent); }
+
+    .callout b{ color: var(--accent); }
+    }
+    .callout b{ color: var(--accent); }
+
+    .kpi{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .kpi .box{
+  border-radius: 14px;
+  padding: 12px;
+  background: rgba(255,255,255,.86);
+  border: 1px solid var(--stroke);
+}
+.kpi .box strong{
+      display:block;
+      font-size: 15px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing:-.2px;
+    }
+    .kpi .box span{
+      display:block;
+      font-size: 12px;
+      color: var(--muted2);
+      margin-top: 6px;
+      line-height:1.25;
+    }
+
+    .scoreRow{ display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+    .score{
+  flex:1 1 220px;
+  border-radius: 14px;
+  padding: 12px;
+  background: rgba(255,255,255,.86);
+  border: 1px solid var(--stroke);
+}
+.score .pct{ font-weight: 900; color: var(--accent); font-variant-numeric: tabular-nums; }
+
+    .badge{
+  display:inline-block;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: var(--radiusPill);
+  border: 1px solid var(--stroke);
+  background: rgba(2,6,23,.04);
+  color: var(--muted);
+  margin-left: 6px;
+}
+.pro{ border-color: rgba(52,211,153,.22); }
+    .con{ border-color: rgba(251,113,133,.25); }
+
+    /* Slide dots (optional but pro) */
+    .dots{
+  position:absolute;
+  right: 14px;
+  bottom: 14px;
+  display:flex;
+  gap:8px;
+  padding: 10px 10px;
+  border-radius: var(--radiusPill);
+  background: rgba(255,255,255,.88);
+  border:1px solid var(--stroke);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow2);
+}
+.dotBtn{
+      width:10px; height:10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.18);
+      box-shadow: inset 0 0 0 2px rgba(0,0,0,.12);
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .dotBtn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.38); }
+    .dotBtn.active{
+  background: linear-gradient(90deg, rgba(0,90,163,.95), rgba(38,122,191,.95));
+  border-color: rgba(0,90,163,.55);
+}
+/* Hints */
+    .hints{
+  position:fixed;
+  left:16px;
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  z-index:25;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  color: var(--muted2);
+  font-size:12px;
+  background: rgba(255,255,255,.92);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radiusPill);
+  padding: 8px 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow2);
+}
+}
+    .kbd{
+  font-family: var(--mono);
+  font-size:11px;
+  padding: 2px 6px;
+  border-radius: 8px;
+  border: 1px solid var(--stroke);
+  background: rgba(255,255,255,.70);
+  color: var(--muted);
+}
+/* Responsive */
+@media (max-width: 920px){
+  header{ padding: 10px 12px; }
+  .brandText span{ display:none; }
+  .grid{ grid-template-columns: 1fr; }
+  .stage{ height: min(780px, calc(100dvh - (var(--headerH) + 32px))); }
+}
+@media (max-width: 860px){
+  .kpi{ grid-template-columns: 1fr; }
+  .dots{ display:none; }
+}
+@media (max-width: 720px){
+  .hints{ display:none; }
+  .linksGrid{ grid-template-columns: 1fr; }
+}
+
+/* Reduced motion */
+
+    @media (prefers-reduced-motion: reduce){
+      .slide{ transition:none; }
+      button{ transition:none; }
+      .dotBtn{ transition:none; }
+    }
+    .linksBlock h3{ margin-bottom:12px; }
+  .linksGrid{
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap:10px;
+  }
+  .linkItem{
+    display:block;
+    text-decoration:none;
+    padding:12px 12px;
+    border-radius: 14px;
+    border:1px solid var(--stroke);
+    background: rgba(255,255,255,.80);
+    color: var(--text);
+    box-shadow: 0 10px 24px rgba(2,6,23,.06);
+    transition: transform .10s ease, border-color .15s ease, background .15s ease;
+  }
+  .linkItem:hover{
+    transform: translateY(-1px);
+    border-color: var(--stroke2);
+    background: rgba(255,255,255,.92);
+  }
+  .linkItem:focus-visible{
+    outline: 3px solid rgba(0,90,163,.25);
+    outline-offset: 2px;
+  }
+  .linkTitle{ display:block; font-weight:800; letter-spacing:-.2px; }
+  .linkDesc{ display:block; margin-top:6px; font-size:12px; color: var(--muted2); }
+
+  .linkItem:hover{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.16); }
+    .linkItem:focus-visible{ outline: 3px solid rgba(125,211,252,.35); }
+  }
+
+  @media (max-width: 720px){
+    .linksGrid{ grid-template-columns: 1fr; }
+  }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="brand">
+    <div class="mark" aria-hidden="true"></div>
+    <div class="brandText">
+      <b>Semilla Expande 2026</b>
+      <span id="subtitle">Landing en formato de diapositivas — CORFO</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="pill" aria-label="Estado de la presentación">
+      <small>Diapositiva</small>
+      <strong id="counter">1 / 12</strong>
+    </div>
+
+    <div class="btnRow" role="group" aria-label="Controles de navegación">
+      <button id="prevBtn" class="btnIcon" title="Anterior (← / PageUp)" aria-label="Anterior">←</button>
+      <button id="nextBtn" class="btnIcon btnPrimary" title="Siguiente (→ / PageDown)" aria-label="Siguiente">→</button>
+      <button id="fsBtn" class="btnIcon" title="Pantalla completa (F)" aria-label="Pantalla completa">⛶</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="stage" id="stage" aria-live="polite">
+    <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+    <!-- 1 -->
+    <section class="slide" data-title="Qué es">
+      <h2>1) Qué es Semilla Expande (propósito)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Propósito del instrumento</h3>
+          <ul>
+            <li>Apoyar emprendimientos dinámicos <b>con ventas iniciales</b> y soluciones <b>innovadoras y escalables</b>.</li>
+            <li>Cofinancia actividades para <b>crecimiento inicial</b> y <b>despegue comercial</b>.</li>
+            <li>Foco explícito: innovación + problemática/oportunidad relevante (al menos regional) + potencial de expansión a nuevos mercados (regiones y/o internacional).</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Traducción:</b> el diseño exige demostrar <em>tracción</em> y un camino de <em>escalamiento</em>.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Pistas de “encaje” (lectura práctica)</h3>
+          <ul>
+            <li>Se premia claridad de propuesta, escalabilidad y expansión.</li>
+            <li>La innovación se evalúa como diferencial: no basta “hacer lo mismo mejor”.</li>
+            <li>El relato debe ser regionalizable: evitar quedar “amarrado” a un solo territorio comunal/provincial.</li>
+          </ul>
+        </div>
+      </div>
+
+      <section class="card linksBlock" aria-label="Links útiles">
+  <h3>Links útiles</h3>
+
+  <div class="linksGrid">
+    <a class="linkItem" href="https://www.corfo.gob.cl/sites/cpp/convocatoria/semilla-expande-2026/" target="_blank" rel="noopener noreferrer">
+      <span class="linkTitle">Semilla Expande 2026</span>
+      <span class="linkDesc">detalle oficial en pagina</span>
+    </a>
+
+    <a class="linkItem" href="https://dracmire.github.io/AsesorCorfo2026/SExpande/data1.pdf" target="_blank" rel="noopener noreferrer">
+      <span class="linkTitle">Caso de Referencia</span>
+      <span class="linkDesc">algunos casos de exito para boutique legal</span>
+    </a>
+
+    
+  </div>
+</section>
+    </section>
+
+    <!-- 2 -->
+    <section class="slide" data-title="Objetivos">
+      <h2>3) Objetivo general y objetivos específicos</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Objetivo general</h3>
+          <ul>
+            <li>Apoyar emprendimientos <b>validados comercialmente</b> para crecimiento/despegue comercial.</li>
+            <li>Facilitar acceso a <b>servicios de apoyo</b> para implementación y crecimiento.</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Lectura:</b> “validado” implica que se parte con base comercial; el proyecto empuja un salto de crecimiento.
+          </div>
+        </div>
+        <div class="card">
+          <h3>Objetivos específicos (resumen)</h3>
+          <ul>
+            <li>Crecer ventas y hacerlas <b>recurrentes</b>.</li>
+            <li>Fortalecer modelo de negocios para siguiente fase de financiamiento.</li>
+            <li>Acceder a servicios de apoyo (mentoría/incubación/aceleración).</li>
+            <li>Generar valor frente a un problema/oportunidad relevante y operar de manera sostenible.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="slide" data-title="Resultados esperados">
+      <h2>4) Resultados esperados (los “4” del instrumento)</h2>
+
+      <div class="card">
+        <h3>Al término de la ejecución, se espera:</h3>
+        <div class="kpi" style="margin-top:10px;">
+          <div class="box">
+            <strong>1) +30% ventas</strong>
+            <span>vs. 12 meses previos, mínimo $6.000.000 de crecimiento</span>
+          </div>
+          <div class="box">
+            <strong>2) Nuevo mercado</strong>
+            <span>otra(s) región(es) y/o internacional</span>
+          </div>
+          <div class="box">
+            <strong>3) Servicios de apoyo</strong>
+            <span>mentoría + incubación/aceleración dentro de los primeros 4 meses</span>
+          </div>
+          <div class="box">
+            <strong>4) Sostenibilidad</strong>
+            <span>diagnóstico → priorización → indicadores → plan de acción en ejecución</span>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+        <ul>
+          <li><b>Relevante:</b> estos resultados funcionan como “columna vertebral” del diseño: si falta uno, la coherencia cae.</li>
+          <li><b>Práctico:</b> todo plan y presupuesto debe poder explicarse como contribución directa a 1–4.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="slide" data-title="Implicancias">
+      <h2>5) Implicancias clave de esos resultados</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Implicancias operativas</h3>
+          <ul>
+            <li>“Nuevo mercado” se entiende como <b>regiones y/o internacional</b>, no solo “crecer en el mismo territorio”.</li>
+            <li>El “cómo” se aborda vía <b>Plan de Expansión</b>, revisado por suficiencia y coherencia.</li>
+            <li>Servicios de apoyo deben activarse <b>temprano</b> (≤ 4 meses), por lo que la planificación no puede dejarlo “para el final”.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Implicancias de evaluación</h3>
+          <ul>
+            <li>El evaluador busca consistencia: <b>diagnóstico → actividades → resultados 1–4 → evidencia</b>.</li>
+            <li>Expansión territorial sin mecanismo (canal/alianzas/agenda) suele verse insuficiente.</li>
+            <li>La sostenibilidad exige indicadores y ejecución (no solo “declaración”).</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Guía:</b> por cada resultado esperado, define 2–4 actividades y 1–2 evidencias verificables.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="slide" data-title="Obligatorias">
+      <h2>6) Actividades obligatorias (qué sí o sí debe estar)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Obligatorias por diseño</h3>
+          <ul>
+            <li><b>Mentorías:</b> obligatorias <b>solo Etapa 1</b>.</li>
+            <li><b>Incubación y/o aceleración:</b> obligatoria para <b>ambas etapas</b>.</li>
+            <li><b>Prospección comercial:</b> exploración y búsqueda de clientes (ferias, rondas, visitas) y otras actividades que permitan expansión.</li>
+            <li><b>Sostenibilidad:</b> estrategia con diagnóstico → indicadores → plan de acción (según anexo).</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Punto crítico (aprobación CORFO)</h3>
+          <ul>
+            <li>Antes de ejecutar gasto en incubación/aceleración, se requiere <b>aprobación previa de CORFO</b> sobre monto, idoneidad y suficiencia del servicio.</li>
+            <li>Esto obliga a: selección informada del servicio + justificación + coherencia con el plan.</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Fricción típica:</b> postular con “servicio” poco justificable o no alineado a resultados (se cae en revisión).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="slide" data-title="Patrocinador">
+      <h2>7) Patrocinador/Incubadora (rol, obligatoriedad y timing)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Obligatoriedad y plazos</h3>
+          <ul>
+            <li><b>Entidad Patrocinadora:</b> participante <b>obligatorio</b>.</li>
+            <li>Post-adjudicación: contrato de patrocinio dentro de <b>15 días hábiles</b> desde comunicación de aprobación (prórroga excepcional hasta 15 días hábiles).</li>
+            <li>Si no se presenta o no incluye aspectos esenciales → <b>se tiene por desistido el proyecto</b>.</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Riesgo real:</b> no es “administrativo menor”; afecta continuidad del proyecto.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Servicios mínimos + restricciones</h3>
+          <ul>
+            <li>Mínimos del patrocinador: supervisión, apoyo al seguimiento y administración (regulados en contrato).</li>
+            <li>No puede tomar participación patrimonial/opciones desde publicación del llamado.</li>
+            <li>No puede cobrar por patrocinio ni por servicios mínimos.</li>
+            <li>Servicios adicionales: requieren aprobación previa y <b>nunca</b> son obligatorios para el beneficiario.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="slide" data-title="Evaluación">
+      <h2>8) Evaluación: cómo se puntúa (lectura neutra)</h2>
+      <div class="card">
+        <h3>Ejes y ponderaciones (resumen)</h3>
+
+        <div class="scoreRow">
+          <div class="score">
+            <div><span class="pct">Innovación</span> <span class="badge">40%</span></div>
+            <div class="small" style="margin-top:6px;">Diferencial, propuesta de valor, novedad y relevancia.</div>
+          </div>
+          <div class="score">
+            <div><span class="pct">Escalabilidad</span> <span class="badge">30%</span></div>
+            <div class="small" style="margin-top:6px;">Modelo de Negocios (10%), Mercado (10%), Plan de Expansión (5%), Sostenibilidad (5%).</div>
+          </div>
+          <div class="score">
+            <div><span class="pct">Equipo</span> <span class="badge">30%</span></div>
+            <div class="small" style="margin-top:6px;">Capacidad, compromiso, redes/alianzas.</div>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+        <ul>
+          <li><b>Lectura práctica:</b> el “peso” fuerte está en <b>innovación + escalabilidad</b>; el equipo sostiene credibilidad de ejecución.</li>
+          <li>Plan de Expansión y Sostenibilidad aparecen explícitos dentro de Escalabilidad: deben ser <b>concretos</b> y medibles.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="slide" data-title="Filtros">
+      <h2>9) Criterios “filtro” relevantes para alineamiento</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Riesgo de no admisibilidad (por encaje)</h3>
+          <ul>
+            <li>No admisible si la solución <b>no tiene potencial</b> de expandirse a nuevos mercados (otra(s) región(es)/internacional).</li>
+            <li>Riesgo alto si el alcance es exclusivamente <b>local</b> (comunal/provincial) y no se justifica expansión real.</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Implicancia:</b> el relato debe construir “expansión” como parte central del diseño, no como add-on.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Enfoque del instrumento</h3>
+          <ul>
+            <li>El énfasis debe estar en <b>crecimiento/despegue comercial</b>.</li>
+            <li>No debe presentarse la compra de activos como objetivo principal.</li>
+          </ul>
+          <div class="hr"></div>
+          <ul class="small">
+            <li><b>Traducción:</b> el presupuesto debe leerse como “palanca de ventas + expansión”, no como “lista de compras”.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    $1
+
+    <!-- 12 -->
+    <section class="slide" data-title="Tensión típica">
+      <h2>11) Tensión típica: servicios profesionales tradicionales</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Caso</h3>
+          <ul>
+            <li>Estudio boutique de abogados y compliance que ofrece servicios <b>B2B</b> y <b>B2C</b>.</li>
+          </ul>
+          <div class="hr"></div>
+          <h3>Problema de encaje como proyecto principal</h3>
+          <ul>
+            <li>CORFO suele priorizar soluciones <b>innovadoras</b> (producto o servicio nuevo/mejorado), desarrolladas por el equipo, con alcance nacional y potencial de <b>internacionalización</b>.</li>
+            <li>Los servicios legales y de compliance suelen considerarse <b>poco innovadores</b>, salvo que incluyan un componente claramente disruptivo.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Implicancia</h3>
+          <div class="callout">
+            <b>Para competir bien:</b> el proyecto debe convertirse en <em>producto</em> y sumar tecnología relevante o innovación defendible.
+          </div>
+          <div class="hr"></div>
+          <ul>
+            <li>Diferenciarse mediante tecnología es clave para cumplir criterios de CORFO y aumentar probabilidades de éxito.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 -->
+    <section class="slide" data-title="Camino 1: SaaS">
+      <h2>12) Camino viable 1: LegalTech / ComplianceTech (SaaS)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Propuesta</h3>
+          <ul>
+            <li>Plataforma o herramienta digital (SaaS) que <b>automatice</b> procesos de compliance y gestión de riesgos regulatorios.</li>
+          </ul>
+          <div class="hr"></div>
+          <h3>Funcionalidades comunes</h3>
+          <ul>
+            <li>Automatización de compliance y gestión de riesgos regulatorios</li>
+            <li>Due diligence automatizado</li>
+            <li>Monitoreo continuo de cambios normativos</li>
+            <li>Auditorías remotas con IA</li>
+            <li>Contratos inteligentes (smart contracts), cuando aplica</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Por qué puede ser exitoso</h3>
+          <ul>
+            <li>Innovación + escalabilidad (crece vía <b>suscripciones</b>).</li>
+            <li>Potencial de internacionalización (LatAm y otros mercados regulados).</li>
+            <li>Mejor encaje si ya existe <b>tracción</b> (piloto o beta pagada).</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Tip:</b> define un “MVP con evidencia” (pilotos pagados + métricas) para sostener la narrativa.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 -->
+    <section class="slide" data-title="Prioridad 2026">
+      <h2>13) Enfoque prioritario 2026 (si se alinea a sostenibilidad)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Idea fuerza</h3>
+          <div class="callout">
+            <b>Vincule la solución a sostenibilidad y descarbonización</b> para elevar atractivo competitivo.
+          </div>
+          <div class="hr"></div>
+          <h3>Ejemplos de enfoques sostenibles</h3>
+          <ul>
+            <li>Cumplimiento ambiental y reportabilidad <b>ESG</b></li>
+            <li>Certificaciones / huella de carbono / reportes de sostenibilidad</li>
+            <li>Cumplimiento regulatorio para transición energética (p.ej., industrias con metas ambientales)</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Cómo se traduce en el proyecto</h3>
+          <ul>
+            <li>Compliance digital + tecnología + sostenibilidad = diferenciación clara.</li>
+            <li>Mejora la historia de expansión regional (problemas comunes en LatAm).</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>Lectura 2026:</b> integrar sostenibilidad en compliance digital hace el proyecto más competitivo.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15 -->
+    <section class="slide" data-title="Camino 2: Híbrido">
+      <h2>14) Camino viable 2: Servicio especializado + herramienta propia</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Alternativa intermedia</h3>
+          <ul>
+            <li>Menos SaaS puro, pero más sólido que solo consultoría.</li>
+            <li>Combine asesoría en sectores estratégicos con desarrollo de una <b>herramienta propia</b> para facilitar expansión y diferenciarse.</li>
+          </ul>
+          <div class="hr"></div>
+          <h3>Ejemplos de aplicación</h3>
+          <ul>
+            <li>Compliance para industrias priorizadas (energía, economía circular, exportadores)</li>
+            <li>Cumplimiento para estándares internacionales (p.ej., exigencias de sostenibilidad)</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Por qué supera al servicio tradicional</h3>
+          <ul>
+            <li>Herramientas permiten <b>replicar</b> servicios, <b>medir resultados</b> y facilitar expansión comercial.</li>
+            <li>Enfoque en métricas de éxito y procesos repetibles.</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="callout">
+            <b>En resumen:</b> servicios especializados + tecnología propia = ventaja clara y escalable.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16 -->
+    <section class="slide" data-title="Referencias">
+      <h2>15) Casos de referencia (Legal/RegTech y compliance con tecnología)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Reclama bien (LegalTech consumidor)</h3>
+          <ul>
+            <li>Plataforma digital para reclamos masivos (automatización + seguimiento).</li>
+            <li><em>Similitud:</em> problema legal/compliance resuelto mediante tecnología escalable.</li>
+          </ul>
+          <div class="hr"></div>
+          <h3>Zero Company (compliance ambiental / ESG con tecnología)</h3>
+          <ul>
+            <li>Software para metas ambientales, reportes de sostenibilidad y cumplimiento ESG.</li>
+            <li>Expansión regional (LatAm).</li>
+            <li><em>Similitud:</em> compliance ambiental, SaaS y capacidad de escalamiento.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Qué se valora</h3>
+          <div class="callout">
+            <b>Producto tecnológico escalable y exportable.</b>
+          </div>
+          <div class="hr"></div>
+          <ul>
+            <li>Priorizar carácter tecnológico + capacidad de crecer y exportar, más allá del “rubro legal”.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 17 -->
+    <section class="slide" data-title="Implicancias">
+      <h2>16) Implicancias para el diseño del proyecto (neutro)</h2>
+      <div class="card">
+        <h3>Checklist para encaje competitivo</h3>
+        <ul>
+          <li><b>Innovación defendible:</b> producto/servicio nuevo o significativamente mejorado.</li>
+          <li><b>Escalabilidad:</b> replicabilidad, suscripción/licencias o mecanismos de crecimiento no lineales.</li>
+          <li><b>Tracción inicial:</b> ventas/pilotos pagados.</li>
+          <li><b>Plan de expansión:</b> regiones y/o internacional (no solo crecimiento local).</li>
+        </ul>
+        <div class="hr"></div>
+        <div class="callout">
+          <b>Objetivo:</b> que la historia se lea como “producto escalable con evidencia” y no como “servicio tradicional”.
+        </div>
+      </div>
+    </section>
+
+    <div class="dots" id="dots" aria-label="Navegación por diapositivas"></div>
+  </div>
+</main>
+
+<div class="hints" aria-hidden="true">
+  <span>Navegar:</span>
+  <span class="kbd">←</span><span class="kbd">→</span>
+  <span class="kbd">PgUp</span><span class="kbd">PgDn</span>
+  <span class="kbd">F</span><span class="muted">pantalla completa</span>
+</div>
+
+<script>
+  (function(){
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const counterEl = document.getElementById("counter");
+    const subtitleEl = document.getElementById("subtitle");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const fsBtn = document.getElementById("fsBtn");
+    const progressBar = document.getElementById("progressBar");
+    const dotsEl = document.getElementById("dots");
+
+    let i = 0;
+
+    // Build dots (UX polish, doesn't change core behavior)
+    const dotButtons = slides.map((_, idx) => {
+      const b = document.createElement('button');
+      b.className = 'dotBtn';
+      b.type = 'button';
+      b.title = `Ir a diapositiva ${idx + 1}`;
+      b.setAttribute('aria-label', `Ir a diapositiva ${idx + 1}`);
+      b.addEventListener('click', () => setSlide(idx));
+      dotsEl.appendChild(b);
+      return b;
+    });
+
+    function setSlide(idx){
+      i = Math.max(0, Math.min(slides.length - 1, idx));
+
+      slides.forEach((s, k) => s.classList.toggle("active", k === i));
+      dotButtons.forEach((b, k) => b.classList.toggle('active', k === i));
+
+      counterEl.textContent = `${i+1} / ${slides.length}`;
+
+      const title = slides[i].dataset.title ? `— ${slides[i].dataset.title}` : "";
+      subtitleEl.textContent = `Landing en formato de diapositivas ${title}`;
+
+      // Progress
+      const pct = ((i + 1) / slides.length) * 100;
+      progressBar.style.width = pct + '%';
+
+      // Enable/disable nav buttons
+      prevBtn.disabled = (i === 0);
+      nextBtn.disabled = (i === slides.length - 1);
+
+      // Focus heading (keeps your existing a11y intent)
+      const focusTarget = slides[i].querySelector("h1, h2");
+      if (focusTarget){
+        focusTarget.setAttribute("tabindex","-1");
+        focusTarget.focus({preventScroll:true});
+      }
+    }
+
+    function next(){ setSlide(i + 1); }
+    function prev(){ setSlide(i - 1); }
+
+    prevBtn.addEventListener("click", prev);
+    nextBtn.addEventListener("click", next);
+
+    document.addEventListener("keydown", (e) => {
+      const key = e.key.toLowerCase();
+      if (key === "arrowright" || key === "pagedown" || key === " ") { e.preventDefault(); next(); }
+      if (key === "arrowleft"  || key === "pageup") { e.preventDefault(); prev(); }
+      if (key === "home") { e.preventDefault(); setSlide(0); }
+      if (key === "end")  { e.preventDefault(); setSlide(slides.length - 1); }
+      if (key === "f") { e.preventDefault(); toggleFullscreen(); }
+    });
+
+    function toggleFullscreen(){
+      const el = document.documentElement;
+      if (!document.fullscreenElement){
+        el.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
+      }
+    }
+    fsBtn.addEventListener("click", toggleFullscreen);
+
+    // Touch swipe
+    let x0 = null;
+    document.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, {passive:true});
+    document.addEventListener("touchend", (e) => {
+      if (x0 === null) return;
+      const x1 = e.changedTouches[0].clientX;
+      const dx = x1 - x0;
+      if (Math.abs(dx) > 45) (dx < 0 ? next() : prev());
+      x0 = null;
+    }, {passive:true});
+
+    setSlide(0);
+  })();
+</script>
+</body>
+</html>
