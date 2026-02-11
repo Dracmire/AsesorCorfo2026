@@ -224,8 +224,46 @@ main{
   -webkit-overflow-scrolling: touch;
   padding-bottom: calc(26px + 72px + env(safe-area-inset-bottom));
 }
-@media (max-width: 720px){
-  .hints{ display:none; } /* evita tapar el final */
+/* ===== Mobile header fix ===== */
+@media (max-width: 560px){
+  header{
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  /* Que la marca no empuje todo */
+  .brand{
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+  .brand span{ display:none; } /* subtítulo fuera en móvil */
+
+  /* Controles SIEMPRE dentro del header */
+  .controls{
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+
+  /* Pill compacto y en 1 línea */
+  .pill{
+    padding: 6px 8px;
+    gap: 6px;
+  }
+  .pill small{ display:none; }         /* oculta “Diapositiva” */
+  .pill strong{
+    white-space: nowrap;               /* evita 2 líneas */
+    font-size: 12px;
+  }
+
+  /* Botones más compactos para que entren */
+  button{
+    padding: 8px 10px;
+    border-radius: 10px;
+  }
+  .btnIcon{
+    width: 36px;
+    padding: 8px 0;
+  }
 }
 
 
