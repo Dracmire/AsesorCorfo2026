@@ -1541,7 +1541,7 @@ el.appendChild(line);
     const node = document.createElement("div");
     node.className = "absolute top-1/2 -translate-y-1/2";
     // 6px padding left/right in the container with left-6/right-6 => use calc
-    node.style.left = `calc(2.5rem + (100% - 5rem) * ${pct})`;
+    node.style.left = `calc(3.5rem + (100% - 7rem) * ${pct})`;
 
 
 
@@ -1578,7 +1578,7 @@ el.appendChild(line);
 
     const seg = document.createElement("div");
     seg.className = "hidden sm:block absolute top-1/2 transform -translate-y-1/2 text-xs text-gray-500 font-semibold";
-    seg.style.left = `calc(1.5rem + (100% - 3rem) * ${mid})`;
+    seg.style.left  = `calc(3.5rem + (100% - 7rem) * ${mid})`;
     seg.style.transform = "translate(-50%, 26px)";
     seg.textContent = `${days} días`;
     el.appendChild(seg);
