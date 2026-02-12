@@ -1084,7 +1084,7 @@ button:focus-visible{ outline: 3px solid rgba(0,90,163,.25) !important; }
     const nextBtn = document.getElementById("nextBtn");
     const fsBtn = document.getElementById("fsBtn");
     const progressBar = document.getElementById("progressBar");
-    const dotsEl = document.getElementById("dots");
+   
 
     let i = 0;
 
@@ -1094,7 +1094,7 @@ button:focus-visible{ outline: 3px solid rgba(0,90,163,.25) !important; }
       i = Math.max(0, Math.min(slides.length - 1, idx));
 
       slides.forEach((s, k) => s.classList.toggle("active", k === i));
-      dotButtons.forEach((b, k) => b.classList.toggle('active', k === i));
+      
 
       counterEl.textContent = `${i+1} / ${slides.length}`;
 
