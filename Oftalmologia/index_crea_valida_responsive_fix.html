@@ -1496,7 +1496,7 @@
     </div>
 
     <p class="mt-3 text-xs text-gray-600">
-      Distancias proporcionales a los días entre hitos (no “a escala” exacta, pero sí relativas).
+      Distancias proporcionales a los días entre hitos.
     </p>
   </div>
 </section>
@@ -1526,7 +1526,7 @@
 
   // Base line
 const line = document.createElement("div");
-line.className = "absolute left-6 right-6 top-1/2 h-1 rounded-full";
+line.className = "absolute left-10 right-10 top-1/2 transform -translate-y-1/2 h-1 rounded-full bg-gray-300";
 line.style.background = "#003366"; // chile-blue
 line.style.opacity = "0.25";
 line.style.zIndex = "1";
@@ -1541,7 +1541,8 @@ el.appendChild(line);
     const node = document.createElement("div");
     node.className = "absolute top-1/2 -translate-y-1/2";
     // 6px padding left/right in the container with left-6/right-6 => use calc
-    node.style.left = `calc(1rem + (100% - 2rem) * ${pct})`;
+    node.style.left = `calc(2.5rem + (100% - 5rem) * ${pct})`;
+
 
 
     // Dot
@@ -1554,7 +1555,7 @@ el.appendChild(line);
     const isTop = i % 2 === 0;
     card.className =
       "absolute left-1/2 -translate-x-1/2 w-42 rounded-xl border border-gray-200 bg-white px-3 py-2 text-center shadow-sm";
-    card.style.top = "-64px"; // todas arriba
+    card.style.top = "-76px"; // todas arriba
 
     card.innerHTML = `
       <div class="text-xs font-extrabold text-chile-blue">${m.label}</div>
