@@ -1500,6 +1500,100 @@
     </p>
   </div>
 </section>
+
+        
+<script>
+(() => {
+  const milestones = [
+    { label: "Apertura", date: "2026-03-24", short: "24 MAR 2026" },
+    { label: "Cierre", date: "2026-06-02", short: "02 JUN 2026" },
+    { label: "Fin evaluación", date: "2026-08-20", short: "20 AGO 2026" },
+    { label: "Resultados", date: "2026-10-11", short: "11 OCT 2026" },
+    { label: "Recursos", date: "2026-11-10", short: "10 NOV 2026" },
+  ];
+
+  const el = document.getElementById("cvTimeline");
+  if (!el) return;
+
+  const parse = (s) => {
+    const [y,m,d] = s.split("-").map(Number);
+    return new Date(Date.UTC(y, m-1, d));
+  };
+
+  const start = parse(milestones[0].date);
+  const end   = parse(milestones[milestones.length - 1].date);
+  const total = Math.max(1, (end - start) / (1000*60*60*24)); // días
+
+  // Base line
+const line = document.createElement("div");
+line.className = "absolute left-6 right-6 top-1/2 h-1 rounded-full";
+line.style.background = "#003366"; // chile-blue
+line.style.opacity = "0.25";
+line.style.zIndex = "1";
+el.appendChild(line);
+
+
+  // Helper: create node
+  milestones.forEach((m, i) => {
+    const t = (parse(m.date) - start) / (1000*60*60*24);
+    const pct = Math.min(1, Math.max(0, t / total)); // 0..1
+
+    const node = document.createElement("div");
+    node.className = "absolute top-1/2 -translate-y-1/2";
+    // 6px padding left/right in the container with left-6/right-6 => use calc
+    node.style.left = `calc(1.5rem + (100% - 3rem) * ${pct})`;
+
+    // Dot
+    const dot = document.createElement("div");
+    dot.className = "w-4 h-4 rounded-full bg-white border-2 border-blue-700 shadow-sm";
+    node.appendChild(dot);
+
+    // Label card (alternating above/below)
+    const card = document.createElement("div");
+    const isTop = i % 2 === 0;
+    card.className =
+      "absolute left-1/2 -translate-x-1/2 w-56 rounded-xl border border-gray-200 bg-white px-3 py-2 text-center shadow-sm";
+    card.style.top = isTop ? "-64px" : "18px";
+
+    card.innerHTML = `
+      <div class="text-xs font-extrabold text-chile-blue">${m.label}</div>
+      <div class="text-xs text-gray-600">${m.short}</div>
+    `;
+    node.appendChild(card);
+
+    el.appendChild(node);
+  });
+
+  // Segment labels (optional): 70 / 79 / 52 / 30 días
+  for (let i = 0; i < milestones.length - 1; i++) {
+    const a = parse(milestones[i].date);
+    const b = parse(milestones[i+1].date);
+    const days = Math.round((b - a) / (1000*60*60*24));
+
+    const ta = (a - start) / (1000*60*60*24);
+    const tb = (b - start) / (1000*60*60*24);
+    const mid = ((ta + tb) / 2) / total;
+
+    const seg = document.createElement("div");
+    seg.className = "absolute top-1/2 -translate-y-1/2 text-xs text-gray-500 font-semibold";
+    seg.style.left = `calc(1.5rem + (100% - 3rem) * ${mid})`;
+    seg.style.transform = "translate(-50%, 26px)";
+    seg.textContent = `${days} días`;
+    el.appendChild(seg);
+  }
+})();
+</script>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 16 / 16</div>
+        </div>
+      </div>
+    </section>
+
 <section id="crea-valida-15" class="snap-start scroll-mt-20">
   <div class="flex items-center justify-between mb-4">
     <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">El Proyecto</h2>
@@ -1758,101 +1852,6 @@
     </div>
   </div>
 </section>
-        
-<script>
-(() => {
-  const milestones = [
-    { label: "Apertura", date: "2026-03-24", short: "24 MAR 2026" },
-    { label: "Cierre", date: "2026-06-02", short: "02 JUN 2026" },
-    { label: "Fin evaluación", date: "2026-08-20", short: "20 AGO 2026" },
-    { label: "Resultados", date: "2026-10-11", short: "11 OCT 2026" },
-    { label: "Recursos", date: "2026-11-10", short: "10 NOV 2026" },
-  ];
-
-  const el = document.getElementById("cvTimeline");
-  if (!el) return;
-
-  const parse = (s) => {
-    const [y,m,d] = s.split("-").map(Number);
-    return new Date(Date.UTC(y, m-1, d));
-  };
-
-  const start = parse(milestones[0].date);
-  const end   = parse(milestones[milestones.length - 1].date);
-  const total = Math.max(1, (end - start) / (1000*60*60*24)); // días
-
-  // Base line
-  const line = document.createElement("div");
-  line.className = "absolute left-6 right-6 top-1/2 -translate-y-1/2 h-[4px] rounded-full bg-gray-200";
-  el.appendChild(line);
-
-  // Highlight line (optional, same width)
-  const line2 = document.createElement("div");
-  line2.className = "absolute left-6 right-6 top-1/2 -translate-y-1/2 h-[4px] rounded-full bg-blue-100";
-  el.appendChild(line2);
-
-  // Helper: create node
-  milestones.forEach((m, i) => {
-    const t = (parse(m.date) - start) / (1000*60*60*24);
-    const pct = Math.min(1, Math.max(0, t / total)); // 0..1
-
-    const node = document.createElement("div");
-    node.className = "absolute top-1/2 -translate-y-1/2";
-    // 6px padding left/right in the container with left-6/right-6 => use calc
-    node.style.left = `calc(1.5rem + (100% - 3rem) * ${pct})`;
-
-    // Dot
-    const dot = document.createElement("div");
-    dot.className = "w-4 h-4 rounded-full bg-white border-2 border-blue-700 shadow-sm";
-    node.appendChild(dot);
-
-    // Label card (alternating above/below)
-    const card = document.createElement("div");
-    const isTop = i % 2 === 0;
-    card.className =
-      "absolute left-1/2 -translate-x-1/2 w-56 rounded-xl border border-gray-200 bg-white px-3 py-2 text-center shadow-sm";
-    card.style.top = isTop ? "-64px" : "18px";
-
-    card.innerHTML = `
-      <div class="text-xs font-extrabold text-chile-blue">${m.label}</div>
-      <div class="text-xs text-gray-600">${m.short}</div>
-    `;
-    node.appendChild(card);
-
-    el.appendChild(node);
-  });
-
-  // Segment labels (optional): 70 / 79 / 52 / 30 días
-  for (let i = 0; i < milestones.length - 1; i++) {
-    const a = parse(milestones[i].date);
-    const b = parse(milestones[i+1].date);
-    const days = Math.round((b - a) / (1000*60*60*24));
-
-    const ta = (a - start) / (1000*60*60*24);
-    const tb = (b - start) / (1000*60*60*24);
-    const mid = ((ta + tb) / 2) / total;
-
-    const seg = document.createElement("div");
-    seg.className = "absolute top-1/2 -translate-y-1/2 text-xs text-gray-500 font-semibold";
-    seg.style.left = `calc(1.5rem + (100% - 3rem) * ${mid})`;
-    seg.style.transform = "translate(-50%, 26px)";
-    seg.textContent = `${days} días`;
-    el.appendChild(seg);
-  }
-})();
-</script>
-
-        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
-          <div class="flex items-center space-x-2">
-            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
-            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
-          </div>
-          <div class="text-xs text-gray-400">Página 16 / 16</div>
-        </div>
-      </div>
-    </section>
-
-
 
     
 
