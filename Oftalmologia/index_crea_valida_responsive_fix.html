@@ -1482,6 +1482,107 @@
             </div>
           </div>
         </div>
+<!-- Timeline proporcional (horizontal, con scroll en móvil) -->
+<section class="mt-6">
+  <div class="rounded-2xl border border-gray-200 bg-white p-5">
+    <h3 class="text-base font-extrabold text-chile-blue flex items-center gap-2">
+      <i class="fas fa-timeline text-chile-red"></i> Línea de tiempo estimada (2026)
+    </h3>
+
+    <!-- Scroll container -->
+    <div class="mt-5 overflow-x-auto">
+      <!-- Inner canvas: le damos un min-width para que en móvil no colapse -->
+      <div id="cvTimeline" class="relative min-w-[820px] h-[160px]"></div>
+    </div>
+
+    <p class="mt-3 text-xs text-gray-600">
+      Distancias proporcionales a los días entre hitos (no “a escala” exacta, pero sí relativas).
+    </p>
+  </div>
+</section>
+
+<script>
+(() => {
+  const milestones = [
+    { label: "Apertura", date: "2026-03-24", short: "24 MAR 2026" },
+    { label: "Cierre", date: "2026-06-02", short: "02 JUN 2026" },
+    { label: "Fin evaluación", date: "2026-08-20", short: "20 AGO 2026" },
+    { label: "Resultados", date: "2026-10-11", short: "11 OCT 2026" },
+    { label: "Recursos", date: "2026-11-10", short: "10 NOV 2026" },
+  ];
+
+  const el = document.getElementById("cvTimeline");
+  if (!el) return;
+
+  const parse = (s) => {
+    const [y,m,d] = s.split("-").map(Number);
+    return new Date(Date.UTC(y, m-1, d));
+  };
+
+  const start = parse(milestones[0].date);
+  const end   = parse(milestones[milestones.length - 1].date);
+  const total = Math.max(1, (end - start) / (1000*60*60*24)); // días
+
+  // Base line
+  const line = document.createElement("div");
+  line.className = "absolute left-6 right-6 top-1/2 -translate-y-1/2 h-[4px] rounded-full bg-gray-200";
+  el.appendChild(line);
+
+  // Highlight line (optional, same width)
+  const line2 = document.createElement("div");
+  line2.className = "absolute left-6 right-6 top-1/2 -translate-y-1/2 h-[4px] rounded-full bg-blue-100";
+  el.appendChild(line2);
+
+  // Helper: create node
+  milestones.forEach((m, i) => {
+    const t = (parse(m.date) - start) / (1000*60*60*24);
+    const pct = Math.min(1, Math.max(0, t / total)); // 0..1
+
+    const node = document.createElement("div");
+    node.className = "absolute top-1/2 -translate-y-1/2";
+    // 6px padding left/right in the container with left-6/right-6 => use calc
+    node.style.left = `calc(1.5rem + (100% - 3rem) * ${pct})`;
+
+    // Dot
+    const dot = document.createElement("div");
+    dot.className = "w-4 h-4 rounded-full bg-white border-2 border-blue-700 shadow-sm";
+    node.appendChild(dot);
+
+    // Label card (alternating above/below)
+    const card = document.createElement("div");
+    const isTop = i % 2 === 0;
+    card.className =
+      "absolute left-1/2 -translate-x-1/2 w-[180px] rounded-xl border border-gray-200 bg-white px-3 py-2 text-center shadow-sm";
+    card.style.top = isTop ? "-64px" : "18px";
+
+    card.innerHTML = `
+      <div class="text-[11px] font-extrabold text-chile-blue">${m.label}</div>
+      <div class="text-[11px] text-gray-600">${m.short}</div>
+    `;
+    node.appendChild(card);
+
+    el.appendChild(node);
+  });
+
+  // Segment labels (optional): 70 / 79 / 52 / 30 días
+  for (let i = 0; i < milestones.length - 1; i++) {
+    const a = parse(milestones[i].date);
+    const b = parse(milestones[i+1].date);
+    const days = Math.round((b - a) / (1000*60*60*24));
+
+    const ta = (a - start) / (1000*60*60*24);
+    const tb = (b - start) / (1000*60*60*24);
+    const mid = ((ta + tb) / 2) / total;
+
+    const seg = document.createElement("div");
+    seg.className = "absolute top-1/2 -translate-y-1/2 text-[10px] text-gray-500 font-semibold";
+    seg.style.left = `calc(1.5rem + (100% - 3rem) * ${mid})`;
+    seg.style.transform = "translate(-50%, 26px)";
+    seg.textContent = `${days} días`;
+    el.appendChild(seg);
+  }
+})();
+</script>
 
         <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
           <div class="flex items-center space-x-2">
