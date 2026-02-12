@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crea y Valida CORFO 2026 — Landing Presentación</title>
+
+  <!-- Tailwind (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --chile-blue: #003366;
+      --chile-red: #DA291C;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #f3f4f6;
+    }
+    h1,h2,h3,h4,h5,h6 { font-family: 'Montserrat', sans-serif; }
+
+        /* “Slide” wrapper: responsive, grows with content (no clipping) */
+    .slide-frame {
+      width: min(1280px, 100%);
+      background: #fff;
+      position: relative;
+      overflow: hidden; /* keeps rounded corners clean */
+      border-radius: 18px;
+      box-shadow: 0 14px 30px rgba(0,0,0,.08);
+    }
+
+    /* Standard slide inner body (most slides use this) */
+    .slide-body {
+      display: flex;
+      flex: 1 1 auto;
+    }
+
+    /* Mobile: stack columns + add breathing room */
+    @media (max-width: 1023px) {
+      .slide-body { flex-direction: column; }
+      .slide-frame .w-2\/5,
+      .slide-frame .w-3\/5,
+      .slide-frame .w-1\/2 { width: 100% !important; }
+    }
+/* Optional presentation feel */
+    .snap-y {
+      scroll-snap-type: y mandatory;
+    }
+    .snap-start {
+      scroll-snap-align: start;
+    }
+
+    /* Custom list bullets (FontAwesome check) */
+    .custom-list li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .custom-list li::before {
+      content: "\f00c";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      top: 0.2rem;
+      color: var(--chile-red);
+      font-size: 0.9rem;
+    }
+
+    .bg-chile-blue { background-color: var(--chile-blue); }
+    .text-chile-blue { color: var(--chile-blue); }
+    .bg-chile-red { background-color: var(--chile-red); }
+    .text-chile-red { color: var(--chile-red); }
+    .border-chile-red { border-color: var(--chile-red); }
+
+    /* Nav active state */
+    .nav-link[aria-current="true"] {
+      background: rgba(255,255,255,.12);
+      border-color: rgba(255,255,255,.35);
+    }
+
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .animate-ping { animation: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top nav -->
+  <header class="sticky top-0 z-50 bg-chile-blue text-white shadow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="h-14 flex items-center justify-between gap-4">
+        <a href="#portada" class="flex items-center gap-3 font-extrabold tracking-wide">
+          <span class="h-8 w-8 rounded bg-white text-chile-blue flex items-center justify-center text-xs font-black">C</span>
+          <span class="hidden sm:inline">Crea y Valida 2026</span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-2 text-xs">
+          <a class="nav-link px-3 py-2 rounded-lg border border-transparent hover:border-white/30 hover:bg-white/10" href="#portada">Portada</a>
+          <a class="nav-link px-3 py-2 rounded-lg border border-transparent hover:border-white/30 hover:bg-white/10" href="#crea-valida">Crea y Valida</a>
+          <a class="nav-link px-3 py-2 rounded-lg border border-transparent hover:border-white/30 hover:bg-white/10" href="#crea-valida-1">Guía (1–14)</a>
+          <a class="nav-link px-3 py-2 rounded-lg border border-transparent hover:border-white/30 hover:bg-white/10" href="#crea-valida-14">Timeline</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <button id="toggleSnap" class="px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10 text-xs">
+            <i class="fas fa-clapperboard mr-2"></i>Modo presentación
+          </button>
+
+          <!-- Mobile menu -->
+          <button id="openMenu" class="md:hidden px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10" aria-label="Abrir menú">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile dropdown -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-white/10 bg-chile-blue">
+      <div class="max-w-7xl mx-auto px-4 py-3 grid grid-cols-2 gap-2 text-xs">
+        <a class="nav-link px-3 py-2 rounded-lg border border-white/10 hover:bg-white/10" href="#portada">Portada</a>
+        <a class="nav-link px-3 py-2 rounded-lg border border-white/10 hover:bg-white/10" href="#crea-valida">Crea y Valida</a>
+        <a class="nav-link px-3 py-2 rounded-lg border border-white/10 hover:bg-white/10" href="#crea-valida-1">Guía (1–14)</a>
+        <a class="nav-link px-3 py-2 rounded-lg border border-white/10 hover:bg-white/10" href="#crea-valida-14">Timeline</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page wrapper (snap can be toggled here) -->
+  <main id="page" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+    <!-- Slide 1: Portada -->
+    <section id="portada" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Oportunidades de Financiamiento CORFO 2026</h2>
+        <div class="text-xs text-gray-500">Página 1 / 16</div>
+      </div>
+
+      <div class="slide-frame">
+        <!-- Background Image Area (Right Side) -->
+        <div class="absolute inset-0 z-0">
+          <div class="absolute right-0 top-0 w-3/5 h-full overflow-hidden">
+            <img alt="Medical Technology Ophthalmology" class="object-cover w-full h-full opacity-90" src="https://page.gensparksite.com/slides_images/b93bd7a2bae74ff7bae9b8833ac2f0b2.webp" />
+            <div class="absolute inset-0 bg-blue-900 bg-opacity-40 mix-blend-multiply"></div>
+          </div>
+        </div>
+
+        <!-- Design Element: Geometric Split -->
+        <div class="absolute top-0 left-0 w-1/2 h-full bg-white z-10" style="clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);"></div>
+        <div class="absolute top-0 left-[48%] w-24 h-full bg-red-600 z-0 opacity-90" style="clip-path: polygon(20% 0, 100% 0, 80% 100%, 0% 100%);"></div>
+
+        <!-- Main Content Wrapper -->
+        <div class="relative z-20 w-full h-full flex p-6 sm:p-10 lg:p-16">
+          <!-- Left Column -->
+          <div class="w-1/2 flex flex-col justify-center pr-4 sm:pr-8">
+            <div class="flex items-center space-x-3 mb-6">
+              <div class="w-12 h-1 bg-red-600 rounded-full"></div>
+              <p class="text-sm font-bold tracking-widest text-gray-500 uppercase">Propuesta de Asesoría</p>
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-chile-blue leading-tight mb-2">
+              Oportunidades de <br />
+              <span class="text-blue-500">Financiamiento</span>
+            </h1>
+
+            <div class="flex items-center mb-8">
+              <div class="bg-gray-100 px-4 py-2 rounded text-xl sm:text-2xl font-bold text-gray-700">CORFO 2026</div>
+            </div>
+
+            <div class="border-l-4 border-red-600 pl-6 mb-10">
+              <p class="text-sm font-semibold text-gray-400 uppercase mb-1">Proyecto Objetivo</p>
+              <h2 class="text-xl sm:text-2xl font-bold text-gray-800">Tecnología Médica en Oftalmología</h2>
+            </div>
+
+            <div class="space-y-4 sm:space-y-5">
+              <p class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2">Plataforma Integrada:</p>
+
+              <div class="flex items-center p-3 bg-white border border-gray-100 rounded-lg shadow-sm">
+                <div class="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-full text-blue-600 mr-4 flex-shrink-0">
+                  <i class="fas fa-brain"></i>
+                </div>
+                <p class="text-gray-700 font-medium text-sm">IA para análisis de imágenes médicas oftalmológicas</p>
+              </div>
+
+              <div class="flex items-center p-3 bg-white border border-gray-100 rounded-lg shadow-sm">
+                <div class="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-full text-blue-600 mr-4 flex-shrink-0">
+                  <i class="fas fa-truck-medical"></i>
+                </div>
+                <p class="text-gray-700 font-medium text-sm">Consultorio móvil para zonas de alta densidad</p>
+              </div>
+
+              <div class="flex items-center p-3 bg-white border border-gray-100 rounded-lg shadow-sm">
+                <div class="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-full text-blue-600 mr-4 flex-shrink-0">
+                  <i class="fas fa-user-doctor"></i>
+                </div>
+                <p class="text-gray-700 font-medium text-sm">Telemedicina y triage remoto con respaldo imagenológico</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column overlay card -->
+          <div class="w-1/2 flex flex-col justify-end items-end pb-6 sm:pb-8">
+            <div class="bg-blue-900 bg-opacity-90 p-5 sm:p-6 rounded-l-xl text-white max-w-sm backdrop-filter backdrop-blur-sm border-r-4 border-red-500">
+              <h3 class="font-bold text-base sm:text-lg mb-2"><i class="fas fa-chart-line mr-2"></i>Objetivo de la Asesoría</h3>
+              <p class="text-sm text-blue-100 leading-relaxed">
+                Maximizar la probabilidad de adjudicación mediante la selección estratégica de instrumentos CORFO y la estructuración técnica del proyecto.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-full h-3 bg-gradient-to-r from-blue-900 via-blue-700 to-red-600"></div>
+      </div>
+    </section>
+
+    <!-- Slide 2: Crea y Valida (I+D+i) -->
+    <section id="crea-valida" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Crea y Valida (I+D+i)</h2>
+        <div class="text-xs text-gray-500">Página 2 / 16</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="slide-body flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6"><span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Innovación y Desarrollo</span></div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Crea y Valida <br /><span class="text-blue-500">(I+D+i)</span>
+            </h1>
+
+            <div class="bg-gray-50 border-l-4 border-blue-900 p-5 sm:p-6 mb-8 rounded-r-lg">
+              <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Objetivo del Programa</h3>
+              <p class="text-gray-800 font-medium leading-relaxed">Desarrollo y validación de productos, procesos o servicios innovadores con base en I+D.</p>
+            </div>
+
+            <div class="mt-auto space-y-4">
+              <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center relative overflow-hidden">
+                <div class="absolute left-0 top-0 h-full w-2 bg-green-500"></div>
+                <div class="mr-4 text-green-600 text-3xl"><i class="fas fa-sack-dollar"></i></div>
+                <div>
+                  <p class="text-xs font-bold text-gray-400 uppercase">Monto Máximo</p>
+                  <p class="text-xl sm:text-2xl font-bold text-gray-800">$180.000.000 <span class="text-sm font-normal text-gray-500">(Individual)</span></p>
+                  <p class="text-base sm:text-lg font-bold text-gray-600">$220.000.000 <span class="text-sm font-normal text-gray-500">(Colaborativo)</span></p>
+                </div>
+              </div>
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center relative overflow-hidden">
+                <div class="absolute left-0 top-0 h-full w-2 bg-blue-500"></div>
+                <div class="mr-4 text-blue-600 text-3xl"><i class="fas fa-hand-holding-dollar"></i></div>
+                <div>
+                  <p class="text-xs font-bold text-gray-400 uppercase">Cofinanciamiento</p>
+                  <p class="text-xl sm:text-2xl font-bold text-gray-800">Hasta 80%</p>
+                  <p class="text-xs text-gray-500">Para micro y pequeñas empresas</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              <div class="bg-blue-50 rounded-xl p-5 sm:p-6 relative">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-bullseye text-6xl text-chile-blue"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-chile-blue mb-4 flex items-center"><i class="fas fa-star mr-2 text-chile-red"></i> Expectativas</h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base">
+                  <li><p>Prototipo funcional validado técnica y comercialmente.</p></li>
+                  <li><p>Fortalecimiento de capacidades de innovación internas.</p></li>
+                </ul>
+              </div>
+
+              <div class="bg-gray-50 border border-gray-100 rounded-xl p-5 sm:p-6 relative">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-clipboard-check text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-list-check mr-2 text-chile-red"></i> Requisitos Clave</h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base">
+                  <li><p>Empresa con al menos 24 meses de antigüedad.</p></li>
+                  <li><p>Ventas demostrables en los últimos 24 meses.</p></li>
+                  <li><p>Proyecto con base tecnologica y escalable.</p></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mt-6 bg-white border border-gray-200 rounded-xl p-5 flex items-center justify-between shadow-sm">
+              <div>
+                <h4 class="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wide mb-1">Estado Convocatoria</h4>
+                <div class="flex items-center text-blue-800 font-bold text-sm sm:text-lg">
+                  <span class="relative flex h-3 w-3 mr-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                  </span>
+                  Apertura estimada: Primer Semestre 2026
+                </div>
+              </div>
+              <div class="bg-gray-100 p-3 rounded-lg text-center min-w-[120px]">
+                <p class="text-xs text-gray-500 font-semibold uppercase">Prioridad</p>
+                <p class="text-lg sm:text-xl font-bold text-chile-red">Alta</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 2 / 16</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="crea-valida-1" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">¿Qué es Crea y Valida según CORFO?</h2>
+        <div class="text-xs text-gray-500">Página 3 / 16</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="slide-body flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6">
+              <span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Marco conceptual</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              ¿Qué es Crea y Valida según CORFO?
+            </h1>
+
+            
+            <div class="bg-gray-50 border-l-4 border-blue-900 p-5 sm:p-6 rounded-r-lg space-y-3">
+              <p class="text-gray-800 font-medium leading-relaxed text-sm sm:text-base">Crea y Valida financia proyectos orientados a desarrollar (CREA) y, posteriormente, validar (VALIDA) un producto, servicio o proceso innovador que requiere I+D.</p>
+            </div>
+        
+
+            <div class="mt-auto pt-6">
+              <div class="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase">Crea y Valida</p>
+                    <p class="text-sm font-semibold text-gray-800">Diapositiva 1</p>
+                  </div>
+                </div>
+                <div class="text-xs text-gray-400">Página 3 / 16</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-lightbulb text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-lightbulb mr-2 text-chile-red"></i> CREA
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>CREA implica evolucionar de un prototipo a una solución funcional respaldada por evidencia técnica.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-vial text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-vial mr-2 text-chile-red"></i> VALIDA
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>VALIDA consiste en verificar la solución en una escala productiva o comercial mediante pilotos, en condiciones reales o en el mercado.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-flag-checkered text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-flag-checkered mr-2 text-chile-red"></i> Resultado esperado y clave
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>El resultado esperado es una solución validada y un plan de introducción al mercado.</p></li>
+<li><p>Clave: no financia operaciones o servicios tradicionales, salvo que exista incertidumbre tecnológica o de I+D.</p></li></ul>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 3 / 16</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="crea-valida-2" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Requisitos mínimos de elegibilidad (quién puede postular)</h2>
+        <div class="text-xs text-gray-500">Página 4 / 16</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="slide-body flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6">
+              <span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Elegibilidad</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Requisitos mínimos de elegibilidad (quién puede postular)
+            </h1>
+
+            
+
+            <div class="mt-auto pt-6">
+              <div class="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase">Crea y Valida</p>
+                    <p class="text-sm font-semibold text-gray-800">Diapositiva 2</p>
+                  </div>
+                </div>
+                <div class="text-xs text-gray-400">Página 4 / 16</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-building text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-building mr-2 text-chile-red"></i> Beneficiario (obligatorio)
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Persona jurídica en Chile.</p></li>
+<li><p>≥ 18 meses desde el inicio de las actividades (1.ª categoría).</p></li>
+<li><p>Debe acreditar ingresos por ventas en los últimos 18 meses (no se requiere continuidad mensual).</p></li>
+<li><p>Solo un beneficiario puede participar por proyecto.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-university text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-university mr-2 text-chile-red"></i> IES: definición y restricciones
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>IES se refiere a Instituciones de Educación Superior, que incluyen universidades, institutos profesionales y Centros de Formación Técnica (CFT).</p></li>
+<li><p>Las IES no pueden ser beneficiarias en esta línea, pero sí pueden ser contratadas como proveedoras o ejecutoras de actividades externalizadas.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-handshake text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-handshake mr-2 text-chile-red"></i> Asociados (opcional)
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Asociados: Personas naturales o jurídicas de Chile o de extranjero. Pueden cofinanciar con dinero o con valor, bajo ciertas reglas.</p></li>
+<li><p>Estos pueden cofinanciar mediante aportes en dinero o valorizados, siguiendo reglas definidas.</p></li></ul>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 4 / 16</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="crea-valida-3" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Estructura del financiamiento (montos, porcentajes y tamaños por UF)</h2>
+        <div class="text-xs text-gray-500">Página 5 / 16</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="slide-body flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6">
+              <span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Financiamiento</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Estructura del financiamiento (montos, porcentajes y tamaños por UF)
+            </h1>
+
+            
+
+            <div class="mt-auto pt-6">
+              <div class="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase">Crea y Valida</p>
+                    <p class="text-sm font-semibold text-gray-800">Diapositiva 3</p>
+                  </div>
+                </div>
+                <div class="text-xs text-gray-400">Página 5 / 16</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-sack-dollar text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-sack-dollar mr-2 text-chile-red"></i> Subsidio máximo (por categoría de proyecto)
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Proyecto Individual: hasta $180.000.000</p></li>
+<li><p>Proyecto Colaborativo: hasta $220.000.000</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-percent text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-percent mr-2 text-chile-red"></i> Porcentaje máximo de cofinanciamiento (depende del tamaño según ventas anuales en UF)
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Micro y pequeña: hasta 80% (ventas hasta 25.000 UF/año)</p></li>
+<li><p>Mediana: hasta 60% (ventas sobre 25.000 UF y hasta 100.000 UF/año)</p></li>
+<li><p>En las bases está la categoría &#x27;Grande&#x27; (&gt;100.000 UF/año, 40%). Si la presentación no incluye empresas grandes, se puede dejar como nota al pie.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-coins text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-coins mr-2 text-chile-red"></i> Aportes de participantes (regla base) + Nota importante para el cliente
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>El beneficiario, junto con los asociados si los hay, debe cubrir el resto del financiamiento.</p></li>
+<li><p>Al menos el 50 % del aporte debe ser en efectivo, excepto para empresas lideradas por mujeres (ver la siguiente diapositiva).</p></li>
+<li><p>InnovaChile puede aprobar un porcentaje o monto menor a los máximos, dependiendo de la disponibilidad y el enfoque del programa.</p></li></ul>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 5 / 16</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="crea-valida-4" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Ajuste para empresas lideradas por mujeres (qué cambia realmente)</h2>
+        <div class="text-xs text-gray-500">Página 6 / 16</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="slide-body flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6">
+              <span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Beneficio mujeres</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Ajuste para empresas lideradas por mujeres (qué cambia realmente)
+            </h1>
+
+            
+            <div class="bg-gray-50 border-l-4 border-blue-900 p-5 sm:p-6 rounded-r-lg space-y-3">
+              <p class="text-gray-800 font-medium leading-relaxed text-sm sm:text-base">Si el beneficiario cumple con la definición de empresa liderada por mujeres según la norma específica:</p>
+            </div>
+        
+
+            <div class="mt-auto pt-6">
+              <div class="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase">Crea y Valida</p>
+                    <p class="text-sm font-semibold text-gray-800">Diapositiva 4</p>
+                  </div>
+                </div>
+                <div class="text-xs text-gray-400">Página 6 / 16</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-venus text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-venus mr-2 text-chile-red"></i> Cambios
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Puede optar por hasta +10 % de cofinanciamiento por encima de los máximos.</p></li>
+<li><p>Como beneficio adicional, el aporte en dinero requerido puede reducirse hasta en un 10%.</p></li>
+<li><p>Si se verifica esta condición, no se aplica la regla general de que al menos el 50% del aporte debe ser en dinero.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-arrow-up-right-dots text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-arrow-up-right-dots mr-2 text-chile-red"></i> Tope de Límite de subsidio cuando se aplica el aumento (no se puede superar) dual: hasta $202.500.000
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Colaborativo: hasta $247.500.000</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-clipboard-list text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-clipboard-list mr-2 text-chile-red"></i> Cómo se aplica este beneficio en la postulación (importante)
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>En el formulario se indica la opción, pero el presupuesto se arma según las reglas generales. El aumento solo aplica tras la aprobación y la verificación.</p></li></ul>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 6 / 16</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="crea-valida-5" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Modalidades de participación (incluye la opción co-participativa)</h2>
+        <div class="text-xs text-gray-500">Página 7 / 16</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="slide-body flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6">
+              <span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Participantes</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Modalidades de participación (incluye la opción co-participativa)
+            </h1>
+
+            
+            <div class="bg-gray-50 border-l-4 border-blue-900 p-5 sm:p-6 rounded-r-lg space-y-3">
+              <p class="text-gray-800 font-medium leading-relaxed text-sm sm:text-base">En la práctica, esta línea permite tres tipos de participantes diferentes (no confundir):</p>
+            </div>
+        
+
+            <div class="mt-auto pt-6">
+              <div class="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase">Crea y Valida</p>
+                    <p class="text-sm font-semibold text-gray-800">Diapositiva 5</p>
+                  </div>
+                </div>
+                <div class="text-xs text-gray-400">Página 7 / 16</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-user-tie text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-user-tie mr-2 text-chile-red"></i> Tipos de participantes
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>1. Beneficiario (titular del proyecto): único.</p></li>
+<li><p>2. Asociado (co-participativo): aporta financiamiento en dinero o valorizado y puede participar de los resultados. Es opcional.</p></li>
+<li><p>3. Entidad Colaboradora: se contrata para ejecutar actividades de I+D (puede ser una universidad, centro o empresa tecnológica). Es obligatoria si postulas en modalidad colaborativa.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-network-wired text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-network-wired mr-2 text-chile-red"></i> Resumen
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Se puede sumar un asociado para cofinanciar o ampliar la red o el mercado, y una entidad colaboradora si hace falta I+D externa.</p></li></ul>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 7 / 16</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="crea-valida-6" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Individual vs Colaborativo (qué significa realmente colaborar)</h2>
+        <div class="text-xs text-gray-500">Página 8 / 16</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="slide-body flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6">
+              <span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Modalidad</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Individual vs Colaborativo (qué significa realmente colaborar)
+            </h1>
+
+            
+
+            <div class="mt-auto pt-6">
+              <div class="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase">Crea y Valida</p>
+                    <p class="text-sm font-semibold text-gray-800">Diapositiva 6</p>
+                  </div>
+                </div>
+                <div class="text-xs text-gray-400">Página 8 / 16</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-user text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-user mr-2 text-chile-red"></i> Proyecto Individual
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>En el proyecto individual, el I+D lo ejecuta principalmente el beneficiario o sus proveedores, sin que sea obligatorio contar con una entidad colaboradora.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-people-group text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-people-group mr-2 text-chile-red"></i> Proyecto Colaborativo
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>En el proyecto colaborativo, es necesario contratar a una o más entidades colaboradoras que cuenten con las capacidades e infraestructura necesarias. Pago obligatorio: las entidades colaboradoras suman al menos el 30% del costo total (CREA + VÁLIDA).REA + VÁLIDA).</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-scale-balanced text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-scale-balanced mr-2 text-chile-red"></i> Cuándo conviene decir “colaborativo”
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Opta por &quot;colaborativo&quot; si el núcleo tecnológico requiere infraestructura o validación externa.</p></li>
+<li><p>Si no es así, “colaborativo” puede resultar artificial (y te obliga al 30% del presupuesto sí o sí).</p></li></ul>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 8 / 16</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="crea-valida-7" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Cómo se adjudica (visión completa, no solo puntaje) simplificar a “solo puntaje”)</h2>
+        <div class="text-xs text-gray-500">Página 9 / 16</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="slide-body flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6">
+              <span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Adjudicación</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Cómo se adjudica (visión completa, no solo puntaje) simplificar a “solo puntaje”)
+            </h1>
+
+            
+            <div class="bg-gray-50 border-l-4 border-blue-900 p-5 sm:p-6 rounded-r-lg space-y-3">
+              <p class="text-gray-800 font-medium leading-relaxed text-sm sm:text-base">La adjudicación tiene capas:</p>
+            </div>
+        
+
+            <div class="mt-auto pt-6">
+              <div class="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase">Crea y Valida</p>
+                    <p class="text-sm font-semibold text-gray-800">Diapositiva 7</p>
+                  </div>
+                </div>
+                <div class="text-xs text-gray-400">Página 9 / 16</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-layer-group text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-layer-group mr-2 text-chile-red"></i> Capas
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>1. Admisibilidad: si faltan requisitos o antecedentes, no pasa a la evaluación.</p></li>
+<li><p>2. Evaluación técnica: nota de 1–5 por subcriterio + ponderación.</p></li>
+<li><p>3. Reglas mínimas para recomendación: ≥ 3,0 en cada subcriterio; nota final ≥ 3,5</p></li>
+<li><p>4. Ranking y presupuesto: puedes quedar fuera si no hay fondos, aunque es recomendable.</p></li>
+<li><p>5. Formalización administrativa: si adjudicas, debes cumplir con las condiciones (p.ej., garantías, certificados, etc.) para recibir recursos.</p></li></ul>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 9 / 16</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="crea-valida-8" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Evaluación técnica: mapa con pesos (y qué significa en lenguaje humano)</h2>
+        <div class="text-xs text-gray-500">Página 10 / 16</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="slide-body flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6">
+              <span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Evaluación</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Evaluación técnica: mapa con pesos (y qué significa en lenguaje humano)
+            </h1>
+
+            
+            <div class="bg-gray-50 border-l-4 border-blue-900 p-5 sm:p-6 rounded-r-lg space-y-3">
+              <p class="text-gray-800 font-medium leading-relaxed text-sm sm:text-base">Pesa más (40% del total)</p>
+            </div>
+        
+
+            <div class="mt-auto pt-6">
+              <div class="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase">Crea y Valida</p>
+                    <p class="text-sm font-semibold text-gray-800">Diapositiva 8</p>
+                  </div>
+                </div>
+                <div class="text-xs text-gray-400">Página 10 / 16</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-weight-hanging text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-weight-hanging mr-2 text-chile-red"></i> Pesa más (40% del total)
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Metodología/plan y coherencia: 20% — Debe explicar cómo se ejecuta, qué se entregará, cómo se mide y que el presupuesto sea coherente.</p></li>
+<li><p>El equipo y los colaboradores deben ser creíbles para ejecutar el I+D y validar los resultados.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-chart-pie text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-chart-pie mr-2 text-chile-red"></i> Pesa medio (10% cada uno)
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Diagnóstico del problema (10%) → evidencia y delimitación.</p></li>
+<li><p>Mercado objetivo (10%) → quién paga, tamaño, sustitutos.</p></li>
+<li><p>Novedad/diferenciación (10%) → por qué no es “lo mismo”.</p></li>
+<li><p>Impacto (10%) → ingresos/ahorro medible.</p></li>
+<li><p>Escalabilidad (10%) → barreras + apropiabilidad + continuidad.</p></li>
+<li><p>Actividades de I+D (10%) → método, incertidumbre, pruebas.</p></li></ul>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 10 / 16</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="crea-valida-9" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Cómo construir una postulación ganadora (estructura narrativa)</h2>
+        <div class="text-xs text-gray-500">Página 11 / 16</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="slide-body flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6">
+              <span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Narrativa</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Cómo construir una postulación ganadora (estructura narrativa)
+            </h1>
+
+            
+            <div class="bg-gray-50 border-l-4 border-blue-900 p-5 sm:p-6 rounded-r-lg space-y-3">
+              <p class="text-gray-800 font-medium leading-relaxed text-sm sm:text-base">La postulación busca que el evaluador responda &quot;sí&quot; a 8 preguntas en orden:</p>
+            </div>
+        
+
+            <div class="mt-auto pt-6">
+              <div class="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase">Crea y Valida</p>
+                    <p class="text-sm font-semibold text-gray-800">Diapositiva 9</p>
+                  </div>
+                </div>
+                <div class="text-xs text-gray-400">Página 11 / 16</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-comments text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-comments mr-2 text-chile-red"></i> Preguntas
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>1. ¿Mercado claro y comprable? (cliente/pagador + tamaño + sustitutos)</p></li>
+<li><p>2. ¿Qué es exactamente lo nuevo/mejorado? (diferenciación)</p></li>
+<li><p>3. ¿Dónde está el I+D? (incertidumbre + hipótesis + experimentos + métricas)</p></li>
+<li><p>4. ¿Qué se construye en CREA? (prototipo / resultados técnicos)</p></li>
+<li><p>5. ¿Qué se valida en VALIDA y cómo? (piloto, escala, métricas de éxito)</p></li>
+<li><p>6. ¿Impacto cuantificable? (ingresos/ahorro con supuestos)</p></li>
+<li><p>7. ¿Por qué pueden ustedes ejecutarlo y escalarlo?</p></li></ul>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 11 / 16</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="crea-valida-10" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Proceso de trabajo para postular (explicado de forma más clara) (tu slide 10, pero más claro)</h2>
+        <div class="text-xs text-gray-500">Página 12 / 16</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="slide-body flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6">
+              <span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Proceso</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Proceso de trabajo para postular (explicado de forma más clara) (tu slide 10, pero más claro)
+            </h1>
+
+            
+
+            <div class="mt-auto pt-6">
+              <div class="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase">Crea y Valida</p>
+                    <p class="text-sm font-semibold text-gray-800">Diapositiva 10</p>
+                  </div>
+                </div>
+                <div class="text-xs text-gray-400">Página 12 / 16</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-puzzle-piece text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-puzzle-piece mr-2 text-chile-red"></i> Bloque 1: Encaje (ajuste con la línea)
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Confirmar la elegibilidad (18 meses, ventas, tipo de empresa).</p></li>
+<li><p>Decidir la modalidad: Individual / Colaborativo (+ si habrá asociado).</p></li>
+<li><p>Definir el núcleo de I+D, asegurando que exista una incertidumbre real y no sea solo un desarrollo habitual.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-drafting-compass text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-drafting-compass mr-2 text-chile-red"></i> Bloque 2: Diseño del proyecto (CREA/VALIDA)
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Definir los entregables y las métricas por etapa.</p></li>
+<li><p>Definir el plan de validación técnica y/o comercial.</p></li>
+<li><p>Alinear la evidencia mínima para cada subcriterio.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-calculator text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-calculator mr-2 text-chile-red"></i> Bloque 3: Presupuesto estratégico
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Debe haber coherencia total entre las actividades, los gastos y el equipo.</p></li>
+<li><p>En la modalidad colaborativa, asegúrate de que al menos el 30% del presupuesto se destine a la entidad colaboradora.</p></li>
+<li><p>Definir contrapartes (pecuniarias/valorizadas) según reglas.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-box-check text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-box-check mr-2 text-chile-red"></i> Bloque 4: Paquete final
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Incluye una redacción clara, anexos, evidencias y una narrativa coherente.</p></li>
+<li><p>Prepárate para una posible presentación, si la solicitan.</p></li></ul>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 12 / 16</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="crea-valida-11" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Evaluación administrativa y formalización (garantías y condiciones)</h2>
+        <div class="text-xs text-gray-500">Página 13 / 16</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="slide-body flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6">
+              <span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Formalización</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Evaluación administrativa y formalización (garantías y condiciones)
+            </h1>
+
+            
+            <div class="bg-gray-50 border-l-4 border-blue-900 p-5 sm:p-6 rounded-r-lg space-y-3">
+              <p class="text-gray-800 font-medium leading-relaxed text-sm sm:text-base">Esto no es un aspecto técnico, pero el proyecto puede caer si no se prepara bien esta parte.</p>
+            </div>
+        
+
+            <div class="mt-auto pt-6">
+              <div class="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase">Crea y Valida</p>
+                    <p class="text-sm font-semibold text-gray-800">Diapositiva 11</p>
+                  </div>
+                </div>
+                <div class="text-xs text-gray-400">Página 13 / 16</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-money-check text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-money-check mr-2 text-chile-red"></i> Entrega del subsidio (modalidades)
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>El subsidio puede entregarse como anticipo, reembolso o ambos, según lo que indique la convocatoria o el contrato.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-clipboard-check text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-clipboard-check mr-2 text-chile-red"></i> Condiciones típicas para desembolso
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Acto administrativo tramitado (convenio/transferencia).</p></li>
+<li><p>Debes estar al día en tus obligaciones, como cotizaciones y tributos, según corresponda.</p></li>
+<li><p>Entrega de garantías, si aplica.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-shield-halved text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-shield-halved mr-2 text-chile-red"></i> Garantías (si hay anticipo)
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Para anticipos: Corfo puede exigir cauciones por el total del anticipado, como vale vista (documento bancario de pago inmediato), boleta bancaria a la vista (compromiso bancario de pago inmediato), depósito a plazo (inversión bancaria con vencimiento previamente establecido), póliza (contrato de seguro) o fianza (garantía personal o bancaria), con vigencias específicas.</p></li>
+<li><p>Si no se entrega la garantía dentro del plazo requerido, Corfo puede considerar la postulación como desistida o terminarla anticipadamente (según la etapa/contrato).</p></li>
+<li><p>Mensaje para el cliente: además de aprobar la evaluación, es necesario estar listo para formalizar y cumplir con las garantías y condiciones.</p></li></ul>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 13 / 16</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="crea-valida-12" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Decisiones que necesitamos tomar hoy (ideal para cerrar la reunión)</h2>
+        <div class="text-xs text-gray-500">Página 14 / 16</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="slide-body flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6">
+              <span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Cierre</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Decisiones que necesitamos tomar hoy (ideal para cerrar la reunión)
+            </h1>
+
+            
+
+            <div class="mt-auto pt-6">
+              <div class="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase">Crea y Valida</p>
+                    <p class="text-sm font-semibold text-gray-800">Diapositiva 12</p>
+                  </div>
+                </div>
+                <div class="text-xs text-gray-400">Página 14 / 16</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-list-ol text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-list-ol mr-2 text-chile-red"></i> Decisiones
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>1. ¿Problema exacto y evidencia disponible?</p></li>
+<li><p>2. ¿Mercado objetivo y cómo lo dimensionamos?</p></li>
+<li><p>3. ¿Cuál es el núcleo de I+D (incertidumbre + pruebas)?</p></li>
+<li><p>4. ¿Individual o colaborativo? ¿y por qué?</p></li>
+<li><p>5. ¿Habrá asociado coparticipativo? ¿qué aporta (dinero, red, mercado)?</p></li>
+<li><p>6. ¿Qué validación haremos (técnica, comercial o ambas) y qué define el éxito?</p></li>
+<li><p>7. ¿Estamos listos para la formalización (contrapartes + potencial garantía si hay anticipo)?</p></li></ul>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 14 / 16</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="crea-valida-13" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Si tu empresa no cumple con la antigüedad, ¿cómo se puede postular igual?</h2>
+        <div class="text-xs text-gray-500">Página 15 / 16</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="slide-body flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6">
+              <span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Alternativas</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Si tu empresa no cumple con la antigüedad, ¿cómo se puede postular igual?
+            </h1>
+
+            
+
+            <div class="mt-auto pt-6">
+              <div class="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase">Crea y Valida</p>
+                    <p class="text-sm font-semibold text-gray-800">Diapositiva 13</p>
+                  </div>
+                </div>
+                <div class="text-xs text-gray-400">Página 15 / 16</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-triangle-exclamation text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-triangle-exclamation mr-2 text-chile-red"></i> Punto clave
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>En Crea y Valida, el Beneficiario (titular) es quien firma y administra el subsidio y debe cumplir todos los requisitos, incluida la antigüedad mínima.</p></li>
+<li><p>Un Asociado no “transfiere” la elegibilidad al Beneficiario.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-road text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-road mr-2 text-chile-red"></i> Opciones viables
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>1) El Asociado cumple requisitos y postula como Beneficiario</p></li>
+<li><p>El Asociado (empresa con antigüedad) pasa a ser el titular del proyecto.</p></li>
+<li><p>Tu empresa participa como Asociado (cofinancia) y/o como Proveedor/Tercero (ejecuta actividades específicas).</p></li>
+<li><p>2) Postulación con “vehículo” del Asociado (integración operativa)</p></li>
+<li><p>El proyecto se ejecuta desde la estructura del Beneficiario (Asociado), incorporando al equipo y los activos necesarios mediante contratos (servicios, licencias, cesiones, etc.).</p></li>
+<li><p>Requiere definir con claridad la propiedad intelectual, el uso de los resultados y la continuidad.</p></li>
+<li><p>3) Esperar elegibilidad y preparar el proyecto</p></li>
+<li><p>Si falta poco para cumplir la antigüedad, se puede preparar evidencia técnica/comercial y postular en el próximo llamado con la empresa como Beneficiario.</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-key text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-key mr-2 text-chile-red"></i> Qué se debe decidir desde el principio
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>¿Quién será el Beneficiario (titular)?</p></li>
+<li><p>¿Cómo participa la otra entidad: como Asociado (cofinancia) o como Proveedor (ejecuta por contrato)?</p></li>
+<li><p>¿Cómo se resuelven la propiedad intelectual y el uso de los resultados?</p></li></ul>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 15 / 16</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="crea-valida-14" class="snap-start scroll-mt-20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-extrabold text-chile-blue">Línea de tiempo estimada (basada en el patrón de Crea y Valida 2023)</h2>
+        <div class="text-xs text-gray-500">Página 16 / 16</div>
+      </div>
+
+      <div class="slide-frame flex flex-col">
+        <div class="w-full h-2 bg-chile-blue"></div>
+        <div class="w-full h-1 bg-chile-red"></div>
+
+        <div class="slide-body flex-1 flex p-6 sm:p-10 gap-6 sm:gap-12">
+          <div class="w-2/5 flex flex-col">
+            <div class="mb-6">
+              <span class="bg-blue-50 text-chile-blue px-3 py-1 rounded font-semibold text-xs uppercase tracking-wider">Timeline</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-chile-blue mb-6 leading-tight">
+              Línea de tiempo estimada (basada en el patrón de Crea y Valida 2023)
+            </h1>
+
+            
+
+            <div class="mt-auto pt-6">
+              <div class="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase">Crea y Valida</p>
+                    <p class="text-sm font-semibold text-gray-800">Diapositiva 14</p>
+                  </div>
+                </div>
+                <div class="text-xs text-gray-400">Página 16 / 16</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-3/5 flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-6 sm:gap-8">
+              
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-calendar-days text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-calendar-days mr-2 text-chile-red"></i> Hitos del llamado 2026
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Apertura postulación: 24 MAR 2026</p></li>
+<li><p>Cierre postulación: 02 JUN 2026</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-hourglass-half text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-hourglass-half mr-2 text-chile-red"></i> Evaluación (estimada por patrón 2023)
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Periodo de evaluación: 03 JUN 2026 → 20 AGO 2026 (≈79 días)</p></li></ul>
+              </div>
+        
+
+              <div class="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 relative shadow-sm">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-flag text-6xl text-gray-600"></i></div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-flag mr-2 text-chile-red"></i> Resultados y recursos (estimación “peor caso” basada en 2023)
+                </h3>
+                <ul class="custom-list text-gray-700 text-sm sm:text-base"><li><p>Comunicado de resultados (estimado): 11 oct. 2026 (≈52 días después del fin de evaluación)</p></li>
+<li><p>Entrega de recursos (estimada): 10 NOV 2026 (≈30 días después de resultados)</p></li>
+<li><p>Resumen visual</p></li>
+<li><p>24 MAR (abre) → 02 JUN (cierra) → 20 AGO (fin evaluación) → 11 OCT (resultados) → 10 NOV (recursos)</p></li></ul>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border-t border-gray-200 py-3 px-6 sm:px-10 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="h-8 w-8 bg-chile-blue rounded text-white flex items-center justify-center font-bold text-xs">C</div>
+            <span class="text-gray-500 font-semibold text-sm">CORFO Funding Strategy</span>
+          </div>
+          <div class="text-xs text-gray-400">Página 16 / 16</div>
+        </div>
+      </div>
+    </section>
+
+
+
+    
+
+<footer class="pt-4 pb-10 text-center text-xs text-gray-500">
+  Hecho para funcionar como landing + presentación.
+</footer>
+</main>
+
+<script>
+  // Mobile menu toggle
+  const openMenu = document.getElementById('openMenu');
+  const mobileMenu = document.getElementById('mobileMenu');
+  openMenu?.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // Presentation (scroll snap) toggle
+  const page = document.getElementById('page');
+  const toggleSnap = document.getElementById('toggleSnap');
+  let snapOn = false;
+  toggleSnap?.addEventListener('click', () => {
+    snapOn = !snapOn;
+    page.classList.toggle('snap-y', snapOn);
+    toggleSnap.innerHTML = snapOn
+      ? '<i class="fas fa-clapperboard mr-2"></i>Modo presentación: ON'
+      : '<i class="fas fa-clapperboard mr-2"></i>Modo presentación';
+  });
+
+  // Copy current URL (with hash) to clipboard
+  const copyLink = document.getElementById('copyLink');
+  copyLink?.addEventListener('click', async () => {
+    try {
+      const url = window.location.href;
+      await navigator.clipboard.writeText(url);
+      copyLink.innerHTML = '<i class="fas fa-check mr-2"></i>Copiado';
+      setTimeout(() => (copyLink.innerHTML = '<i class="fas fa-link mr-2"></i>Copiar link'), 1600);
+    } catch (e) {
+      alert('No pude copiar el link automáticamente. Copia la URL del navegador 🙂');
+    }
+  });
+
+  // Highlight active nav item based on section in view
+  const sections = Array.from(document.querySelectorAll('main section[id]'));
+  const navLinks = Array.from(document.querySelectorAll('a.nav-link'));
+
+  const setActive = (id) => {
+    navLinks.forEach((a) => {
+      const isActive = a.getAttribute('href') === `#${id}`;
+      a.setAttribute('aria-current', isActive ? 'true' : 'false');
+    });
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible?.target?.id) setActive(visible.target.id);
+    },
+    { root: null, threshold: [0.2, 0.4, 0.6] }
+  );
+
+  sections.forEach((s) => observer.observe(s));
+
+  // Close mobile menu after click
+  document.querySelectorAll('#mobileMenu a').forEach((a) => {
+    a.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+  });
+
+  // Initial active state
+  setActive((window.location.hash || '#portada').replace('#', ''));
+</script>
+</body>
+</html>
